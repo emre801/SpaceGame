@@ -1,0 +1,7 @@
+Welcome to ExEn!
+
+Please note that, if you try to build any of the ExEn sample projects first, you will come across an error about missing "exenfont" files. First build the "ExEn XNA.sln" solution on Windows to generate these files! (Look at ExEnFontShim for details of how they are generated.)
+
+To learn how to port a game using ExEn, read the document "Porting Checklist".
+
+Good luck!

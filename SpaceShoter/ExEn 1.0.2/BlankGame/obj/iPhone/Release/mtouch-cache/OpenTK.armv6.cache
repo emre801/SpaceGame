@@ -1,0 +1,1 @@
+--aot=mtriple=armv6-darwin,full,static,asmonly,direct-icalls,nodebug,outfile=/OpenTK.dll.armv6.s "/Users/johnerdogan/Desktop/SpaceShoter/ExEn 1.0.2/BlankGame/bin/iPhone/Release/BlankGameMonoTouch.app/OpenTK.dll"
