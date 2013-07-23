@@ -30,7 +30,7 @@ namespace BlankGame
 			//graphics.PreferredBackBufferHeight = 480;
 
 			IsMouseVisible = true;
-			gameState = GameState.TITLE;
+			gameState = GameState.GAMETIME;
 			Content.RootDirectory = "Content";
 			drawingTool = new DrawingTool(this);
 			StartGyro();

@@ -10,6 +10,8 @@ namespace BlankGame
 			public enum FireMode {NORMAL,FAST,TWO,THREE,CHARGESHOT,CIRCLE};
 			public FireMode fireMode=FireMode.NORMAL;
 			Sprite image;
+			public int health= 20;
+			public int lives=2;
 			public SpaceShipPlayer(Game g,Sprite sprite)
 				:base(g)
 			{

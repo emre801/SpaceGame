@@ -96,6 +96,7 @@
     <Compile Include="Properties\SpriteStripAnimationHandler.cs" />
     <Compile Include="Properties\Entities\Interactable\Bullet.cs" />
     <Compile Include="Properties\Entities\TouchScreenObj.cs" />
+    <Compile Include="Properties\Entities\TitleScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />

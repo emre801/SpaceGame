@@ -46,7 +46,7 @@ namespace BlankGame
 
 
 		public float zoomRatioValue = 0.75f;
-
+		TitleScreen ts;
 
 		public DrawingTool(Game game)
 		{
@@ -66,6 +66,7 @@ namespace BlankGame
 			cam = new Camera2d(Constants.GAME_WORLD_HEIGHT ,Constants.GAME_WORLD_WIDTH);
 			cam.Pos = new Vector2(Constants.GAME_WORLD_HEIGHT/2f, Constants.GAME_WORLD_WIDTH/2f);
 			cam.Rotation = 1.57079633f;
+			ts = new TitleScreen(game);
 
 		}
 
@@ -296,13 +297,21 @@ namespace BlankGame
 		}
 		internal void drawEntities(List<Entity> entities, GameTime gameTime)
 		{
-						beginBatch();
+			beginBatch();
+			if(this.game.gameState = Game.GameState.TITLE) 
+			{
+				ts.Update();
+				ts.Draw(spriteBatch);
+			} 
+			else 
+			{
+				foreach(Entity e in entities) 
+				{
+					e.Draw(spriteBatch, gameTime);
 
-						foreach(Entity e in entities) {
-								e.Draw(spriteBatch, gameTime);
-
-						}
-						endBatch();
+				}
+			}
+			endBatch();
 
 		}
 
