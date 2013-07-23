@@ -22,6 +22,7 @@ namespace BlankGame
 		public List<Entity> entitToAdd = new List<Entity>();
 		public SpaceShipPlayer player;
 		TouchScreenObj tso;
+		public bool isPaused=false;
 		public Game()
 		{
 			//graphics = new GraphicsDeviceManager(this);
@@ -58,8 +59,11 @@ namespace BlankGame
 
 		protected override void Update(GameTime gameTime)
 		{
-			doCollisions();
+
 			tso.Update();
+			if(isPaused)
+					return;
+			doCollisions();
 			foreach(Entity e in entities)
 			{
 				e.Update();

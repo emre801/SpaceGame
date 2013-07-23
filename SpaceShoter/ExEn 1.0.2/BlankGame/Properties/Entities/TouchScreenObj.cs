@@ -10,6 +10,7 @@ namespace BlankGame
 {
 		public class TouchScreenObj:Entity
 		{
+				int prevCount=0;
 				public TouchScreenObj(Game g)
 				:base(g)
 				{
@@ -18,15 +19,20 @@ namespace BlankGame
 				public override void Update()
 				{
 					TouchCollection tc=	TouchPanel.GetState();
-					if(tc.Count==1) 
+					if(tc.Count==1 && prevCount!=1) 
 					{
-						g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(0,10)));
+						g.player.fireBullet();
 			
 					}
-					if(tc.Count == 2) 
+					if(tc.Count == 2 && prevCount!=2) 
 					{
-						g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(5,10)));
-						g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(-5,10)));
+						g.player.changeMode();
+					}
+
+					if(tc.Count == 3 && prevCount != 3) 
+					{
+						g.isPaused = !g.isPaused;
+
 					}
 					foreach(TouchLocation tl in tc) 
 					{
@@ -36,6 +42,7 @@ namespace BlankGame
 
 
 					}
+					prevCount = tc.Count;
 				}
 		}
 }

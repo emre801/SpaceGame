@@ -7,6 +7,8 @@ namespace BlankGame
 {
 		public class SpaceShipPlayer: Interact
 		{
+			public enum FireMode {NORMAL,FAST,TWO,THREE,CHARGESHOT,CIRCLE};
+			public FireMode fireMode=FireMode.NORMAL;
 			Sprite image;
 			public SpaceShipPlayer(Game g,Sprite sprite)
 				:base(g)
@@ -15,6 +17,32 @@ namespace BlankGame
 				this.bbox = new Microsoft.Xna.Framework.Rectangle((int)0, (int)0, 
 			                                                  sprite.index.Width, sprite.index.Height);
 				this.pos = new Vector2(200, 0);
+
+			}
+			public void fireBullet()
+			{
+				if(fireMode == FireMode.NORMAL) 
+				{
+					g.entitToAdd.Add(new Bullet(g, g.player.pos, new Vector2(0, 10)));
+
+				} 
+				else if(fireMode == FireMode.TWO) 
+				{
+					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(5,10)));
+					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(-5,10)));
+				}
+
+			}
+			public void changeMode()
+			{
+				if(fireMode == FireMode.NORMAL) 
+				{
+					fireMode = FireMode.TWO;
+				}	 
+				else if(fireMode == FireMode.TWO) 
+				{
+					fireMode = FireMode.NORMAL;
+				}
 
 			}
 
