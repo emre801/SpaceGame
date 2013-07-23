@@ -11,7 +11,7 @@ namespace BlankGame
 		public class Bullet: Interact
 		{
 			public bool isGoodBullet=true;
-			Sprite image;
+			//Sprite image;
 			Vector2 direct;
 			
 			public Bullet(Game g,Vector2 pos,Vector2 direct)
@@ -28,6 +28,7 @@ namespace BlankGame
 				{
 					this.isVisible = false;
 				}
+			updateBBox();
 			}
 
 			public override bool collidesWith(Interact inter)

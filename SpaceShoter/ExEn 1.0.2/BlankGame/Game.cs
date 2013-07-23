@@ -21,8 +21,14 @@ namespace BlankGame
 		public List<Entity> entitToRemove = new List<Entity>();
 		public List<Entity> entitToAdd = new List<Entity>();
 		public SpaceShipPlayer player;
+
 		TouchScreenObj tso;
+		EnemySpawner es;
+		public MusicPlayer mp;
+
 		public bool isPaused=false;
+
+
 		public Game()
 		{
 			//graphics = new GraphicsDeviceManager(this);
@@ -35,6 +41,8 @@ namespace BlankGame
 			drawingTool = new DrawingTool(this);
 			StartGyro();
 			tso = new TouchScreenObj(this);
+			es = new EnemySpawner(this);
+			mp = new MusicPlayer(this);
 		}
 
 		protected override void LoadContent()
@@ -42,10 +50,14 @@ namespace BlankGame
 			drawingTool.initialize();
 			addSprite("Ship", "Ship");
 			addSprite("Bullet", "Bullet");
+			addSprite("Enemy", "Enemy");
+			addSprite("partical", "partical");
+
+			mp.addNewSound("shoot");
+			mp.addNewSound("explosion");
+
 			player = new SpaceShipPlayer(this,getSprite("Ship"));
 			entities.Add(player);
-
-
 		}
 
 		public Sprite getSprite(String fName)
@@ -66,10 +78,16 @@ namespace BlankGame
 			doCollisions();
 			foreach(Entity e in entities)
 			{
-				e.Update();
-					if(!e.isVisible)
-						entitToRemove.Add(e);
+				if(!e.isVisible) 
+				{
+					entitToRemove.Add(e);
+				} 
+				else 
+				{
+					e.Update();
+				}
 			}
+			es.Update();
 			foreach(Entity e in entitToAdd) 
 			{
 				entities.Add(e);

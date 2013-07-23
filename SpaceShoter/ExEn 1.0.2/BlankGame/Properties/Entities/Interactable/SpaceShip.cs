@@ -9,7 +9,7 @@ namespace BlankGame
 		{
 			public enum FireMode {NORMAL,FAST,TWO,THREE,CHARGESHOT,CIRCLE};
 			public FireMode fireMode=FireMode.NORMAL;
-			Sprite image;
+			//Sprite image;
 			public int health= 20;
 			public int lives=2;
 			public SpaceShipPlayer(Game g,Sprite sprite)
@@ -33,6 +33,7 @@ namespace BlankGame
 					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(5,10)));
 					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(-5,10)));
 				}
+				g.mp.playSound("shoot");
 
 			}
 			public void changeMode()
@@ -51,6 +52,7 @@ namespace BlankGame
 			public override void Update()
 			{
 				updateGyro();
+				updateBBox();
 				
 			}
 			public override bool collidesWith(Interact inter)

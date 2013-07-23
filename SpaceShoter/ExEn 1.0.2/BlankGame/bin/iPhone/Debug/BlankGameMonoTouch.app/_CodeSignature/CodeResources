@@ -6,35 +6,51 @@
 	<dict>
 		<key>BlankGame.exe</key>
 		<data>
-		7j1mSyNDEUz55ldxEFRCh3YrBUM=
+		SnAI6Js6FW4IeKlWsQreAemfLz4=
 		</data>
 		<key>BlankGame.exe.mdb</key>
 		<data>
-		6AaK4+Ps9nhz4Fkd7c1n6NAKUc0=
+		QCm5m7zeKUoKSedAVNL4fePEbBs=
 		</data>
 		<key>Content/Bullet.png</key>
 		<data>
 		wZHE9vRlwyh+IRGlWKEX/Efdh7g=
 		</data>
+		<key>Content/Enemy.png</key>
+		<data>
+		8ZHLzSyC9pK1vA4loXA6iTRkM3g=
+		</data>
 		<key>Content/Ship.png</key>
 		<data>
 		54RpnUgDAGBqpEDGR6GPfUbLvKM=
 		</data>
+		<key>Content/explosion.wav</key>
+		<data>
+		Plbw2M7wPSD8OTmvA0/SdnRiP8k=
+		</data>
+		<key>Content/partical.png</key>
+		<data>
+		bk5BzAdgPoycFMXYjrSvnaR95OM=
+		</data>
+		<key>Content/shoot.wav</key>
+		<data>
+		fnPuzU56hbjwxKXUocMaFE/+8Z8=
+		</data>
 		<key>ExEnCore.dll</key>
 		<data>
-		8/Pa47FWKj3cpVu9L4CidDCZxfw=
+		TuEjNvVVMmDSyuLVVvO4WYHsBPQ=
 		</data>
 		<key>ExEnCore.dll.mdb</key>
 		<data>
-		BOyeffCg79kaPOWzQhB+d/7gi2s=
+		nGoQYSA80DKJzoI9dgMVHFuo4M8=
 		</data>
 		<key>ExEnEmTouch.dll</key>
 		<data>
-		ROEe+ochJwzaPGHWqxhaHL4rNV0=
+		ixiXDWY9pgL1F+yDay/Gc8C/aWs=
 		</data>
 		<key>ExEnEmTouch.dll.mdb</key>
 		<data>
-		wsgDuJZfx0CRtcgoSi12Yste+BQ=
+		0cfafJJSh4EBshA20zLoV79hVFo=
 		</data>
 		<key>MonoTouchDebugConfiguration.txt</key>
 		<data>
@@ -42,7 +58,7 @@
 		</data>
 		<key>OpenTK.dll</key>
 		<data>
-		37afoI+S9RKPgU2+KaxfQA4XCH8=
+		vN6T0egVaqk450x+uiKQcvMcDVA=
 		</data>
 		<key>OpenTK.dll.config</key>
 		<data>
@@ -50,7 +66,7 @@
 		</data>
 		<key>OpenTK.dll.mdb</key>
 		<data>
-		xvl1ZpqD9j9UBe1gbw9EQn7WhPM=
+		Fr2O3woGW4PNyvemRyFDK+aHONA=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -62,19 +78,19 @@
 		</data>
 		<key>System.Core.dll</key>
 		<data>
-		v+YJE7mlKu0b1xNiLXE/hjEX1es=
+		cHsGt29wSmKfDLkOJpHPWyfH1E8=
 		</data>
 		<key>System.Core.dll.mdb</key>
 		<data>
-		EdAuTzwBM7MjjuVN6S8P0YGzuXQ=
+		rRur3Rxmnfr8/MKcz0JEexpsB1g=
 		</data>
 		<key>System.dll</key>
 		<data>
-		L1E8M3oUEgMWySULEigFwq4or6w=
+		/UNA2iuX48fM41Jdjliwpf5mGT8=
 		</data>
 		<key>System.dll.mdb</key>
 		<data>
-		Tevu2sqkLCEsrdsYgMnxSf6jvOc=
+		KuRNpEMQt4d8KYRZpk2gyz5UsxI=
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
@@ -82,19 +98,19 @@
 		</data>
 		<key>monotouch.dll</key>
 		<data>
-		nxkQNjKz3lfCNZmG3PxLCeUaHOU=
+		/B24wBz3lanW1HUyk+nxQdIH11U=
 		</data>
 		<key>monotouch.dll.mdb</key>
 		<data>
-		UHz1RBsxInIn7Vz5OXhcVeG7Vck=
+		MLiaepF7OBeRuAvRsXdAsu5sz1Q=
 		</data>
 		<key>mscorlib.dll</key>
 		<data>
-		8EfnHWK39Sb30m8WRESFv+H92HA=
+		+Oh0XAoFGornraEhD/oLUZMlfYQ=
 		</data>
 		<key>mscorlib.dll.mdb</key>
 		<data>
-		+wnTrsBmhDK0ii500RRacSPHhLs=
+		firWhXjs+aoLXPD3uPy6ZevO1SE=
 		</data>
 	</dict>
 	<key>rules</key>

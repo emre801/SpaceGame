@@ -92,19 +92,36 @@
     <Compile Include="Game.cs" />
     <Compile Include="Properties\Entities\Interactable\Interact.cs" />
     <Compile Include="Properties\Sprite.cs" />
-    <Compile Include="Properties\Entities\Interactable\SpaceShip.cs" />
     <Compile Include="Properties\SpriteStripAnimationHandler.cs" />
     <Compile Include="Properties\Entities\Interactable\Bullet.cs" />
     <Compile Include="Properties\Entities\TouchScreenObj.cs" />
     <Compile Include="Properties\Entities\TitleScreen.cs" />
+    <Compile Include="Properties\Entities\Interactable\Enemies\EnemySpawner.cs" />
+    <Compile Include="Properties\Entities\Interactable\Enemies\Enemy.cs" />
+    <Compile Include="Properties\Entities\Explosion.cs" />
+    <Compile Include="Properties\MusicPlayer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Properties\Entities\Interactable\SpaceShip.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
     <Folder Include="Properties\Entities\Interactable\" />
     <Folder Include="Content\" />
+    <Folder Include="Properties\Entities\Interactable\Enemies\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />
     <BundleResource Include="Content\Bullet.png" />
+    <BundleResource Include="Content\Enemy.png" />
+    <BundleResource Include="Content\partical.png" />
+    <BundleResource Include="Content\explosion.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\shoot.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

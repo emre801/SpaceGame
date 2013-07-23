@@ -298,7 +298,7 @@ namespace BlankGame
 		internal void drawEntities(List<Entity> entities, GameTime gameTime)
 		{
 			beginBatch();
-			if(this.game.gameState = Game.GameState.TITLE) 
+			if(this.game.gameState == Game.GameState.TITLE) 
 			{
 				ts.Update();
 				ts.Draw(spriteBatch);
