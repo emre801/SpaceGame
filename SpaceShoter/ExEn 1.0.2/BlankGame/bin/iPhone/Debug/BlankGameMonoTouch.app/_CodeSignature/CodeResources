@@ -6,11 +6,11 @@
 	<dict>
 		<key>BlankGame.exe</key>
 		<data>
-		SnAI6Js6FW4IeKlWsQreAemfLz4=
+		vVFeHwN70a1ixJwaS0vNnzy2+MY=
 		</data>
 		<key>BlankGame.exe.mdb</key>
 		<data>
-		QCm5m7zeKUoKSedAVNL4fePEbBs=
+		9KafUnwx+WDFtvlgEC6oqkOB0VA=
 		</data>
 		<key>Content/Bullet.png</key>
 		<data>
@@ -22,7 +22,11 @@
 		</data>
 		<key>Content/Ship.png</key>
 		<data>
-		54RpnUgDAGBqpEDGR6GPfUbLvKM=
+		gtAwqIpq09aZYgsIJL1utvhmvw0=
+		</data>
+		<key>Content/blueGUI.png</key>
+		<data>
+		1hvWsa2zSEwyv1ZTpz8rfpYHWBk=
 		</data>
 		<key>Content/explosion.wav</key>
 		<data>
@@ -38,19 +42,19 @@
 		</data>
 		<key>ExEnCore.dll</key>
 		<data>
-		TuEjNvVVMmDSyuLVVvO4WYHsBPQ=
+		fEWe1IAVCfFIHOjMtTGDJjBlo7E=
 		</data>
 		<key>ExEnCore.dll.mdb</key>
 		<data>
-		nGoQYSA80DKJzoI9dgMVHFuo4M8=
+		8ewhr3ZeHrKuN0QQkzPuSxQrHOY=
 		</data>
 		<key>ExEnEmTouch.dll</key>
 		<data>
-		ixiXDWY9pgL1F+yDay/Gc8C/aWs=
+		COXND6tZu+txW9KbuLXp4z7GIwA=
 		</data>
 		<key>ExEnEmTouch.dll.mdb</key>
 		<data>
-		0cfafJJSh4EBshA20zLoV79hVFo=
+		y0i5v//4+TAS3En7pTM2zVYwmUs=
 		</data>
 		<key>MonoTouchDebugConfiguration.txt</key>
 		<data>
@@ -58,7 +62,7 @@
 		</data>
 		<key>OpenTK.dll</key>
 		<data>
-		vN6T0egVaqk450x+uiKQcvMcDVA=
+		5mQMU1ZAi8dtZHYaoClgMdvhS+8=
 		</data>
 		<key>OpenTK.dll.config</key>
 		<data>
@@ -66,7 +70,7 @@
 		</data>
 		<key>OpenTK.dll.mdb</key>
 		<data>
-		Fr2O3woGW4PNyvemRyFDK+aHONA=
+		HdRqj5UEsUpL4vOg9mY6R5BFJYc=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -78,19 +82,19 @@
 		</data>
 		<key>System.Core.dll</key>
 		<data>
-		cHsGt29wSmKfDLkOJpHPWyfH1E8=
+		5azGzUzNfT3ePDhIorG2FfR9F+I=
 		</data>
 		<key>System.Core.dll.mdb</key>
 		<data>
-		rRur3Rxmnfr8/MKcz0JEexpsB1g=
+		+hc7LRp3HLLi+Az4nxbJt0b7nPw=
 		</data>
 		<key>System.dll</key>
 		<data>
-		/UNA2iuX48fM41Jdjliwpf5mGT8=
+		8c5Rsrud53Oi9oh29MjWYEHfXUg=
 		</data>
 		<key>System.dll.mdb</key>
 		<data>
-		KuRNpEMQt4d8KYRZpk2gyz5UsxI=
+		ODcwEtTJ9vdWk/7dneLH2Qv8Wuo=
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
@@ -98,19 +102,19 @@
 		</data>
 		<key>monotouch.dll</key>
 		<data>
-		/B24wBz3lanW1HUyk+nxQdIH11U=
+		WG5IA3Uffvxzh0uceZc1oXY5GSM=
 		</data>
 		<key>monotouch.dll.mdb</key>
 		<data>
-		MLiaepF7OBeRuAvRsXdAsu5sz1Q=
+		bRdfR1/EGRaZRld6Uc08yo5dVZ4=
 		</data>
 		<key>mscorlib.dll</key>
 		<data>
-		+Oh0XAoFGornraEhD/oLUZMlfYQ=
+		gnTljnWn0oi/ujaRCJpPE4zyQJM=
 		</data>
 		<key>mscorlib.dll.mdb</key>
 		<data>
-		firWhXjs+aoLXPD3uPy6ZevO1SE=
+		LUS6QeQ0wNDsMe27Bpclwn5uHMw=
 		</data>
 	</dict>
 	<key>rules</key>

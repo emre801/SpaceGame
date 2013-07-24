@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoTouch.CoreMotion;
@@ -12,6 +13,8 @@ namespace BlankGame
 			//Sprite image;
 			public int health= 20;
 			public int lives=2;
+			Queue<Vector2> trail = new Queue<Vector2>();
+			Sprite partical;
 			public SpaceShipPlayer(Game g,Sprite sprite)
 				:base(g)
 			{
@@ -19,7 +22,7 @@ namespace BlankGame
 				this.bbox = new Microsoft.Xna.Framework.Rectangle((int)0, (int)0, 
 			                                                  sprite.index.Width, sprite.index.Height);
 				this.pos = new Vector2(200, 0);
-
+				partical = g.getSprite("partical");
 			}
 			public void fireBullet()
 			{
@@ -53,7 +56,16 @@ namespace BlankGame
 			{
 				updateGyro();
 				updateBBox();
+				updateTrail();
 				
+				
+			}
+			public void updateTrail()
+			{
+				trail.Enqueue(pos + new Vector2(image.index.Width/4f,0));
+				if(trail.Count > 10)
+					trail.Dequeue();
+
 			}
 			public override bool collidesWith(Interact inter)
 			{
@@ -92,8 +104,8 @@ namespace BlankGame
 						newY=0;
 					if(newX<=0)
 						newX=0;
-					if(newX >= 320-image.index.Width)
-						newX = 320-image.index.Width;
+					if(newX >= 280-image.index.Width)
+						newX = 280-image.index.Width;
 					if(newY >= 200-image.index.Height)
 						newY = 200-image.index.Height;
 
@@ -106,7 +118,14 @@ namespace BlankGame
 
 			public override void Draw(SpriteBatch spriteBatch,Microsoft.Xna.Framework.GameTime gameTime)
 			{
-						spriteBatch.Draw(image.index, pos, Color.White);
+				float counter = 0.1f;
+				foreach(Vector2 p in trail) 
+				{
+				spriteBatch.Draw(partical.index,new Rectangle((int)p.X,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.LightSkyBlue*0.5f);
+					counter=counter+0.05f;
+				}
+
+				spriteBatch.Draw(image.index, pos, Color.White);
 			}
 
 		}

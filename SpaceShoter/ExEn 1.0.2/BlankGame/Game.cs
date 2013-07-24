@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 using MonoTouch.CoreMotion;
 using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 #if MONOTOUCH || ANDROID
 using OpenTK.Graphics.ES11;
 #endif
@@ -24,9 +26,11 @@ namespace BlankGame
 
 		TouchScreenObj tso;
 		EnemySpawner es;
+		BackgroundSpawner bs;
 		public MusicPlayer mp;
 
 		public bool isPaused=false;
+		public SpriteFont sFont;
 
 
 		public Game()
@@ -42,16 +46,19 @@ namespace BlankGame
 			StartGyro();
 			tso = new TouchScreenObj(this);
 			es = new EnemySpawner(this);
+			bs = new BackgroundSpawner(this);
 			mp = new MusicPlayer(this);
+
 		}
 
 		protected override void LoadContent()
 		{
-			drawingTool.initialize();
 			addSprite("Ship", "Ship");
 			addSprite("Bullet", "Bullet");
 			addSprite("Enemy", "Enemy");
 			addSprite("partical", "partical");
+			addSprite("blueGUI", "blueGUI");
+			drawingTool.initialize();
 
 			mp.addNewSound("shoot");
 			mp.addNewSound("explosion");
@@ -88,6 +95,7 @@ namespace BlankGame
 				}
 			}
 			es.Update();
+			bs.Update();
 			foreach(Entity e in entitToAdd) 
 			{
 				entities.Add(e);
@@ -126,7 +134,7 @@ namespace BlankGame
 		private void StartGyro()
 		{
 			motionManager = new CMMotionManager();
-			motionManager.GyroUpdateInterval = 1/2;
+			motionManager.GyroUpdateInterval = 1/10;
 			if (motionManager.GyroAvailable)
 			{
 				motionManager.StartGyroUpdates(NSOperationQueue.MainQueue, GyroData_Received);

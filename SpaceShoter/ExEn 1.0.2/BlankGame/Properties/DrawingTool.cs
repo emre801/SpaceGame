@@ -43,11 +43,11 @@ namespace BlankGame
 
 		public float zoomRatio = 1.75f;
 		public Texture2D rectangle;
-
+		public SpriteFont sFont;
 
 		public float zoomRatioValue = 0.75f;
 		TitleScreen ts;
-
+		GUI gui;
 		public DrawingTool(Game game)
 		{
 			this.game = game;
@@ -83,8 +83,8 @@ namespace BlankGame
 
 		public void initialize()
 		{
-			spriteBatch = new SpriteBatch(gdm.GraphicsDevice);          
-
+			spriteBatch = new SpriteBatch(gdm.GraphicsDevice);  
+			gui = new GUI(game);
 		}
 		public void resetCamera()
 		{
@@ -311,6 +311,7 @@ namespace BlankGame
 
 				}
 			}
+			gui.Draw(spriteBatch);
 			endBatch();
 
 		}
@@ -362,7 +363,8 @@ namespace BlankGame
 		}
 		public void DrawText(SpriteBatch spriteBatch, float x, float y, String text, float size)
 		{
-			DrawText(spriteBatch, x, y, text, size, 1);
+			//DrawText(spriteBatch, x, y, text, size, 1);
+
 		}
 
 		public static int MeasureString(String s, UIFont font)

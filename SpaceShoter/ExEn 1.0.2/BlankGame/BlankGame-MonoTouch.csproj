@@ -89,7 +89,9 @@
     <Compile Include="Properties\Camera2D.cs" />
     <Compile Include="Properties\Constants.cs" />
     <Compile Include="Properties\Entities\SpaceShip.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="Game.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Properties\Entities\Interactable\Interact.cs" />
     <Compile Include="Properties\Sprite.cs" />
     <Compile Include="Properties\SpriteStripAnimationHandler.cs" />
@@ -102,6 +104,9 @@
     <Compile Include="Properties\MusicPlayer.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Properties\Entities\BackGround\StarParticle.cs" />
+    <Compile Include="Properties\Entities\BackGround\BackgroundSpawner.cs" />
+    <Compile Include="Properties\GUI.cs" />
     <Compile Include="Properties\Entities\Interactable\SpaceShip.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +114,8 @@
     <Folder Include="Properties\Entities\Interactable\" />
     <Folder Include="Content\" />
     <Folder Include="Properties\Entities\Interactable\Enemies\" />
+    <Folder Include="Properties\Entities\BackGround\" />
+    <Folder Include="Content\Fonts\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />
@@ -118,9 +125,13 @@
     <BundleResource Include="Content\explosion.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
+    <BundleResource Include="Content\blueGUI.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\shoot.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PressStart2P.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
