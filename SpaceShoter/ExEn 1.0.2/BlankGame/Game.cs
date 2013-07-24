@@ -65,6 +65,13 @@ namespace BlankGame
 
 			player = new SpaceShipPlayer(this,getSprite("Ship"));
 			entities.Add(player);
+
+
+			FontFile fontFile = FontLoader.Load("Content/Fonts/2pFont.fnt");
+			Texture2D fontText=Content.Load<Texture2D>("Fonts\\2p");
+			FontRenderer fr = new FontRenderer(fontFile, fontText);
+			drawingTool.addFontRender(fr);
+
 		}
 
 		public Sprite getSprite(String fName)

@@ -108,6 +108,13 @@
     <Compile Include="Properties\Entities\BackGround\BackgroundSpawner.cs" />
     <Compile Include="Properties\GUI.cs" />
     <Compile Include="Properties\Entities\Interactable\SpaceShip.cs" />
+    <Compile Include="Properties\FontLoader\FontChar.cs" />
+    <Compile Include="Properties\FontLoader\FontCommon.cs" />
+    <Compile Include="Properties\FontLoader\FontFile.cs" />
+    <Compile Include="Properties\FontLoader\FontInfo.cs" />
+    <Compile Include="Properties\FontLoader\FontKerning.cs" />
+    <Compile Include="Properties\FontLoader\FontLoader.cs" />
+    <Compile Include="Properties\FontLoader\FontRender.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -116,6 +123,7 @@
     <Folder Include="Properties\Entities\Interactable\Enemies\" />
     <Folder Include="Properties\Entities\BackGround\" />
     <Folder Include="Content\Fonts\" />
+    <Folder Include="Properties\FontLoader\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />
@@ -126,12 +134,19 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
     <BundleResource Include="Content\blueGUI.png" />
+    <BundleResource Include="Content\Fonts\2p.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\shoot.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Fonts\PressStart2P.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\myFont.fnt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\2pFont.fnt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

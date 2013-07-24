@@ -48,6 +48,8 @@ namespace BlankGame
 		public float zoomRatioValue = 0.75f;
 		TitleScreen ts;
 		GUI gui;
+		FontRenderer fontRender;
+
 		public DrawingTool(Game game)
 		{
 			this.game = game;
@@ -64,10 +66,15 @@ namespace BlankGame
 
 
 			cam = new Camera2d(Constants.GAME_WORLD_HEIGHT ,Constants.GAME_WORLD_WIDTH);
-			cam.Pos = new Vector2(Constants.GAME_WORLD_HEIGHT/2f, Constants.GAME_WORLD_WIDTH/2f);
+			cam.Pos = new Vector2(150, 75);
 			cam.Rotation = 1.57079633f;
 			ts = new TitleScreen(game);
 
+		}
+
+		public void addFontRender(FontRenderer fontRender)
+		{
+			this.fontRender = fontRender;
 		}
 
 		public void updateCameraRotation()
@@ -312,6 +319,10 @@ namespace BlankGame
 				}
 			}
 			gui.Draw(spriteBatch);
+
+			endBatch();
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
+			fontRender.DrawText(spriteBatch,0,0,"123456",0.5f,Color.Black);
 			endBatch();
 
 		}
