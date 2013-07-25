@@ -19,7 +19,7 @@ namespace BlankGame
 			}
 			public void updateBBox()
 			{
-				bbox = new Rectangle((int)pos.X, (int)pos.Y, image.index.Width, image.index.Height);
+				bbox = new Rectangle((int)pos.X, (int)pos.Y, (int)(image.index.Width*g.scale), (int)(image.index.Height*g.scale));
 			}
 			
 			public virtual bool collidesWith(Interact inter)

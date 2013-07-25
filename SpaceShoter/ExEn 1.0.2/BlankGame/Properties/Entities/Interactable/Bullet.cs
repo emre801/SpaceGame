@@ -24,7 +24,7 @@ namespace BlankGame
 			public override void Update()
 			{
 				this.pos = this.pos + direct;
-				if(pos.Y > 500) 
+				if(pos.Y > 500*g.scaleH) 
 				{
 					this.isVisible = false;
 				}
@@ -37,7 +37,7 @@ namespace BlankGame
 			}
 			public override void Draw(SpriteBatch spriteBatch,Microsoft.Xna.Framework.GameTime gameTime)
 			{
-				spriteBatch.Draw(image.index, pos, Color.White);
+				spriteBatch.Draw(image.index, bbox, Color.White);
 			}
 
 			

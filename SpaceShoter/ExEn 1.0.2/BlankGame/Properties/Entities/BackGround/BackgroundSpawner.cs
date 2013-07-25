@@ -25,8 +25,19 @@ namespace BlankGame
 				if(r.Next(50)<=5) 
 				{
 					int xPos = r.Next(20, 300);
-					StarParticle sp= new StarParticle(game,new Vector2(xPos,500));
+					StarParticle sp= new StarParticle(game,new Vector2(xPos*game.scale,500*game.scaleH));
 				    game.entitToAdd.Add(sp); 
+				}
+			}
+
+			public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+			{
+				foreach(Entity e in game.entities) 
+				{
+					if(e is StarParticle)
+					{
+						e.Draw(spriteBatch, gameTime);
+					}
 				}
 			}
 		}

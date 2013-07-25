@@ -19,7 +19,14 @@ namespace BlankGame
 			
 			public void Draw(SpriteBatch spriteBatch)
 			{
-				spriteBatch.Draw(blueGUI.index, new Vector2(280, 0), Color.White);
+				if(game.oniPad) 
+				{
+					spriteBatch.Draw(blueGUI.index, new Rectangle((int)(280*game.scale),0,100,1000), Color.White);
+				}
+				else 
+				{
+					spriteBatch.Draw(blueGUI.index, new Vector2(280, 0), Color.White);
+				}
 			}
 
 		}

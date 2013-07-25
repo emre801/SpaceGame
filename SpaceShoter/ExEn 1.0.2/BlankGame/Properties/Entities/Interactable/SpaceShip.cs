@@ -26,12 +26,12 @@ namespace BlankGame
 			}
 			public void fireBullet()
 			{
-				if(fireMode == FireMode.NORMAL) 
+				if(g.fireMode == FireMode.NORMAL) 
 				{
 					g.entitToAdd.Add(new Bullet(g, g.player.pos, new Vector2(0, 10)));
 
 				} 
-				else if(fireMode == FireMode.TWO) 
+				else if(g.fireMode == FireMode.TWO) 
 				{
 					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(5,10)));
 					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(-5,10)));
@@ -39,17 +39,9 @@ namespace BlankGame
 				g.mp.playSound("shoot");
 
 			}
-			public void changeMode()
+			public void changeMode(FireMode newFireMode)
 			{
-				if(fireMode == FireMode.NORMAL) 
-				{
-					fireMode = FireMode.TWO;
-				}	 
-				else if(fireMode == FireMode.TWO) 
-				{
-					fireMode = FireMode.NORMAL;
-				}
-
+				fireMode = newFireMode;
 			}
 
 			public override void Update()
@@ -69,15 +61,23 @@ namespace BlankGame
 			}
 			public override bool collidesWith(Interact inter)
 			{
-				if(inter is Bullet) {
-					Bullet bull = (Bullet)inter;
-					if(!bull.isGoodBullet) 
-					{
-						///Damage step
-					} else 
-					{
-						//Maybe heal??
+				if(inter.bbox.Intersects(this.bbox))
+				{
+					if(inter is Bullet) {
+						Bullet bull = (Bullet)inter;
+						if(!bull.isGoodBullet) 
+						{
+							inter.isVisible = false;
+							g.health--;
+						} 
+						else 
+						{
+							//Maybe heal??
+						}
+					return true;
 					}
+					inter.isVisible = false;
+					g.health--;
 				}
 				return true;
 			}
@@ -94,8 +94,8 @@ namespace BlankGame
 						ry = 0;
 					if(Math.Abs(rx) <= 0.1f)
 						rx = 0;
-					float x = (float)(ry*10f);
-					float y = (float)(rx*10f);
+					float x = (float)(ry*10f)*g.scale;
+					float y = (float)(rx*10f)*g.scaleH;
 
 					float newY = y + this.pos.Y;
 					float newX = x + this.pos.X;
@@ -104,10 +104,10 @@ namespace BlankGame
 						newY=0;
 					if(newX<=0)
 						newX=0;
-					if(newX >= 280-image.index.Width)
-						newX = 280-image.index.Width;
-					if(newY >= 200-image.index.Height)
-						newY = 200-image.index.Height;
+					if(newX >= (280-image.index.Width)*g.scale)
+						newX = (280-image.index.Width)*g.scale;
+					if(newY >= (200-image.index.Height)*g.scaleH)
+						newY = (200-image.index.Height)*g.scaleH;
 
 	
 					this.pos = new Vector2(newX, newY);
@@ -125,7 +125,7 @@ namespace BlankGame
 					counter=counter+0.05f;
 				}
 
-				spriteBatch.Draw(image.index, pos, Color.White);
+				spriteBatch.Draw(image.index, bbox, Color.White);
 			}
 
 		}

@@ -25,7 +25,7 @@ namespace BlankGame
 					if(r.Next(1000)<=5) 
 					{
 						int xPos = r.Next(20, 300);
-						Enemy e= new Enemy(g,new Vector2(xPos,500),new Vector2(0,-1));
+						Enemy e= new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-1*g.scaleH));
 						g.entitToAdd.Add(e);
 					}
 				}

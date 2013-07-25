@@ -67,6 +67,8 @@ namespace BlankGame
 
 			cam = new Camera2d(Constants.GAME_WORLD_HEIGHT ,Constants.GAME_WORLD_WIDTH);
 			cam.Pos = new Vector2(150, 75);
+			//if(game.oniPad)
+			//	cam.Pos = new Vector2(-100, -100);
 			cam.Rotation = 1.57079633f;
 			ts = new TitleScreen(game);
 
@@ -321,11 +323,33 @@ namespace BlankGame
 			gui.Draw(spriteBatch);
 
 			endBatch();
+
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
-			fontRender.DrawText(spriteBatch,0,0,"123456",0.5f,Color.Black);
+			if(game.oniPad) 
+			{
+				fontRender.DrawText(spriteBatch, 10, -420, "HP:" + game.health + " Lives:" + game.lives + "  " + game.getFireMode(), 1.2f, Color.Black);
+			} 
+			else 
+			{
+				fontRender.DrawText(spriteBatch, 0, 5, "HP:" + game.health + " Lives:" + game.lives + "  " + game.getFireMode(), 0.5f, Color.Black);
+			}
 			endBatch();
 
 		}
+
+		public void drawTitle(TitleScreen ts, GameTime gameTime)
+		{
+
+			beginBatch();
+			game.bs.Draw(spriteBatch, gameTime);
+			endBatch();
+
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
+			ts.Draw(spriteBatch);
+			endBatch();
+		}
+
+
 
 		public void drawBGGradient(Texture2D bgGradient)
 		{

@@ -48,7 +48,7 @@ namespace BlankGame
 				}
 				public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
 				{
-					spriteBatch.Draw(image.index, pos, Color.White);
+					spriteBatch.Draw(image.index, bbox, Color.White);
 				}
 
 		}

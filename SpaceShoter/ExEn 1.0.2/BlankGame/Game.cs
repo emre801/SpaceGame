@@ -26,11 +26,21 @@ namespace BlankGame
 
 		TouchScreenObj tso;
 		EnemySpawner es;
-		BackgroundSpawner bs;
+		public BackgroundSpawner bs;
+		public TitleScreen ts;
 		public MusicPlayer mp;
 
 		public bool isPaused=false;
 		public SpriteFont sFont;
+
+		public int health=2;
+		public int lives=3;
+		public bool oniPad;
+		public float scale = 1, scaleH=1;
+
+		public FontRenderer fontRenderer;
+
+		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.NORMAL;
 
 
 		public Game()
@@ -40,7 +50,7 @@ namespace BlankGame
 			//graphics.PreferredBackBufferHeight = 480;
 
 			IsMouseVisible = true;
-			gameState = GameState.GAMETIME;
+			gameState = GameState.TITLE;
 			Content.RootDirectory = "Content";
 			drawingTool = new DrawingTool(this);
 			StartGyro();
@@ -48,7 +58,7 @@ namespace BlankGame
 			es = new EnemySpawner(this);
 			bs = new BackgroundSpawner(this);
 			mp = new MusicPlayer(this);
-
+			ts = new TitleScreen(this);
 		}
 
 		protected override void LoadContent()
@@ -70,7 +80,14 @@ namespace BlankGame
 			FontFile fontFile = FontLoader.Load("Content/Fonts/2pFont.fnt");
 			Texture2D fontText=Content.Load<Texture2D>("Fonts\\2p");
 			FontRenderer fr = new FontRenderer(fontFile, fontText);
+			this.fontRenderer = fr;
 			drawingTool.addFontRender(fr);
+			oniPad = isIpad();
+			if(oniPad) 
+			{
+				scale = 2.4f;
+				scaleH = 2.09166666f;
+			}
 
 		}
 
@@ -83,10 +100,69 @@ namespace BlankGame
 		}
 
 
+		public String getFireMode()
+		{
+			if(fireMode == SpaceShipPlayer.FireMode.NORMAL)
+				return "N";
+			if(fireMode == SpaceShipPlayer.FireMode.TWO)
+				return "2";
+			if(fireMode == SpaceShipPlayer.FireMode.THREE)
+				return "3";
+			if(fireMode == SpaceShipPlayer.FireMode.FAST)
+				return "F";
+			if(fireMode == SpaceShipPlayer.FireMode.CIRCLE)
+				return "C";
+			return "S";
+		}
+
+
+		public bool isIpad()
+		{
+			return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad;
+		}
+
+		public void UpdateTite()
+		{
+			ts.Update();
+			doCollisions();
+			foreach(Entity e in entities)
+			{
+				if(e is StarParticle)
+				{
+					if(!e.isVisible) 
+					{
+						entitToRemove.Add(e);
+					} 
+					else 
+					{
+						e.Update();
+					}
+				}
+			}
+			bs.Update();
+			foreach(Entity e in entitToAdd) 
+			{
+				entities.Add(e);
+			}
+			foreach(Entity e in entitToRemove) 
+			{
+				entities.Remove(e);
+			}
+			entitToRemove = new List<Entity>();
+			entitToAdd = new List<Entity>();
+
+		}
+
+
 		protected override void Update(GameTime gameTime)
 		{
 
 			tso.Update();
+			if(gameState == GameState.TITLE)
+			{
+				UpdateTite();
+				return;
+			}
 			if(isPaused)
 					return;
 			doCollisions();
@@ -160,6 +236,13 @@ namespace BlankGame
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.Black);
+			if(gameState == GameState.TITLE) 
+			{
+				drawingTool.drawTitle(ts,gameTime);
+				return;
+			}
+
+
 			drawingTool.drawEntities(entities, gameTime);
 			//base.Draw(gameTime);
 		}

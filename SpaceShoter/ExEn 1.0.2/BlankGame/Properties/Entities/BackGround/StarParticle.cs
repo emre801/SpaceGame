@@ -19,7 +19,7 @@ namespace BlankGame
 			}
 			public override void Update()
 			{
-				this.pos = this.pos + new Vector2(0, -2);
+				this.pos = this.pos + new Vector2(0, -2*g.scaleH);
 				if(this.pos.Y<0) 
 				{
 					this.isVisible = false;
@@ -27,7 +27,7 @@ namespace BlankGame
 			}
 			public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
 			{
-				spriteBatch.Draw(image.index,new Rectangle((int)pos.X,(int)pos.Y,image.index.Width/2,image.index.Width/2),Color.White);
+				spriteBatch.Draw(image.index,new Rectangle((int)pos.X,(int)(pos.Y),(int)(image.index.Width/2*g.scale),(int)(image.index.Width/2*g.scale)),Color.White);
 			}
 
 			
