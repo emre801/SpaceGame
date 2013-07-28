@@ -1,1 +1,0 @@
---debug --aot=mtriple=armv6-darwin,full,static,asmonly,direct-icalls,soft-debug,no-direct-calls,iphone-abi,outfile=/ExEnEmTouch.dll.armv6.s "/Users/johnerdogan/Desktop/SpaceGame/SpaceShoter/ExEn 1.0.2/BlankGame/bin/iPhone/Debug/BlankGameMonoTouch.app/ExEnEmTouch.dll"
