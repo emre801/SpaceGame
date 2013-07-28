@@ -21,7 +21,7 @@ namespace BlankGame
 			{
 				if(game.oniPad) 
 				{
-					spriteBatch.Draw(blueGUI.index, new Rectangle((int)(280*game.scale),0,100,1000), Color.White);
+					spriteBatch.Draw(blueGUI.index, new Rectangle((int)(280*game.scale),0,100,1040), Color.White);
 				}
 				else 
 				{

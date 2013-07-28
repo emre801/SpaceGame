@@ -22,10 +22,45 @@ namespace BlankGame
 
 					if(g.gameState == Game.GameState.TITLE) 
 					{
-						if(tc.Count == 1)
+						/*
+						if(tc.Count == 1&& prevCount!=1) 
+						{
 							g.gameState = Game.GameState.GAMETIME;
+							g.mp.pauseUnpauseMusic();
+						}
+						if(tc.Count == 2&& prevCount!=2) 
+						{
+							g.gameState = Game.GameState.OPTIONS;
+						}
+						prevCount = tc.Count;
+						*/
+						if(tc.Count == 1 && prevCount != 1) 
+						{
+							if(g.ts.startB.isButtonPressed) 
+							{
+								g.gameState = Game.GameState.GAMETIME;
+								g.mp.pauseUnpauseMusic();
+							}
+							if(g.ts.optionsB.isButtonPressed) 
+							{
+								g.gameState = Game.GameState.OPTIONS;
+							}
+						}
+						prevCount = tc.Count;
 						return;
+
 					}
+					
+					if(g.gameState == Game.GameState.OPTIONS) 
+					{
+						if(tc.Count == 1&& prevCount!=1) 
+						{
+							g.gameState = Game.GameState.TITLE;
+						}
+						prevCount = tc.Count;
+						return;	
+					}
+
 
 
 					if(tc.Count==1 && prevCount!=1) 
@@ -35,12 +70,13 @@ namespace BlankGame
 					}
 					if(tc.Count == 2 && prevCount != 2) 
 					{
-						g.isPaused = !g.isPaused;
+						//g.isPaused = !g.isPaused;
 
 					}
 					if(tc.Count == 3 && prevCount != 3) 
 					{
 						g.gameState = Game.GameState.TITLE;
+						g.mp.pauseUnpauseMusic();
 
 					}
 					foreach(TouchLocation tl in tc) 

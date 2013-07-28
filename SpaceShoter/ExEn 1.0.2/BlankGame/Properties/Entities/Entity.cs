@@ -12,7 +12,7 @@ namespace BlankGame
 			public bool isVisible = true;
 			public Entity(Game g)
 			{
-							this.g = g;
+				this.g = g;
 						
 			}
 			public virtual void Update()

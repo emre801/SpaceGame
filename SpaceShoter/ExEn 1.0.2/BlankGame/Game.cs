@@ -16,7 +16,7 @@ namespace BlankGame
 	{
 		protected GraphicsDeviceManager graphics;
 		public List<Entity> entities = new List<Entity>();
-		public enum GameState {TITLE,GAMETIME};
+		public enum GameState {TITLE,GAMETIME,OPTIONS};
 		public GameState gameState;
 		public DrawingTool drawingTool;
 		Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
@@ -41,6 +41,8 @@ namespace BlankGame
 		public FontRenderer fontRenderer;
 
 		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.NORMAL;
+
+		public Options opt= new Options();
 
 
 		public Game()
@@ -88,7 +90,17 @@ namespace BlankGame
 				scale = 2.4f;
 				scaleH = 2.09166666f;
 			}
-
+			//Adding songs to mediaPlayer
+			mp.addNewSong("Alpha Black Magic");
+			mp.addNewSong("Anxiety Attack");
+			mp.addNewSong("Melt Yourself");
+			mp.addNewSong("Nostalgia");
+			mp.addNewSong("Pins and Needles");
+			mp.addNewSong("Pirate Empire");
+			mp.addNewSong("Saturday Supernova");
+			mp.addNewSong("Nostalgia");
+			mp.addNewSong("Syntax Error");
+			mp.addNewSong("Tokyo Escapade");
 		}
 
 		public Sprite getSprite(String fName)
@@ -124,6 +136,17 @@ namespace BlankGame
 		public void UpdateTite()
 		{
 			ts.Update();
+			UpdateStarParticles();
+		}
+		public void UpdateOptions()
+		{
+			opt.Update();
+			UpdateStarParticles();
+
+		}
+
+		public void UpdateStarParticles()
+		{
 			doCollisions();
 			foreach(Entity e in entities)
 			{
@@ -163,6 +186,13 @@ namespace BlankGame
 				UpdateTite();
 				return;
 			}
+			if(gameState == GameState.OPTIONS)
+			{
+				UpdateOptions();
+				return;
+			}
+
+			mp.playMusic();
 			if(isPaused)
 					return;
 			doCollisions();
@@ -192,6 +222,7 @@ namespace BlankGame
 			entitToAdd = new List<Entity>();
 
 		}
+
 		public void addSprite(String name,String direct)
 		{
 			sprites.Add(name, new Sprite(Content, direct));
@@ -227,8 +258,7 @@ namespace BlankGame
 
 		public void GyroData_Received(CMGyroData gyroData, NSError error)
 		{
-			Console.WriteLine("rotation rate x: {0}, y: {1}, z: {2}", 
-			                  gyroData.RotationRate.x, gyroData.RotationRate.y, gyroData.RotationRate.z);
+
 		}
 
 
@@ -241,7 +271,10 @@ namespace BlankGame
 				drawingTool.drawTitle(ts,gameTime);
 				return;
 			}
-
+			if(gameState == GameState.OPTIONS)
+			{
+				return;
+			}
 
 			drawingTool.drawEntities(entities, gameTime);
 			//base.Draw(gameTime);

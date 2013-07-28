@@ -6,11 +6,11 @@
 	<dict>
 		<key>BlankGame.exe</key>
 		<data>
-		dTcyG0PUoY8zz88erHdHQpKBh5I=
+		aP2Ues2KgKbNOhX/rt4jNwxjgGc=
 		</data>
 		<key>BlankGame.exe.mdb</key>
 		<data>
-		N3GqUro2E9swGBxxxZFxOz7vzrE=
+		6fic4GbgpTdflK/pvLJke9xpODI=
 		</data>
 		<key>Content/Bullet.png</key>
 		<data>
@@ -36,6 +36,42 @@
 		<data>
 		gwh5DCha7W1xhjS9PJ+PIhnJW/0=
 		</data>
+		<key>Content/Music/Alpha Black Magic.mp3</key>
+		<data>
+		wDgJwztXLvBY3QV7FP4PIfSUIzg=
+		</data>
+		<key>Content/Music/Anxiety Attack.mp3</key>
+		<data>
+		5C2+azRDTO8GJd8mI8YJ4EsFCV0=
+		</data>
+		<key>Content/Music/Melt Yourself.mp3</key>
+		<data>
+		D1l2GSy5cTNVDTrk4nI0d+oRtAo=
+		</data>
+		<key>Content/Music/Nostalgia.mp3</key>
+		<data>
+		a4QjoTzdKea6OQ9nIlhaobjLhPs=
+		</data>
+		<key>Content/Music/Pins and Needles.mp3</key>
+		<data>
+		Yrc4LnzK6cE55RaqTqd/SkS2aVk=
+		</data>
+		<key>Content/Music/Pirate Empire.mp3</key>
+		<data>
+		1yG/28iUbUqPrnv//rv4Hbz41eE=
+		</data>
+		<key>Content/Music/Saturday Supernova.mp3</key>
+		<data>
+		QR9P8wFY0bmEH14fTkWCXhTh7SE=
+		</data>
+		<key>Content/Music/Syntax Error.mp3</key>
+		<data>
+		OLfghIQ509rKvEFXZWCnmvcRsnc=
+		</data>
+		<key>Content/Music/Tokyo Escapade.mp3</key>
+		<data>
+		G8reBW2Zm4prr6xZG0r2hNzEKIE=
+		</data>
 		<key>Content/Ship.png</key>
 		<data>
 		54RpnUgDAGBqpEDGR6GPfUbLvKM=
@@ -58,27 +94,27 @@
 		</data>
 		<key>ExEnCore.dll</key>
 		<data>
-		AiVUg3C3gQ2Y2Tj/KP3R+x/OEn8=
+		5W7rxeOyv6Gk9WBu9+H/RaBh0w4=
 		</data>
 		<key>ExEnCore.dll.mdb</key>
 		<data>
-		Q9IxapMMvUu+cknaRjCbHOoQ9r8=
+		SJoxw5tKFCiJ32kxBGNe7/RSvEQ=
 		</data>
 		<key>ExEnEmTouch.dll</key>
 		<data>
-		fpWx4FPSQo+2VFXNnRPDjQUsayA=
+		BCq6QYv5NruvaF7XFqGuB7uYg4U=
 		</data>
 		<key>ExEnEmTouch.dll.mdb</key>
 		<data>
-		K4dzGmNV4LC8n3S34H+h/eqP33o=
+		BwzeS8IX1O/t64g/YLSovWpLP5Q=
 		</data>
 		<key>Mono.Security.dll</key>
 		<data>
-		+HU5gJqincm1pzm4iZaxikgiQF8=
+		436ZTdmeHktUhMthsN8+3QjYAAY=
 		</data>
 		<key>Mono.Security.dll.mdb</key>
 		<data>
-		PeGutu60s+4Trlz1SCCueEuBRJ0=
+		PkJ608l53MBz8+hST1gch3uPS94=
 		</data>
 		<key>MonoTouchDebugConfiguration.txt</key>
 		<data>
@@ -86,7 +122,7 @@
 		</data>
 		<key>OpenTK.dll</key>
 		<data>
-		4/QDcpdY5JFYTO53jqcEVwykxyI=
+		2R3umUM3zdTIGk532AmhDP8UZPU=
 		</data>
 		<key>OpenTK.dll.config</key>
 		<data>
@@ -94,7 +130,7 @@
 		</data>
 		<key>OpenTK.dll.mdb</key>
 		<data>
-		9i9InRsrPuDMPJIB9aP6VO7TdTg=
+		o20U6AKllfDiULcxfGeevMGQ+Eg=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -106,27 +142,27 @@
 		</data>
 		<key>System.Core.dll</key>
 		<data>
-		ibgIcTnkjnF25GC3PvMb9vq+Yyc=
+		t8w5ocDbj99U9Ll3MZY9OTbbboU=
 		</data>
 		<key>System.Core.dll.mdb</key>
 		<data>
-		7iVBfQdoEpspFYXSJ8vTaOOcWXk=
+		MZN+/sT15Dc2foF3xQ69P3dzds4=
 		</data>
 		<key>System.Xml.dll</key>
 		<data>
-		wWolpR83dRCM38jZ3vSQdGvCq08=
+		d/5+fZBnPQ1vc4Ni70GEf6d3Cxo=
 		</data>
 		<key>System.Xml.dll.mdb</key>
 		<data>
-		+a6ZL/vwijmQy0v1QeXUWBhI+n4=
+		AwZ9m3ZhOG36ZFUeTowTertOk0M=
 		</data>
 		<key>System.dll</key>
 		<data>
-		SJHaisn8QJnJ11gqKxb66vBKvFc=
+		m1Xbf5zuT0FR4s/E/EJsq7kk1Mo=
 		</data>
 		<key>System.dll.mdb</key>
 		<data>
-		egFQkHFIw6n0EWhHRKgQft9PFhU=
+		Xxlfb4vp7FanwFRFxrZwhdVgke0=
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
@@ -134,19 +170,19 @@
 		</data>
 		<key>monotouch.dll</key>
 		<data>
-		MAqU6T7APHXGJnqdfKLPMXhqHU0=
+		btwqs6zNjSJro6Ua4BP7lSEpXag=
 		</data>
 		<key>monotouch.dll.mdb</key>
 		<data>
-		z+Jcg2HJL6rpy5qEjMZKMglXQtU=
+		IP34dDBj1oFoAEt+wKmH5c8OxnU=
 		</data>
 		<key>mscorlib.dll</key>
 		<data>
-		XWApEALujqFKpFhBNPdYSgJBgsg=
+		yUOPw7VJDdEF4s/Gb+6J+kulW94=
 		</data>
 		<key>mscorlib.dll.mdb</key>
 		<data>
-		qRn+yLXwV0J90IRwodZDnGibxlA=
+		UVAJrtuTrL/6w3dUnYCmgBK6x7U=
 		</data>
 	</dict>
 	<key>rules</key>

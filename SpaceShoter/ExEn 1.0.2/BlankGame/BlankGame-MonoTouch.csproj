@@ -115,6 +115,8 @@
     <Compile Include="Properties\FontLoader\FontKerning.cs" />
     <Compile Include="Properties\FontLoader\FontLoader.cs" />
     <Compile Include="Properties\FontLoader\FontRender.cs" />
+    <Compile Include="Content\Options.cs" />
+    <Compile Include="Properties\Button\Button.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -124,6 +126,8 @@
     <Folder Include="Properties\Entities\BackGround\" />
     <Folder Include="Content\Fonts\" />
     <Folder Include="Properties\FontLoader\" />
+    <Folder Include="Content\Music\" />
+    <Folder Include="Properties\Button\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />
@@ -135,6 +139,33 @@
     </BundleResource>
     <BundleResource Include="Content\blueGUI.png" />
     <BundleResource Include="Content\Fonts\2p.png" />
+    <BundleResource Include="Content\Music\Alpha Black Magic.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Content\Music\Anxiety Attack.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Content\Music\Melt Yourself.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Content\Music\Nostalgia.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Content\Music\Pins and Needles.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Content\Music\Pirate Empire.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Content\Music\Saturday Supernova.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Content\Music\Syntax Error.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Content\Music\Tokyo Escapade.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\shoot.wav">

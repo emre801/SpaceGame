@@ -8,18 +8,39 @@ namespace BlankGame
 		{
 			Sprite start,options,other;
 			Game game;
+			public Button startB,optionsB;
+			
 			public TitleScreen(Game game)
 			{
 				this.game = game;
+				if(game.oniPad) 
+				{
+					startB= new Button(game,new Rectangle(300,-140,100,20));
+					optionsB = new Button(game, new Rectangle(300, -100, 100, 20));
+				} 
+				else 
+				{
+					startB= new Button(game,new Rectangle(100,140,100,20));
+					optionsB = new Button(game, new Rectangle(100, 180, 100, 20));
+
+				}
+				//start = game.getSprite("Enemy");
 			}
 			public void Update()
 			{
-
-
+				startB.Update();
+				optionsB.Update();
+				start = game.getSprite("Enemy");
 			}
 
 			public void Draw(SpriteBatch spriteBatch)
 			{
+				if(start != null) 
+				{
+					spriteBatch.Draw(start.index, startB.demi, Color.White);
+					spriteBatch.Draw(start.index, optionsB.demi, Color.White);
+				}
+
 				if(game.oniPad) 
 				{
 					game.fontRenderer.DrawText(spriteBatch, 300, -180, "Commander Cat Hat", 0.85f, Color.White);
