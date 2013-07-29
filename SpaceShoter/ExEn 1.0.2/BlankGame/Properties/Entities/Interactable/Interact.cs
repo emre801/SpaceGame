@@ -17,7 +17,7 @@ namespace BlankGame
 			{
 					
 			}
-			public void updateBBox()
+			public virtual void updateBBox()
 			{
 				bbox = new Rectangle((int)pos.X, (int)pos.Y, (int)(image.index.Width*g.scale), (int)(image.index.Height*g.scale));
 			}
@@ -26,6 +26,12 @@ namespace BlankGame
 			{
 				return true;
 			}
+			public override void Draw(SpriteBatch spriteBatch,Microsoft.Xna.Framework.GameTime gameTime)
+			{
+				spriteBatch.Draw(image.index, bbox, Color.White);
+			}
+
+			
 		}
 }
 

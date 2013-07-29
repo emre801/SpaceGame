@@ -65,8 +65,12 @@ namespace BlankGame
 					}
 
 
+					if(g.fireMode == SpaceShipPlayer.FireMode.FAST && tc.Count==1) 
+					{
+						g.player.fireBullet();
 
-					if(tc.Count==1 && prevCount!=1) 
+					}
+					else if(tc.Count==1 && prevCount!=1) 
 					{
 						g.player.fireBullet();
 			

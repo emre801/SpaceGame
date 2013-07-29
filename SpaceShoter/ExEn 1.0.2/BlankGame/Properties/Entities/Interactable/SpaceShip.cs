@@ -8,8 +8,8 @@ namespace BlankGame
 {
 		public class SpaceShipPlayer: Interact
 		{
-			public enum FireMode {NORMAL,FAST,TWO,THREE,CHARGESHOT,CIRCLE};
-			public FireMode fireMode=FireMode.NORMAL;
+			public enum FireMode {NORMAL,FAST,TWO,THREE,CHARGESHOT,CIRCLE,SHIELD};
+			public FireMode fireMode=FireMode.CHARGESHOT;
 			//Sprite image;
 			public int health= 20;
 			public int lives=2;
@@ -35,6 +35,29 @@ namespace BlankGame
 				{
 					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(5,10)));
 					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(-5,10)));
+				}
+				else if(g.fireMode == FireMode.THREE) 
+				{
+					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(5f/2f,10f/2f)));
+					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(-5f/2f,10f/2f)));
+					g.entitToAdd.Add(new Bullet(g,g.player.pos,new Vector2(0,10f/2f)));
+				}
+				else if(g.fireMode == FireMode.FAST) 
+				{
+					g.entitToAdd.Add(new Bullet(g, g.player.pos, new Vector2(0, 5)));
+
+				}
+				else if(g.fireMode == FireMode.CHARGESHOT) 
+				{
+					g.entitToAdd.Add(new ChargeBullet(g, g.player.pos, new Vector2(0, 5),20));
+				}
+				else if(g.fireMode == FireMode.CIRCLE) 
+				{
+					g.entitToAdd.Add(new Bullet(g, g.player.pos, new Vector2(0, 5)));
+				}
+				else if(g.fireMode == FireMode.SHIELD) 
+				{
+					g.entitToAdd.Add(new Bullet(g, g.player.pos, new Vector2(0, 5)));
 				}
 				g.mp.playSound("shoot");
 
@@ -63,7 +86,8 @@ namespace BlankGame
 			{
 				if(inter.bbox.Intersects(this.bbox))
 				{
-					if(inter is Bullet) {
+					if(inter is Bullet) 
+					{
 						Bullet bull = (Bullet)inter;
 						if(!bull.isGoodBullet) 
 						{
@@ -74,7 +98,13 @@ namespace BlankGame
 						{
 							//Maybe heal??
 						}
-					return true;
+						return true;
+					}
+					if(inter is PowerUp)
+					{
+						PowerUp pwp = (PowerUp)inter;
+						g.fireMode = pwp.fireMode;
+						return true;
 					}
 					inter.isVisible = false;
 					g.health--;

@@ -22,11 +22,19 @@ namespace BlankGame
 				}
 				public void Update()
 				{
-					if(r.Next(1000)<=5) 
+					if(r.Next(200)<=5) 
 					{
 						int xPos = r.Next(40, 280);
-						Enemy e= new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-1*g.scaleH));
+						Enemy e= new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH));
 						g.entitToAdd.Add(e);
+					}
+					if(r.Next(5000) <= 5) 
+					{
+						int xPos = r.Next(40, 280);
+						PowerUp e= new PowerUp(g,SpaceShipPlayer.FireMode.FAST,
+				                       new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH));
+						g.entitToAdd.Add(e);
+
 					}
 				}
 		}

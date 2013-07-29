@@ -32,7 +32,7 @@ namespace BlankGame
 				}
 				public void addNewSound(String name)
 				{
-					var mediafile=NSUrl.FromFilename(@"Content/"+ name+".wav");
+					var mediafile=NSUrl.FromFilename(@"Content/Sounds/"+ name+".wav");
 					sounds.Add(name,AVAudioPlayer.FromUrl(mediafile));
 				}
 				public void playSound(String name)

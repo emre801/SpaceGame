@@ -35,10 +35,6 @@ namespace BlankGame
 			{
 				return false;
 			}
-			public override void Draw(SpriteBatch spriteBatch,Microsoft.Xna.Framework.GameTime gameTime)
-			{
-				spriteBatch.Draw(image.index, bbox, Color.White);
-			}
 
 			
 		}
