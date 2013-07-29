@@ -42,7 +42,7 @@ namespace BlankGame
 
 		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.NORMAL;
 
-		public Options opt= new Options();
+		public Options opt;//= new Options();
 
 
 		public Game()
@@ -61,6 +61,7 @@ namespace BlankGame
 			bs = new BackgroundSpawner(this);
 			mp = new MusicPlayer(this);
 			ts = new TitleScreen(this);
+			opt = new Options(this);
 		}
 
 		protected override void LoadContent()
@@ -70,8 +71,10 @@ namespace BlankGame
 			addSprite("Enemy", "Enemy");
 			addSprite("partical", "partical");
 			addSprite("blueGUI", "blueGUI");
+			addSprite("incre", "incre");
 			drawingTool.initialize();
 
+			opt.LoadContent();
 			mp.addNewSound("shoot");
 			mp.addNewSound("explosion");
 
@@ -273,6 +276,7 @@ namespace BlankGame
 			}
 			if(gameState == GameState.OPTIONS)
 			{
+				drawingTool.drawOptions(opt, gameTime);
 				return;
 			}
 

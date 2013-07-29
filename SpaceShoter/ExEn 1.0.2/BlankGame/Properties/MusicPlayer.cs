@@ -24,6 +24,12 @@ namespace BlankGame
 					this.r = new Random();
 					this.g = g;
 				}
+				public void updateVolume()
+				{
+					if(audioPlayer!=null)
+						audioPlayer.Volume=(float)g.opt.musicVolume;
+
+				}
 				public void addNewSound(String name)
 				{
 					var mediafile=NSUrl.FromFilename(@"Content/"+ name+".wav");
@@ -32,7 +38,7 @@ namespace BlankGame
 				public void playSound(String name)
 				{
 					AVAudioPlayer sound = sounds[name];
-					sound.Volume = (float)g.opt.sfxVolume / 10f;
+					sound.Volume = (float)g.opt.sfxVolume;
 					sound.Play();
 				}
 
@@ -42,7 +48,7 @@ namespace BlankGame
 					{	
 						int index = r.Next() % songs.Count;
 						this.audioPlayer = (AVAudioPlayer)songs [index];
-						audioPlayer.Volume = (float)g.opt.musicVolume / 10f;
+						audioPlayer.Volume = (float)g.opt.musicVolume;
 						audioPlayer.Play();
 					}
 				}

@@ -166,6 +166,7 @@
     <BundleResource Include="Content\Music\Tokyo Escapade.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
+    <BundleResource Include="Content\incre.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\shoot.wav">

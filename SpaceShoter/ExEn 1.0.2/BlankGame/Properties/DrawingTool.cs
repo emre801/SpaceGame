@@ -349,7 +349,18 @@ namespace BlankGame
 			endBatch();
 		}
 
+		public void drawOptions(Options opt,GameTime gameTime)
+		{
+			beginBatch();
+			game.bs.Draw(spriteBatch, gameTime);
+			endBatch();
 
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
+			opt.Draw(spriteBatch);
+			endBatch();
+
+
+		}
 
 		public void drawBGGradient(Texture2D bgGradient)
 		{

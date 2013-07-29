@@ -10,8 +10,8 @@ namespace BlankGame
 		{
 				public Rectangle demi;
 				public bool isButtonPressed = false;
-
-
+				public bool oldPressed=false,isPressed=false;
+				public Vector2 mP= Vector2.Zero;
 				public Button(Game g, Rectangle demi)
 				:base(g)
 				{
@@ -21,23 +21,29 @@ namespace BlankGame
 				{
 					TouchCollection tc=	TouchPanel.GetState();
 					isButtonPressed = false;
-					if(tc.Count > 0) 
-					{
-						int a = 1220;
-					}
+					isPressed = false;
 					foreach(TouchLocation tl in tc) 
 					{
 								
 						Vector2 mousePosition = tl.Position;
 						Vector2 worldMousePosition = Vector2.Transform(mousePosition, Matrix.Invert(g.drawingTool.cam._transform));
 						Rectangle worldRec= new Rectangle((int)worldMousePosition.X,(int)worldMousePosition.Y,1,1);
+						mP = worldMousePosition;
 						if(demi.Intersects(worldRec) || demi.Contains(worldRec)) 
 						{
-							isButtonPressed = true;
-							return;
+							isPressed = true;
+							//return;
 						}
 								
 					}
+					if(oldPressed && !isPressed)
+						isButtonPressed = true;
+					else 
+						isButtonPressed = false;
+
+
+					oldPressed = isPressed;
+					
 
 				}
 

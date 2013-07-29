@@ -34,8 +34,7 @@ namespace BlankGame
 						}
 						prevCount = tc.Count;
 						*/
-						if(tc.Count == 1 && prevCount != 1) 
-						{
+						
 							if(g.ts.startB.isButtonPressed) 
 							{
 								g.gameState = Game.GameState.GAMETIME;
@@ -45,17 +44,21 @@ namespace BlankGame
 							{
 								g.gameState = Game.GameState.OPTIONS;
 							}
-						}
-						prevCount = tc.Count;
+						
 						return;
 
 					}
 					
 					if(g.gameState == Game.GameState.OPTIONS) 
 					{
-						if(tc.Count == 1&& prevCount!=1) 
+						//if(tc.Count == 1&& prevCount!=1) 
+						//{
+						//	g.gameState = Game.GameState.TITLE;
+						//}
+						if(g.opt.exit.isButtonPressed) 
 						{
 							g.gameState = Game.GameState.TITLE;
+							g.mp.updateVolume();
 						}
 						prevCount = tc.Count;
 						return;	
