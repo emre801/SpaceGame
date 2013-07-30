@@ -13,8 +13,9 @@ namespace BlankGame
 		public class EnemySpawner
 		{
 				Game g;
-				List<Enemy> enemies = new List<Enemy>();
+				HashSet<Enemy> enemies = new HashSet<Enemy>();
 				Random r;
+				//public int numEnemies=0;
 				public EnemySpawner(Game g)
 				{
 					this.g = g;
@@ -22,11 +23,13 @@ namespace BlankGame
 				}
 				public void Update()
 				{
-					if(r.Next(200)<=5) 
+					if(r.Next(2000)<=5 && numEnemies()<9) 
 					{
 						int xPos = r.Next(40, 280);
+						//Enemy e= new EnemyShooter(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH));
 						Enemy e= new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH));
 						g.entitToAdd.Add(e);
+						//numEnemies++;
 					}
 					if(r.Next(5000) <= 5) 
 					{
@@ -36,6 +39,18 @@ namespace BlankGame
 						g.entitToAdd.Add(e);
 
 					}
+				}
+				public int numEnemies()
+				{
+					return enemies.Count;
+				}
+				public void addEnemyToList(Enemy e)
+				{
+					enemies.Add(e);	
+				}
+				public void removeEnemyFromList(Enemy e)
+				{
+					enemies.Remove(e);
 				}
 		}
 }

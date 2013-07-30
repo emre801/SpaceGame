@@ -11,14 +11,17 @@ namespace BlankGame
 {
 		public class Enemy: Interact
 		{
-				Vector2 direct;
+				//protected Vector2 direct;
 				//Sprite image;
+				protected Random r;
+				
 				public Enemy(Game g, Vector2 pos,Vector2 direct)
 				:base(g)
 				{
 					this.direct = direct;
 					this.image = g.getSprite("Enemy");
 					this.pos = pos;
+					this.r = new Random();
 				}
 				public override bool collidesWith(Interact inter)
 				{
@@ -32,10 +35,12 @@ namespace BlankGame
 								Explosion exp = new Explosion(g, b.pos);
 								g.mp.playSound("explosion");
 								g.entitToAdd.Add(exp);
+								//g.es.numEnemies--;
+								return true;
 							}
 					}
 
-					return true;
+					return false;
 				}				
 
 				public override void Update()

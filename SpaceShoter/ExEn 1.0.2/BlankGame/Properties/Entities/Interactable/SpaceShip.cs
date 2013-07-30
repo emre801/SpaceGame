@@ -69,12 +69,35 @@ namespace BlankGame
 
 			public override void Update()
 			{
+				Vector2 oldPos = this.pos;
 				updateGyro();
 				updateBBox();
+				if(isColliding()) 
+				{
+					this.pos = oldPos;
+					updateBBox();
+				}
 				updateTrail();
 				
 				
 			}
+			public bool isColliding()
+			{
+				foreach(Entity e in g.entities) 
+				{
+					if(e != this && e is Interact) 
+					{
+						Interact ai = (Interact)e;
+
+						if(ai.bbox.Intersects(this.bbox))
+							return true;
+					}
+				}
+				return false;
+			}
+			
+
+
 			public void updateTrail()
 			{
 				trail.Enqueue(pos + new Vector2(image.index.Width/4f,0));
@@ -106,8 +129,12 @@ namespace BlankGame
 						g.fireMode = pwp.fireMode;
 						return true;
 					}
-					inter.isVisible = false;
-					g.health--;
+					//inter.isVisible = false;
+					//g.health--;
+					this.pos = this.pos + inter.direct;
+					if(pos.Y <= 0)
+						g.lives--;
+					updateBBox();
 				}
 				return true;
 			}

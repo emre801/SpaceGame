@@ -12,7 +12,7 @@ namespace BlankGame
 		{
 			public bool isGoodBullet=true;
 			//Sprite image;
-			Vector2 direct;
+			//Vector2 direct;
 			
 			public Bullet(Game g,Vector2 pos,Vector2 direct)
 			:base(g)
@@ -20,6 +20,14 @@ namespace BlankGame
 				this.direct = direct;
 				this.pos = pos;
 				image = g.getSprite("Bullet");
+			}
+			public Bullet(Game g,Vector2 pos,Vector2 direct,bool isGoodBullet)
+			:base(g)
+			{
+				this.direct = direct;
+				this.pos = pos;
+				image = g.getSprite("Bullet");
+				this.isGoodBullet = isGoodBullet;
 			}
 			public override void Update()
 			{

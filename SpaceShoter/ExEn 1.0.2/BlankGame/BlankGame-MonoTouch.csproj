@@ -119,6 +119,7 @@
     <Compile Include="Properties\Button\Button.cs" />
     <Compile Include="Properties\Entities\Interactable\PowerUp.cs" />
     <Compile Include="Properties\Entities\ChargeBullet.cs" />
+    <Compile Include="Properties\Entities\Interactable\Enemies\EnemyShooter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />

@@ -11,7 +11,7 @@ namespace BlankGame
 			bool ignoreCollision;
 			public Rectangle bbox;
 			public Sprite image;
-			
+			public Vector2 direct;
 			public Interact(Game g)
 				:base(g)
 			{
@@ -24,7 +24,7 @@ namespace BlankGame
 			
 			public virtual bool collidesWith(Interact inter)
 			{
-				return true;
+				return false;
 			}
 			public override void Draw(SpriteBatch spriteBatch,Microsoft.Xna.Framework.GameTime gameTime)
 			{

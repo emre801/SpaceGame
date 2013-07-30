@@ -25,7 +25,7 @@ namespace BlankGame
 		public SpaceShipPlayer player;
 
 		TouchScreenObj tso;
-		EnemySpawner es;
+		public EnemySpawner es;
 		public BackgroundSpawner bs;
 		public TitleScreen ts;
 		public MusicPlayer mp;
