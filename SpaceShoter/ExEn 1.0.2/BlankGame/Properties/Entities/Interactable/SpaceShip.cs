@@ -14,7 +14,8 @@ namespace BlankGame
 			public int health= 20;
 			public int lives=2;
 			Queue<Vector2> trail = new Queue<Vector2>();
-			Sprite partical;
+			Sprite partical,hat;
+			Color hatColor=Color.White;
 			public SpaceShipPlayer(Game g,Sprite sprite)
 				:base(g)
 			{
@@ -23,6 +24,7 @@ namespace BlankGame
 			                                                  sprite.index.Width, sprite.index.Height);
 				this.pos = new Vector2(200, 0);
 				partical = g.getSprite("partical");
+				hat = g.getSprite("hat");
 			}
 			public void fireBullet()
 			{
@@ -85,10 +87,10 @@ namespace BlankGame
 			{
 				foreach(Entity e in g.entities) 
 				{
-					if(e != this && e is Interact) 
+					if(e != this && e is Interact && !(e is Bullet)) 
 					{
 						Interact ai = (Interact)e;
-
+							
 						if(ai.bbox.Intersects(this.bbox))
 							return true;
 					}
@@ -127,6 +129,7 @@ namespace BlankGame
 					{
 						PowerUp pwp = (PowerUp)inter;
 						g.fireMode = pwp.fireMode;
+						this.hatColor = pwp.hatColor;
 						return true;
 					}
 					//inter.isVisible = false;
@@ -183,6 +186,7 @@ namespace BlankGame
 				}
 
 				spriteBatch.Draw(image.index, bbox, Color.White);
+				spriteBatch.Draw(hat.index, new Rectangle((int)pos.X+bbox.Width/2,(int)pos.Y+bbox.Height/2,hat.index.Width,hat.index.Height), hatColor);
 			}
 
 		}

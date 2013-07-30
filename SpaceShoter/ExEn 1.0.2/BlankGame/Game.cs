@@ -16,6 +16,7 @@ namespace BlankGame
 	{
 		protected GraphicsDeviceManager graphics;
 		public List<Entity> entities = new List<Entity>();
+		public List<Interact> interactable = new List<Interact>();
 		public enum GameState {TITLE,GAMETIME,OPTIONS};
 		public GameState gameState;
 		public DrawingTool drawingTool;
@@ -72,6 +73,7 @@ namespace BlankGame
 			addSprite("partical", "partical");
 			addSprite("blueGUI", "blueGUI");
 			addSprite("incre", "incre");
+			addSprite("hat", "hat");
 			drawingTool.initialize();
 
 			opt.LoadContent();
@@ -80,6 +82,7 @@ namespace BlankGame
 
 			player = new SpaceShipPlayer(this,getSprite("Ship"));
 			entities.Add(player);
+			interactable.Add(player);
 
 
 			FontFile fontFile = FontLoader.Load("Content/Fonts/2pFont.fnt");
@@ -215,10 +218,19 @@ namespace BlankGame
 			foreach(Entity e in entitToAdd) 
 			{
 				entities.Add(e);
+				if(e is Interact)
+				{
+					Interact inter = (Interact)e;
+					interactable.Add(inter);
+				}
 			}
 			foreach(Entity e in entitToRemove) 
 			{
-				entities.Remove(e);
+				entities.Remove(e);if(e is Interact)
+				{
+					Interact inter = (Interact)e;
+					interactable.Remove(inter);
+				}
 			}
 
 			entitToRemove = new List<Entity>();
@@ -233,17 +245,14 @@ namespace BlankGame
 
 		public void doCollisions()
 		{
-			foreach(Entity a in entities)
-				foreach(Entity b in entities) 
-			{
-				if(a != b && a is Interact && b is Interact) 
+			foreach(Interact a in interactable)
+				foreach(Interact b in interactable) 
 				{
-					Interact ai = (Interact)a;
-					Interact bi = (Interact)b;
-
-					ai.collidesWith(bi);
+					if(a != b) 
+					{
+						a.collidesWith(b);
+					}
 				}
-			}
 
 		}
 

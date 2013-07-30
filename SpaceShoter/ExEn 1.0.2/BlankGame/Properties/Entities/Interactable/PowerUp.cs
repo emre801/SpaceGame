@@ -10,13 +10,15 @@ namespace BlankGame
 		{
 				public SpaceShipPlayer.FireMode fireMode;
 				Vector2 direct;
-				public PowerUp(Game g, SpaceShipPlayer.FireMode fireMode, Vector2 pos,Vector2 direct)
+				public Color hatColor;
+				public PowerUp(Game g, SpaceShipPlayer.FireMode fireMode, Vector2 pos,Vector2 direct,Color hatColor)
 				:base(g)
 				{
-						this.fireMode = fireMode;	
-						this.direct = direct;
-						this.image = g.getSprite("incre");
-						this.pos = pos;
+					this.fireMode = fireMode;	
+					this.direct = direct;
+					this.image = g.getSprite("incre");
+					this.pos = pos;
+					this.hatColor = hatColor;
 				}
 
 				public override void Update()
