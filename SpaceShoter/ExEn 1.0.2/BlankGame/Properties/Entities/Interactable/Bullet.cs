@@ -32,7 +32,7 @@ namespace BlankGame
 			public override void Update()
 			{
 				this.pos = this.pos + direct;
-				if(pos.Y > 500*g.scaleH) 
+				if(pos.Y > 500*g.scaleH || pos.Y<-10) 
 				{
 					this.isVisible = false;
 				}

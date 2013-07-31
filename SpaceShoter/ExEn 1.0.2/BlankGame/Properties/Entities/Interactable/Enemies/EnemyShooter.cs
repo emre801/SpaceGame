@@ -3,6 +3,7 @@ using MonoTouch;
 using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace BlankGame
 {
@@ -10,10 +11,12 @@ namespace BlankGame
 		{
 				bool moveleft=true;
 				bool moveForward=true;
+				Stopwatch stopWatch;
+
 				public EnemyShooter(Game g, Vector2 pos,Vector2 direct)
 				:base(g,pos,direct)
 				{
-				
+					stopWatch= new Stopwatch();
 				}
 				public override void Update()
 				{
@@ -24,6 +27,7 @@ namespace BlankGame
 						{
 							moveForward = false;
 							direct = new Vector2(-1, 0);
+							stopWatch.Start();
 						}
 					}
 					else
@@ -44,8 +48,16 @@ namespace BlankGame
 								moveleft=true;
 							}
 						}
-						if(r.Next(0,500)<5)
+
+						stopWatch.Stop();
+						if(stopWatch.ElapsedMilliseconds >= 500) 
+						{
 							g.entitToAdd.Add(new Bullet(g, pos, new Vector2(0, -4),false));
+							stopWatch.Reset();
+						}
+						stopWatch.Start();
+						//if(r.Next(0,500)<5)
+							//g.entitToAdd.Add(new Bullet(g, pos, new Vector2(0, -4),false));
 
 					}
 					updateBBox();

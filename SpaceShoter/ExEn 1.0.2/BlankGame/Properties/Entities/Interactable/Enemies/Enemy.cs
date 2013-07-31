@@ -36,6 +36,7 @@ namespace BlankGame
 								g.mp.playSound("explosion");
 								g.entitToAdd.Add(exp);
 								//g.es.numEnemies--;
+								g.es.removeEnemyFromList(this);
 								return true;
 							}
 					}

@@ -120,6 +120,8 @@
     <Compile Include="Properties\Entities\Interactable\PowerUp.cs" />
     <Compile Include="Properties\Entities\ChargeBullet.cs" />
     <Compile Include="Properties\Entities\Interactable\Enemies\EnemyShooter.cs" />
+    <Compile Include="Properties\Entities\Interactable\Shield.cs" />
+    <Compile Include="Properties\Entities\Interactable\Circle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -177,6 +179,7 @@
     <BundleResource Include="Resources\Icon-72%402x.png" />
     <BundleResource Include="Content\hat.png" />
     <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Content\shield.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">

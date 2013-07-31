@@ -23,18 +23,19 @@ namespace BlankGame
 				}
 				public void Update()
 				{
-					if(r.Next(2000)<=5 && numEnemies()<9) 
+					if(r.Next(2000)<=5 && numEnemies()<10) 
 					{
 						int xPos = r.Next(40, 280);
-						//Enemy e= new EnemyShooter(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH));
-						Enemy e= new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH));
+						Enemy e= new EnemyShooter(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH));
+						//Enemy e= new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH));
 						g.entitToAdd.Add(e);
 						//numEnemies++;
+						addEnemyToList(e);
 					}
 					if(r.Next(5000) <= 5) 
 					{
 						int xPos = r.Next(40, 280);
-						PowerUp e= new PowerUp(g,SpaceShipPlayer.FireMode.FAST,
+						PowerUp e= new PowerUp(g,SpaceShipPlayer.FireMode.CIRCLE,
 				                       new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),Color.Red);
 						g.entitToAdd.Add(e);
 

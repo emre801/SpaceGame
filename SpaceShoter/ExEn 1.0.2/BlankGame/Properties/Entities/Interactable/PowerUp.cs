@@ -36,8 +36,8 @@ namespace BlankGame
 				{
 					if(inter.bbox.Intersects(this.bbox)) 
 					{
-						if(inter is SpaceShipPlayer)
-							this.isVisible = false;
+						//if(inter is SpaceShipPlayer)
+							//this.isVisible = false;
 					}
 					
 					return false;

@@ -16,6 +16,10 @@ namespace BlankGame
 			Queue<Vector2> trail = new Queue<Vector2>();
 			Sprite partical,hat;
 			Color hatColor=Color.White;
+			bool playerDied=false;
+			public bool isGod=true;
+
+
 			public SpaceShipPlayer(Game g,Sprite sprite)
 				:base(g)
 			{
@@ -53,14 +57,6 @@ namespace BlankGame
 				{
 					g.entitToAdd.Add(new ChargeBullet(g, g.player.pos, new Vector2(0, 5),20));
 				}
-				else if(g.fireMode == FireMode.CIRCLE) 
-				{
-					g.entitToAdd.Add(new Bullet(g, g.player.pos, new Vector2(0, 5)));
-				}
-				else if(g.fireMode == FireMode.SHIELD) 
-				{
-					g.entitToAdd.Add(new Bullet(g, g.player.pos, new Vector2(0, 5)));
-				}
 				g.mp.playSound("shoot");
 
 			}
@@ -72,7 +68,8 @@ namespace BlankGame
 			public override void Update()
 			{
 				Vector2 oldPos = this.pos;
-				updateGyro();
+				if(!g.shieldActive)
+					updateGyro();
 				updateBBox();
 				if(isColliding()) 
 				{
@@ -80,17 +77,24 @@ namespace BlankGame
 					updateBBox();
 				}
 				updateTrail();
-				
-				
+				if((playerDied || g.health<=0)&& !isGod)
+				{
+					g.entitToAdd.Add(new Explosion(g, this.pos));
+					this.pos = new Vector2(200, 0);
+					updateBBox();
+					playerDied = false;
+					g.lives--;
+					g.health = 3;
+					g.mp.playSound("explosion");
+				}	
 			}
 			public bool isColliding()
 			{
 				foreach(Entity e in g.entities) 
 				{
-					if(e != this && e is Interact && !(e is Bullet)) 
+					if(e != this && e is Interact && !(e is Bullet)&& !(e is Shield)) 
 					{
 						Interact ai = (Interact)e;
-							
 						if(ai.bbox.Intersects(this.bbox))
 							return true;
 					}
@@ -109,7 +113,8 @@ namespace BlankGame
 			}
 			public override bool collidesWith(Interact inter)
 			{
-				if(inter.bbox.Intersects(this.bbox))
+				Rectangle hitBox = new Rectangle((int)pos.X + bbox.Width / 2, (int)pos.Y + bbox.Height / 2, hat.index.Width * 3, hat.index.Height * 3);
+				if(inter.bbox.Intersects(hitBox))
 				{
 					if(inter is Bullet) 
 					{
@@ -130,13 +135,14 @@ namespace BlankGame
 						PowerUp pwp = (PowerUp)inter;
 						g.fireMode = pwp.fireMode;
 						this.hatColor = pwp.hatColor;
+						pwp.isVisible = false;
 						return true;
 					}
 					//inter.isVisible = false;
 					//g.health--;
 					this.pos = this.pos + inter.direct;
-					if(pos.Y <= 0)
-						g.lives--;
+					if(pos.Y <= 0 && !(inter is Shield))
+						this.playerDied=true;
 					updateBBox();
 				}
 				return true;
@@ -166,8 +172,8 @@ namespace BlankGame
 						newX=0;
 					if(newX >= (280-image.index.Width)*g.scale)
 						newX = (280-image.index.Width)*g.scale;
-					if(newY >= (200-image.index.Height)*g.scaleH)
-						newY = (200-image.index.Height)*g.scaleH;
+					if(newY >= (300-image.index.Height)*g.scaleH)
+						newY = (300-image.index.Height)*g.scaleH;
 
 	
 					this.pos = new Vector2(newX, newY);
@@ -181,7 +187,7 @@ namespace BlankGame
 				float counter = 0.1f;
 				foreach(Vector2 p in trail) 
 				{
-				spriteBatch.Draw(partical.index,new Rectangle((int)p.X,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.LightSkyBlue*0.5f);
+					spriteBatch.Draw(partical.index,new Rectangle((int)p.X,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.LightSkyBlue*0.5f);
 					counter=counter+0.05f;
 				}
 

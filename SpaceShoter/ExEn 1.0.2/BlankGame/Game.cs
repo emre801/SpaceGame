@@ -37,11 +37,12 @@ namespace BlankGame
 		public int health=2;
 		public int lives=3;
 		public bool oniPad;
+		public bool shieldActive=false;
 		public float scale = 1, scaleH=1;
 
 		public FontRenderer fontRenderer;
 
-		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.CHARGESHOT;
+		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.CIRCLE;
 
 		public Options opt;//= new Options();
 
@@ -74,6 +75,8 @@ namespace BlankGame
 			addSprite("blueGUI", "blueGUI");
 			addSprite("incre", "incre");
 			addSprite("hat", "hat");
+			addSprite("shield", "shield");
+
 			drawingTool.initialize();
 
 			opt.LoadContent();
@@ -81,6 +84,13 @@ namespace BlankGame
 			mp.addNewSound("explosion");
 
 			player = new SpaceShipPlayer(this,getSprite("Ship"));
+			Shield shield = new Shield(this);
+			entitToAdd.Add(shield);
+			interactable.Add(shield);
+
+			CirclePUP cPUP = new CirclePUP(this);
+			entitToAdd.Add(cPUP);
+
 			entities.Add(player);
 			interactable.Add(player);
 
