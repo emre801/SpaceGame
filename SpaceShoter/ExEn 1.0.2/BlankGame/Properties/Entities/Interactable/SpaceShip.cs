@@ -164,7 +164,7 @@ namespace BlankGame
 					float y = (float)(rx*10f)*g.scaleH;
 
 					float newY = y + this.pos.Y;
-					float newX = x + this.pos.X;
+					float newX = x+ this.pos.X;
 
 					if(newY<=0)
 						newY=0;
@@ -172,8 +172,8 @@ namespace BlankGame
 						newX=0;
 					if(newX >= (280-image.index.Width)*g.scale)
 						newX = (280-image.index.Width)*g.scale;
-					if(newY >= (300-image.index.Height)*g.scaleH)
-						newY = (300-image.index.Height)*g.scaleH;
+					if(newY >= (480-image.index.Height)*g.scaleH)
+						newY = (480-image.index.Height)*g.scaleH;
 
 	
 					this.pos = new Vector2(newX, newY);

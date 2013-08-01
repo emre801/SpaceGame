@@ -20,10 +20,10 @@ namespace BlankGame
 				}
 				public override void Update()
 				{
-					this.pos = this.pos + direct;
+					this.pos = this.pos + direct*g.gameSpeed;
 					if(moveForward) 
 					{
-						if(this.pos.Y <= 250) 
+						if(this.pos.Y <= 250*g.scaleH) 
 						{
 							moveForward = false;
 							direct = new Vector2(-1, 0);
@@ -34,7 +34,7 @@ namespace BlankGame
 					{
 						if(moveleft) 
 						{
-							if(this.pos.X<=20)	
+							if(this.pos.X<=20*g.scale)	
 							{
 								direct = new Vector2(1, 0);
 								moveleft=false;
@@ -42,7 +42,7 @@ namespace BlankGame
 						}
 						else
 						{
-							if(this.pos.X>=200)	
+							if(this.pos.X>=200*g.scale)	
 							{
 								direct = new Vector2(-1, 0);
 								moveleft=true;
@@ -50,7 +50,7 @@ namespace BlankGame
 						}
 
 						stopWatch.Stop();
-						if(stopWatch.ElapsedMilliseconds >= 500) 
+						if(stopWatch.ElapsedMilliseconds >= 500*(1/g.gameSpeed)) 
 						{
 							g.entitToAdd.Add(new Bullet(g, pos, new Vector2(0, -4),false));
 							stopWatch.Reset();

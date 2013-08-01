@@ -13,7 +13,6 @@ namespace BlankGame
 				CIRCLESTATE cState=CIRCLESTATE.NORMAL;
 				Rectangle bbox;
 				int chargeRadius=0;
-				Vector2 pos;
 				List<Bullet> collectedBullets = new List<Bullet>();
 				Vector2 chargeSpot;
 				int prevTouch=0;
@@ -21,12 +20,13 @@ namespace BlankGame
 				public CirclePUP(Game g)
 				:base(g)
 				{
-					this.image = g.getSprite("Enemy");		
+					this.image = g.getSprite("circleCharge");		
 				}
 				public void updateBBox()
 				{
-					bbox = new Rectangle((int)g.player.pos.X-chargeRadius/2, (int)g.player.pos.Y-chargeRadius/2,
-			                     chargeRadius, chargeRadius);
+					bbox = new Rectangle((int)(g.player.pos.X-chargeRadius/2*g.scale+g.player.image.index.Width/2*g.scale),
+			                     (int)(g.player.pos.Y-chargeRadius/2*g.scale+g.player.image.index.Height/2*g.scale),
+			                     (int)(chargeRadius*g.scale), (int)(chargeRadius*g.scale));
 				}
 				public void getChargedBullets()
 				{
@@ -56,7 +56,7 @@ namespace BlankGame
 					float y2 = bull.pos.Y - (this.bbox.Center.Y);
 					y2 = y2 * y2;
 					float distance = (float)Math.Sqrt(x2 + y2);
-					if(distance < chargeRadius/2) 
+					if(distance < chargeRadius/2*g.scale) 
 					{
 						bull.isVisible = false;
 						collectedBullets.Add(bull);
@@ -110,8 +110,14 @@ namespace BlankGame
 							}
 						}
 						prevTouch = currentTouch;
+						if(chargeRadius>0)
+							g.gameSpeed = (120f - (float)chargeRadius) / 120f+0.1f;
+						else
+							g.gameSpeed=1f;
 						return;
+						
 					}
+					
 					prevTouch = 0;
 				}
 				public void previewShot(SpriteBatch spriteBatch)
@@ -120,6 +126,7 @@ namespace BlankGame
 					{
 						//Vector2 reverseBull = bull.direct * new Vector2(-1, -1);
 						Vector2 firePos = (bull.pos - chargeSpot) + g.player.pos;
+						
 						spriteBatch.Draw(bull.image.index, firePos, Color.White * 0.5f);
 					}
 

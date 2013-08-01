@@ -415,7 +415,7 @@ namespace BlankGame
 
 		public static int MeasureString(String s, UIFont font)
 		{
-			int len = s.Length * 20;
+
 
 			return 0;
 

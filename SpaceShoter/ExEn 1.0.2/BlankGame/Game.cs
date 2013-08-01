@@ -45,7 +45,7 @@ namespace BlankGame
 		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.CIRCLE;
 
 		public Options opt;//= new Options();
-
+		public float gameSpeed = 1f;
 
 		public Game()
 		{
@@ -76,6 +76,7 @@ namespace BlankGame
 			addSprite("incre", "incre");
 			addSprite("hat", "hat");
 			addSprite("shield", "shield");
+			addSprite("circleCharge","circleCharge");
 
 			drawingTool.initialize();
 

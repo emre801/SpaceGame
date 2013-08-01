@@ -180,6 +180,7 @@
     <BundleResource Include="Content\hat.png" />
     <BundleResource Include="Resources\Default.png" />
     <BundleResource Include="Content\shield.png" />
+    <BundleResource Include="Content\circleCharge.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">

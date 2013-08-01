@@ -31,7 +31,7 @@ namespace BlankGame
 			}
 			public override void Update()
 			{
-				this.pos = this.pos + direct;
+				this.pos = this.pos + direct*g.gameSpeed;
 				if(pos.Y > 500*g.scaleH || pos.Y<-10) 
 				{
 					this.isVisible = false;
