@@ -122,6 +122,7 @@
     <Compile Include="Properties\Entities\Interactable\Enemies\EnemyShooter.cs" />
     <Compile Include="Properties\Entities\Interactable\Shield.cs" />
     <Compile Include="Properties\Entities\Interactable\Circle.cs" />
+    <Compile Include="Properties\Entities\Interactable\Portal.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />

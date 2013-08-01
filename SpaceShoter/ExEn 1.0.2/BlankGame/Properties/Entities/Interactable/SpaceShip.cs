@@ -8,7 +8,7 @@ namespace BlankGame
 {
 		public class SpaceShipPlayer: Interact
 		{
-			public enum FireMode {NORMAL,FAST,TWO,THREE,CHARGESHOT,CIRCLE,SHIELD};
+			public enum FireMode {NORMAL,FAST,TWO,THREE,CHARGESHOT,CIRCLE,SHIELD,PORTAL};
 			public FireMode fireMode=FireMode.CHARGESHOT;
 			//Sprite image;
 			public int health= 20;
@@ -18,6 +18,7 @@ namespace BlankGame
 			Color hatColor=Color.White;
 			bool playerDied=false;
 			public bool isGod=true;
+			Vector2 positionOfP1;int portalCounter=1;
 
 
 			public SpaceShipPlayer(Game g,Sprite sprite)
@@ -56,6 +57,21 @@ namespace BlankGame
 				else if(g.fireMode == FireMode.CHARGESHOT) 
 				{
 					g.entitToAdd.Add(new ChargeBullet(g, g.player.pos, new Vector2(0, 5),20));
+				}
+				else if(g.fireMode== FireMode.PORTAL)
+				{
+					if(portalCounter%2==1)
+					{
+						positionOfP1 = g.player.pos;
+
+					} 
+					else 
+					{
+						g.entitToAdd.Add(new Portal(g, positionOfP1, g.player.pos));
+					}
+					portalCounter++;
+
+
 				}
 				g.mp.playSound("shoot");
 

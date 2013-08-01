@@ -42,7 +42,7 @@ namespace BlankGame
 
 		public FontRenderer fontRenderer;
 
-		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.CIRCLE;
+		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.PORTAL;
 
 		public Options opt;//= new Options();
 		public float gameSpeed = 1f;

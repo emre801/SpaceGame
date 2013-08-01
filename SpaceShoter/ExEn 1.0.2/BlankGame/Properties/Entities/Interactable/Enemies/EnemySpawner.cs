@@ -35,7 +35,7 @@ namespace BlankGame
 					if(r.Next(5000) <= 5) 
 					{
 						int xPos = r.Next(40, 280);
-						PowerUp e= new PowerUp(g,SpaceShipPlayer.FireMode.CIRCLE,
+						PowerUp e= new PowerUp(g,SpaceShipPlayer.FireMode.PORTAL,
 				                       new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),Color.Red);
 						g.entitToAdd.Add(e);
 
