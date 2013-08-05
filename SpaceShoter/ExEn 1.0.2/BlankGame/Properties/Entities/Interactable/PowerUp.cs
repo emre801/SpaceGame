@@ -43,6 +43,11 @@ namespace BlankGame
 					return false;
 				}
 
+				public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+				{
+					spriteBatch.Draw(image.index, bbox, hatColor);
+				}
+
 		}
 }
 

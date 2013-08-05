@@ -60,14 +60,17 @@ namespace BlankGame
 				}
 				else if(g.fireMode== FireMode.PORTAL)
 				{
-					if(portalCounter%2==1)
+					if(g.numPortals<1)
 					{
-						positionOfP1 = g.player.pos;
-
-					} 
-					else 
-					{
-						g.entitToAdd.Add(new Portal(g, positionOfP1, g.player.pos));
+						if(portalCounter%2==1)
+						{
+							positionOfP1 = g.player.pos;
+	
+						} 
+						else 
+						{
+							g.entitToAdd.Add(new Portal(g, positionOfP1, g.player.pos));
+						}
 					}
 					portalCounter++;
 
