@@ -21,11 +21,11 @@ namespace BlankGame
 			{
 				if(game.oniPad) 
 				{
-					spriteBatch.Draw(blueGUI.index, new Rectangle((int)(280*game.scale),0,100,1040), Color.White);
+					//spriteBatch.Draw(blueGUI.index, new Rectangle((int)(280*game.scale),0,100,1040), Color.White);
 				}
 				else 
 				{
-					spriteBatch.Draw(blueGUI.index, new Vector2(280, 0), Color.White);
+					//spriteBatch.Draw(blueGUI.index, new Vector2(280, 0), Color.White);
 				}
 			}
 

@@ -14,7 +14,7 @@ namespace BlankGame
 				//protected Vector2 direct;
 				//Sprite image;
 				protected Random r;
-				
+				protected int points=30;
 				public Enemy(Game g, Vector2 pos,Vector2 direct)
 				:base(g)
 				{
@@ -37,6 +37,7 @@ namespace BlankGame
 								g.entitToAdd.Add(exp);
 								//g.es.numEnemies--;
 								g.es.removeEnemyFromList(this);
+								g.points += this.points;
 								return true;
 							}
 					}

@@ -123,6 +123,8 @@
     <Compile Include="Properties\Entities\Interactable\Shield.cs" />
     <Compile Include="Properties\Entities\Interactable\Circle.cs" />
     <Compile Include="Properties\Entities\Interactable\Portal.cs" />
+    <Compile Include="Properties\Entities\GameOver.cs" />
+    <Compile Include="Properties\HighScoreData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -182,6 +184,12 @@
     <BundleResource Include="Resources\Default.png" />
     <BundleResource Include="Content\shield.png" />
     <BundleResource Include="Content\circleCharge.png" />
+    <BundleResource Include="Content\Sounds\shoot.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Content\Sounds\powerUp.wav" />
+    <BundleResource Include="Content\HighScores.xml" />
+    <BundleResource Include="Content\high.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">
@@ -191,9 +199,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Fonts\2pFont.fnt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sounds\shoot.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

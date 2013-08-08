@@ -48,6 +48,24 @@ namespace BlankGame
 						return;
 
 					}
+					if(g.gameState == Game.GameState.GAMEOVER) 
+					{
+						if(g.go.contin.isButtonPressed) 
+						{
+							g.gameState = Game.GameState.GAMETIME;
+							g.restart=true;
+							g.mp.pauseUnpauseMusic();
+						}
+						if(g.go.toTitle.isButtonPressed) 
+						{
+							g.gameState = Game.GameState.TITLE;
+							g.restart = true;
+						}
+				
+						prevCount = tc.Count;
+						return;
+
+					}
 					
 					if(g.gameState == Game.GameState.OPTIONS) 
 					{

@@ -17,7 +17,7 @@ namespace BlankGame
 			Sprite partical,hat;
 			Color hatColor=Color.White;
 			bool playerDied=false;
-			public bool isGod=true;
+			public bool isGod=false;
 			Vector2 positionOfP1;int portalCounter=1;
 
 
@@ -103,6 +103,13 @@ namespace BlankGame
 					updateBBox();
 					playerDied = false;
 					g.lives--;
+					if(g.lives < 0) 
+					{
+						g.gameState = Game.GameState.GAMEOVER;
+						g.lives = 3;
+						g.mp.pauseUnpauseMusic();
+						g.hsd.writeFile("Content/high.txt");
+					}
 					g.health = 3;
 					g.mp.playSound("explosion");
 				}	
@@ -111,7 +118,7 @@ namespace BlankGame
 			{
 				foreach(Entity e in g.entities) 
 				{
-					if(e != this && e is Interact && !(e is Bullet)&& !(e is Shield)) 
+					if(e != this && e is Interact && !(e is Bullet)&& !(e is Shield) && !(e is PowerUp)) 
 					{
 						Interact ai = (Interact)e;
 						if(ai.bbox.Intersects(this.bbox))
@@ -125,7 +132,7 @@ namespace BlankGame
 
 			public void updateTrail()
 			{
-				trail.Enqueue(pos + new Vector2(image.index.Width/4f,0));
+				trail.Enqueue(pos);
 				if(trail.Count > 10)
 					trail.Dequeue();
 
@@ -155,6 +162,7 @@ namespace BlankGame
 						g.fireMode = pwp.fireMode;
 						this.hatColor = pwp.hatColor;
 						pwp.isVisible = false;
+						g.mp.playSound("powerUp");
 						return true;
 					}
 					//inter.isVisible = false;
@@ -198,17 +206,40 @@ namespace BlankGame
 					this.pos = new Vector2(newX, newY);
 				}
 			}
+			
+			public void drawRainBow(Vector2 p1, Vector2 p2, float alpha)
+			{
 
+			g.drawingTool.DrawLine(1f, Color.Red*alpha, p1, p2);
+			g.drawingTool.DrawLine(1f, Color.Orange*alpha, p1+ new Vector2(2,0), p2+ new Vector2(2,0));
+			g.drawingTool.DrawLine(1f, Color.Yellow*alpha, p1+ new Vector2(4,0), p2+ new Vector2(4,0));
+			g.drawingTool.DrawLine(1f, Color.Green*alpha, p1+ new Vector2(6,0), p2+ new Vector2(6,0));
+			g.drawingTool.DrawLine(1f, Color.SkyBlue*alpha, p1+ new Vector2(8,0), p2+ new Vector2(8,0));
+			g.drawingTool.DrawLine(1f, Color.Blue*alpha, p1+ new Vector2(10,0), p2+ new Vector2(10,0));
+			}
 
 
 			public override void Draw(SpriteBatch spriteBatch,Microsoft.Xna.Framework.GameTime gameTime)
 			{
-				float counter = 0.1f;
-				foreach(Vector2 p in trail) 
+				float counter = 0.5f;
+				Vector2[] trailArray = trail.ToArray();
+				/*foreach(Vector2 p in trail) 
 				{
-					spriteBatch.Draw(partical.index,new Rectangle((int)p.X,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.LightSkyBlue*0.5f);
-					counter=counter+0.05f;
-				}
+					spriteBatch.Draw(partical.index,new Rectangle((int)p.X,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.Red*0.9f);
+					spriteBatch.Draw(partical.index,new Rectangle((int)p.X+2,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.Orange*0.9f);
+					spriteBatch.Draw(partical.index,new Rectangle((int)p.X+4,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.Yellow*0.9f);
+					spriteBatch.Draw(partical.index,new Rectangle((int)p.X+6,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.Green*0.9f);
+					spriteBatch.Draw(partical.index,new Rectangle((int)p.X+8,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.SkyBlue*0.9f);
+					spriteBatch.Draw(partical.index,new Rectangle((int)p.X+10,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.Blue*0.9f);
+					spriteBatch.Draw(partical.index,new Rectangle((int)p.X+12,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.Purple*0.9f);
+					//counter=counter+0.05f;
+				}*/
+			if(trailArray.Length>3)
+			for(int i=0;i<trailArray.Length-1;i++)
+			{
+				drawRainBow(trailArray [i], trailArray [i+1],counter);
+				counter += 0.05f;
+			}	
 
 				spriteBatch.Draw(image.index, bbox, Color.White);
 				spriteBatch.Draw(hat.index, new Rectangle((int)pos.X+bbox.Width/2,(int)pos.Y+bbox.Height/2,hat.index.Width,hat.index.Height), hatColor);

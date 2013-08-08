@@ -49,7 +49,7 @@ namespace BlankGame
 		TitleScreen ts;
 		GUI gui;
 		FontRenderer fontRender;
-
+		Texture2D blank; 
 		public DrawingTool(Game game)
 		{
 			this.game = game;
@@ -94,6 +94,7 @@ namespace BlankGame
 		{
 			spriteBatch = new SpriteBatch(gdm.GraphicsDevice);  
 			gui = new GUI(game);
+			blank = game.getSprite("partical").index;
 		}
 		public void resetCamera()
 		{
@@ -112,6 +113,16 @@ namespace BlankGame
 		{
 
 		}
+		public void DrawLine( float width, Color color, Vector2 point1, Vector2 point2)
+		{
+			float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
+			float length = Vector2.Distance(point1, point2);
+
+			this.spriteBatch.Draw(this.blank, point1, null, color,
+			           angle, Vector2.Zero, new Vector2(length, width),
+			           SpriteEffects.None, 0);
+		}
+
 
 
 		#region coordinate conversions
@@ -300,9 +311,26 @@ namespace BlankGame
 
 		}
 
+		public void updateCamera()
+		{
+			if(UIDevice.CurrentDevice.Orientation==UIDeviceOrientation.LandscapeLeft)
+			{
+				cam.Rotation = 1.57079633f;
+				cam.Pos = new Vector2(150, 75);
+			}
+			else if(UIDevice.CurrentDevice.Orientation== UIDeviceOrientation.LandscapeRight)
+			{	
+				cam.Rotation = 4.71238898f;
+				cam.Pos = new Vector2(310, 230);
+			}
+
+		}
+
 		private void beginBatch()
 		{
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+			//spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
+
 		}
 		internal void drawEntities(List<Entity> entities, GameTime gameTime)
 		{
@@ -324,14 +352,15 @@ namespace BlankGame
 
 			endBatch();
 
+
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
 			if(game.oniPad) 
 			{
-				fontRender.DrawText(spriteBatch, 10, -420, "HP:" + game.health + " Lives:" + game.lives + "  " + game.getFireMode(), 1.2f, Color.Black);
+				fontRender.DrawText(spriteBatch, 10, -420, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points + " "+ game.entities.Count, 1.2f, Color.White);
 			} 
 			else 
 			{
-				fontRender.DrawText(spriteBatch, 0, 5, "HP:" + game.health + " Lives:" + game.lives + "  " + game.getFireMode(), 0.5f, Color.Black);
+				fontRender.DrawText(spriteBatch, 0, 20, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points+" "+ game.entities.Count, 0.5f, Color.White);
 			}
 			endBatch();
 
@@ -357,6 +386,18 @@ namespace BlankGame
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
 			opt.Draw(spriteBatch);
+			endBatch();
+
+
+		}
+		public void drawGameOver(GameOver go, GameTime gameTime)
+		{
+			beginBatch();
+			game.bs.Draw(spriteBatch, gameTime);
+			endBatch();
+
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
+			go.Draw(spriteBatch);
 			endBatch();
 
 
@@ -402,7 +443,7 @@ namespace BlankGame
 
 		}
 		//DrawsLine be careful, to many lines cause lag....
-		public void DrawLine(SpriteBatch batch,
+		public void DrawLines(SpriteBatch batch,
 		                     float width, Color color, Vector2 point1, Vector2 point2)
 		{
 

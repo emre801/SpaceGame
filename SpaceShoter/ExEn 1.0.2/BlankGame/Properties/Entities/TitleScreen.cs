@@ -6,7 +6,7 @@ namespace BlankGame
 {
 		public class TitleScreen
 		{
-			Sprite start,options,other;
+		Sprite start;//,options,other;
 			Game game;
 			public Button startB,optionsB;
 			

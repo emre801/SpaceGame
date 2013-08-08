@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using MonoTouch.CoreMotion;
@@ -17,7 +21,7 @@ namespace BlankGame
 		protected GraphicsDeviceManager graphics;
 		public List<Entity> entities = new List<Entity>();
 		public List<Interact> interactable = new List<Interact>();
-		public enum GameState {TITLE,GAMETIME,OPTIONS};
+		public enum GameState {TITLE,GAMETIME,OPTIONS,GAMEOVER};
 		public GameState gameState;
 		public DrawingTool drawingTool;
 		Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
@@ -35,18 +39,24 @@ namespace BlankGame
 		public SpriteFont sFont;
 
 		public int health=2;
-		public int lives=3;
+		public int lives=1;
 		public bool oniPad;
 		public bool shieldActive=false;
 		public float scale = 1, scaleH=1;
 
 		public FontRenderer fontRenderer;
+		public GameOver go;
 
 		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.CIRCLE;
 
 		public Options opt;//= new Options();
 		public float gameSpeed = 1f;
 		public int numPortals = 0;
+
+		public float points = 0;
+		public bool restart=false;
+
+		public HighScoreData hsd;
 
 		public Game()
 		{
@@ -65,6 +75,7 @@ namespace BlankGame
 			mp = new MusicPlayer(this);
 			ts = new TitleScreen(this);
 			opt = new Options(this);
+			go=new GameOver(this);
 		}
 
 		protected override void LoadContent()
@@ -84,7 +95,7 @@ namespace BlankGame
 			opt.LoadContent();
 			mp.addNewSound("shoot");
 			mp.addNewSound("explosion");
-
+			mp.addNewSound("powerUp");
 			player = new SpaceShipPlayer(this,getSprite("Ship"));
 			Shield shield = new Shield(this);
 			entitToAdd.Add(shield);
@@ -119,6 +130,8 @@ namespace BlankGame
 			mp.addNewSong("Nostalgia");
 			mp.addNewSong("Syntax Error");
 			mp.addNewSong("Tokyo Escapade");
+
+			initHighScore();
 		}
 
 		public Sprite getSprite(String fName)
@@ -128,7 +141,6 @@ namespace BlankGame
 			return sprites ["Ship"];
 
 		}
-
 
 		public String getFireMode()
 		{
@@ -143,6 +155,48 @@ namespace BlankGame
 			if(fireMode == SpaceShipPlayer.FireMode.CIRCLE)
 				return "C";
 			return "S";
+		}
+
+		public void initHighScore()
+		{
+			// Get the path of the save game
+			//LoadHighScores("Content/HighScores.xml");
+			// Get the path of the save game
+			String HighScoresFilename = "Content/high.txt";
+			string fullpath = Path.Combine(StorageContainer.TitleLocation, HighScoresFilename);
+
+			// Check to see if the save exists
+			if (!File.Exists(fullpath))
+			{
+				//If the file doesn't exist, make a fake one...
+				// Create the data to save*
+				/*
+				HighScoreData data = new HighScoreData(5);
+				data.PlayerName[0] = "Neil";
+				data.Level[0] = 10;
+				data.Score[0] = 200500;
+
+				data.PlayerName[1] = "Shawn";
+				data.Level[1] = 10;
+				data.Score[1] = 187000;
+
+				data.PlayerName[2] = "Mark";
+				data.Level[2] = 9;
+				data.Score[2] = 113300;
+
+				data.PlayerName[3] = "Cindy";
+				data.Level[3] = 7;
+				data.Score[3] = 95100;
+
+				data.PlayerName[4] = "Sam";
+				data.Level[4] = 1;
+				data.Score[4] = 1000;
+
+				SaveHighScores(data, HighScoresFilename);*/
+			}
+			else
+				hsd= new HighScoreData(fullpath);
+				
 		}
 
 
@@ -161,6 +215,11 @@ namespace BlankGame
 			opt.Update();
 			UpdateStarParticles();
 
+		}
+		public void UpdateGameOver()
+		{
+			go.Update();
+			UpdateStarParticles();
 		}
 
 		public void UpdateStarParticles()
@@ -193,20 +252,60 @@ namespace BlankGame
 			entitToAdd = new List<Entity>();
 
 		}
+		public void restartGame()
+		{
+			restart=false;
+			interactable = new List<Interact>();
+			entities= new List<Entity>();
+			entitToRemove = new List<Entity>();
+			entitToAdd = new List<Entity>();
+			es = new EnemySpawner(this);
+			player = new SpaceShipPlayer(this,getSprite("Ship"));
+			Shield shield = new Shield(this);
+			entitToAdd.Add(shield);
+			interactable.Add(shield);
+
+			CirclePUP cPUP = new CirclePUP(this);
+			entitToAdd.Add(cPUP);
+
+			entities.Add(player);
+			interactable.Add(player);
+			this.points = 0;
+
+
+		}
 
 
 		protected override void Update(GameTime gameTime)
 		{
 
-			tso.Update();
 			if(gameState == GameState.TITLE)
 			{
 				UpdateTite();
+				tso.Update();
 				return;
 			}
+
+			if(gameState == GameState.GAMEOVER)
+			{
+				UpdateGameOver();
+				tso.Update();
+				return;
+			}
+			tso.Update();
+
+
+
+
 			if(gameState == GameState.OPTIONS)
 			{
 				UpdateOptions();
+				return;
+			}
+
+			if(restart)
+			{
+				restartGame();
 				return;
 			}
 
@@ -272,7 +371,7 @@ namespace BlankGame
 		private void StartGyro()
 		{
 			motionManager = new CMMotionManager();
-			motionManager.GyroUpdateInterval = 1/10;
+			motionManager.GyroUpdateInterval = 1/100;
 			if (motionManager.GyroAvailable)
 			{
 				motionManager.StartGyroUpdates(NSOperationQueue.MainQueue, GyroData_Received);
@@ -290,6 +389,7 @@ namespace BlankGame
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.Black);
+			drawingTool.updateCamera();
 			if(gameState == GameState.TITLE) 
 			{
 				drawingTool.drawTitle(ts,gameTime);
@@ -300,6 +400,12 @@ namespace BlankGame
 				drawingTool.drawOptions(opt, gameTime);
 				return;
 			}
+			if(gameState == GameState.GAMEOVER)
+			{
+				drawingTool.drawGameOver(go, gameTime);
+				return;
+			}
+
 
 			drawingTool.drawEntities(entities, gameTime);
 			//base.Draw(gameTime);
