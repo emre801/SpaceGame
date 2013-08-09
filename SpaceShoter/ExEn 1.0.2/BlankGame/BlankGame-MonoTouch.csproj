@@ -189,7 +189,9 @@
     </BundleResource>
     <BundleResource Include="Content\Sounds\powerUp.wav" />
     <BundleResource Include="Content\HighScores.xml" />
-    <BundleResource Include="Content\high.txt" />
+    <BundleResource Include="Resources\high.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">

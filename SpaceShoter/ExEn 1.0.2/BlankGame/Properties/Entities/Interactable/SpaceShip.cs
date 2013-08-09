@@ -108,7 +108,7 @@ namespace BlankGame
 						g.gameState = Game.GameState.GAMEOVER;
 						g.lives = 3;
 						g.mp.pauseUnpauseMusic();
-						g.hsd.writeFile("Content/high.txt");
+						g.hsd.writeFile("high.txt");
 					}
 					g.health = 3;
 					g.mp.playSound("explosion");

@@ -38,8 +38,8 @@ namespace BlankGame
 		public bool isPaused=false;
 		public SpriteFont sFont;
 
-		public int health=2;
-		public int lives=1;
+		public int health=1;
+		public int lives=0;
 		public bool oniPad;
 		public bool shieldActive=false;
 		public float scale = 1, scaleH=1;

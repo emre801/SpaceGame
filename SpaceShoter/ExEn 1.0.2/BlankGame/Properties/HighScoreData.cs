@@ -56,8 +56,14 @@ namespace BlankGame
 			{
 				outPutFile += System.Environment.NewLine + line;
 			}
-			File.SetAttributes(fileName,FileAttributes.Normal);
-			File.WriteAllText(fileName, outPutFile);
+			//File.SetAttributes(fileName,FileAttributes.Normal);
+
+			String documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
+
+			var filly= Path.Combine(documents,fileName);
+			//String[] dirs= Directory.GetFiles(Environment.GetFolderPath (Environment.SpecialFolder.Personal),"*");
+			File.WriteAllText(filly, outPutFile);
+
 
 
 		}
