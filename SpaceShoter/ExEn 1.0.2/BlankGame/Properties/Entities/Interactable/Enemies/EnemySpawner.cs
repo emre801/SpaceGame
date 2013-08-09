@@ -1,7 +1,9 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using MonoTouch;
 using System.Collections;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
@@ -18,14 +20,54 @@ namespace BlankGame
 				Random r2;
 				//public int numEnemies=0;
 				Color hatColor=Color.White;
+				Stopwatch timer;
+				PriorityQueue<int,Interact> objsToSpawn;
 				public EnemySpawner(Game g)
 				{
 					this.g = g;
 					r = new Random(801);
 					r2 = new Random();
+					objsToSpawn = new PriorityQueue<int, Interact>();
 				}
+				public void init()
+				{
+					readLevel(0);
+					timer = new Stopwatch();
+					timer.Start();
+				}
+				public void readLevel(int levelNum)
+				{
+					String path = Path.Combine("Content/Levels", "Level" + levelNum + ".txt");
+					String file = File.ReadAllText(path);
+					StringReader sr = new StringReader(file);
+					String line;
+					char[] delimiterChars = { ' ', ',', ':', '\t' };
+					while((line = sr.ReadLine()) != null) 
+					{
+						string[] words = line.Split(delimiterChars);
+						if(words[0].Equals("en1"))
+						{
+							int time=(int)System.Convert.ToSingle(words[1]);
+							int xPos=(int)System.Convert.ToSingle(words[2]);
+							Enemy e= new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),time);
+							objsToSpawn.Enqueue(time,e);
+						}
+						if(words[0].Equals("pw1"))
+				   		{
+							int time=(int)System.Convert.ToSingle(words[1]);
+							int xPos=(int)System.Convert.ToSingle(words[2]);
+							Color ranColor = hatColor;
+							PowerUp pwp= new PowerUp(g,randFireMode(),
+					                       new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),ranColor,time);
+							objsToSpawn.Enqueue(time,pwp);
+						}
+
+					}
+				}
+
 				public void Update()
 				{
+					/*
 					if(r.Next(2000)<=5 && numEnemies()<10) 
 					{
 						int xPos = r.Next(40, 280);
@@ -44,7 +86,16 @@ namespace BlankGame
 				                       new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),ranColor);
 						g.entitToAdd.Add(e);
 
+					}*/
+					timer.Stop();
+					int currentTime = (int)(timer.ElapsedMilliseconds/1000);
+					timer.Start();
+					
+					while(objsToSpawn.Count>0 && objsToSpawn.Peek().Value.timer<=currentTime) 
+					{
+						g.entitToAdd.Add(objsToSpawn.DequeueValue());
 					}
+
 				}
 
 				public SpaceShipPlayer.FireMode randFireMode()

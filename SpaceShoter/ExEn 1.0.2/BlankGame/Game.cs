@@ -58,6 +58,7 @@ namespace BlankGame
 
 		public HighScoreData hsd;
 		public string currentPlayerName = "Santa";
+		public int currentLevel=0;
 
 		public Game()
 		{
@@ -133,6 +134,7 @@ namespace BlankGame
 			mp.addNewSong("Tokyo Escapade");
 
 			initHighScore();
+			es.init();
 		}
 
 		public Sprite getSprite(String fName)

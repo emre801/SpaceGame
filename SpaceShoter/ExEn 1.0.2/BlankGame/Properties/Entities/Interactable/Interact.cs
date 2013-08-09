@@ -12,10 +12,16 @@ namespace BlankGame
 			public Rectangle bbox;
 			public Sprite image;
 			public Vector2 direct;
+			public int timer;
 			public Interact(Game g)
 				:base(g)
 			{
-					
+				timer = 0;		
+			}
+			public Interact(Game g,int timer)
+			:base(g)
+			{
+				this.timer=timer;
 			}
 			public virtual void updateBBox()
 			{

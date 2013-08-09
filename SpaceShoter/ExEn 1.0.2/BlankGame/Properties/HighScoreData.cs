@@ -6,7 +6,7 @@ using System.Text;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using System.Diagnostics;
+
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Graphics;
 namespace BlankGame
@@ -58,14 +58,14 @@ namespace BlankGame
 			String line;
 			char[] delimiterChars = { ' ', ',', ':', '\t' };
 			while((line = sr.ReadLine()) != null) {
-				string[] words = line.Split(delimiterChars);
-				if(words[0].Equals("HS"))
-				{
-					String pName=words[1];
-					float score=System.Convert.ToSingle(words[2]);
-					float level=System.Convert.ToSingle(words[3]);
-					addNewScore(pName,score,level);
-				}
+			string[] words = line.Split(delimiterChars);
+			if(words[0].Equals("HS"))
+			{
+				String pName=words[1];
+				float score=System.Convert.ToSingle(words[2]);
+				float level=System.Convert.ToSingle(words[3]);
+				addNewScore(pName,score,level);
+			}
 
 			}
 		}

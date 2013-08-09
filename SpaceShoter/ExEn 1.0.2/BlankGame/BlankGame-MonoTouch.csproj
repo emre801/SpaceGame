@@ -139,6 +139,7 @@
     <Folder Include="Content\Music\" />
     <Folder Include="Properties\Button\" />
     <Folder Include="Content\Sounds\" />
+    <Folder Include="Content\Levels\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />
@@ -206,5 +207,6 @@
     <Content Include="Content\Fonts\2pFont.fnt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Levels\Level0.txt" />
   </ItemGroup>
 </Project>

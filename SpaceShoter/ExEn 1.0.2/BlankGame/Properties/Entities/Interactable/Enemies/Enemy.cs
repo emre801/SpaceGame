@@ -15,8 +15,8 @@ namespace BlankGame
 				//Sprite image;
 				protected Random r;
 				protected int points=30;
-				public Enemy(Game g, Vector2 pos,Vector2 direct)
-				:base(g)
+				public Enemy(Game g, Vector2 pos,Vector2 direct,int timer)
+				:base(g,timer)
 				{
 					this.direct = direct;
 					this.image = g.getSprite("Enemy");
