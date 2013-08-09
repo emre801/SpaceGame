@@ -47,6 +47,8 @@ namespace BlankGame
 						game.fontRenderer.DrawText(spriteBatch, 100, 140, "Continue", 0.45f, Color.White);
 						game.fontRenderer.DrawText(spriteBatch, 100, 180, "Quit", 0.45f, Color.White);
 					}
+						game.hsd.drawTop10(spriteBatch);
+
 
 				}
 		}

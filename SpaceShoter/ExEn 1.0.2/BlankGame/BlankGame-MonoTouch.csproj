@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
+    <None Include="PriorityQueue.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -125,6 +126,7 @@
     <Compile Include="Properties\Entities\Interactable\Portal.cs" />
     <Compile Include="Properties\Entities\GameOver.cs" />
     <Compile Include="Properties\HighScoreData.cs" />
+    <Compile Include="PriorityQueue.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -189,9 +191,10 @@
     </BundleResource>
     <BundleResource Include="Content\Sounds\powerUp.wav" />
     <BundleResource Include="Content\HighScores.xml" />
-    <BundleResource Include="Resources\high.txt">
+    <BundleResource Include="Content\high.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
+    <BundleResource Include="Content\option.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">

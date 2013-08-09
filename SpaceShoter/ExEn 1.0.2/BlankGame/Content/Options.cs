@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 namespace BlankGame
@@ -29,6 +31,22 @@ namespace BlankGame
 					{
 
 					}
+				
+					initOptions();
+				}
+
+				public void initOptions()
+				{
+					String loadedPath = "Content/option.txt";
+					String documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
+					String path = Path.Combine(documents, "option.txt");
+					if(Constants.START_WITH_FRESH_FILE)
+						File.Delete(path);
+					// Check to see if the save exists, if it doesn't use the initial one
+					if(!File.Exists(path))
+						readFile(loadedPath);
+					else
+						readFile(path);
 				}
 
 				public void LoadContent()
@@ -68,6 +86,46 @@ namespace BlankGame
 
 
 				}
+
+				public void writeFile()
+				{
+					LinkedList<String> lines = new LinkedList<String>();
+					lines.AddLast("mv " + musicVolume);
+					lines.AddLast("sfx " + sfxVolume);
+					String outPutFile = "";
+					foreach(String line in lines)
+					{
+						outPutFile += System.Environment.NewLine + line;
+					}
+
+					String documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
+
+					var filly= Path.Combine(documents,"option.txt");
+					File.WriteAllText(filly, outPutFile);
+				}
+
+				public void readFile(String fileName)
+				{
+					string file=File.ReadAllText(fileName);
+					StringReader sr = new StringReader(file);
+					String line;
+					char[] delimiterChars = { ' ', ',', ':', '\t' };
+					while((line = sr.ReadLine()) != null) {
+						string[] words = line.Split(delimiterChars);
+						if(words[0].Equals("mv"))
+						{
+							float tempV=System.Convert.ToSingle(words[1]);
+							this.musicVolume=(int)tempV;
+						}
+						if(words[0].Equals("sfx"))
+						{
+							float tempV=System.Convert.ToSingle(words[1]);
+							this.sfxVolume=(int)tempV;
+						}
+
+					}
+				}
+
 				public void Draw(SpriteBatch spriteBatch)
 				{
 					spriteBatch.Draw(incre.index, sfxVolU.demi, Color.White);

@@ -77,6 +77,7 @@ namespace BlankGame
 						{
 							g.gameState = Game.GameState.TITLE;
 							g.mp.updateVolume();
+							g.opt.writeFile();
 						}
 						prevCount = tc.Count;
 						return;	

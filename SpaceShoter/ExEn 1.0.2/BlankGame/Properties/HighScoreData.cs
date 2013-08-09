@@ -1,25 +1,54 @@
 using System;
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Text;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.Graphics;
 namespace BlankGame
 {
+
+
+	public class HighScoreInfo : IComparable<HighScoreInfo>
+	{
+		public String playerName;
+		public int score;
+		public int level;
+		public HighScoreInfo(String playerName,int score,int level)
+		{
+			this.playerName=playerName;
+			this.score=score;
+			this.level=level;
+		}
+
+		public int CompareTo(HighScoreInfo other)
+		{
+			return this.score >= other.score ? 1 : -1;
+		}
+
+	}
+
+
+
 	public class HighScoreData
 	{
-		public ArrayList PlayerName;
-		public ArrayList Score;
-		public ArrayList Level;
-		public HighScoreData(String fileName)
+		//public ArrayList PlayerName;
+		//public ArrayList Score;
+		//public ArrayList Level;
+		Game g;
+		PriorityQueue<int,HighScoreInfo> queue;
+		public HighScoreData(String fileName,Game g)
 		{
-			PlayerName= new ArrayList();
-			Score= new ArrayList();
-			Level = new ArrayList();
+			//PlayerName= new ArrayList();
+			//Score= new ArrayList();
+			//Level = new ArrayList();
+			queue = new PriorityQueue<int,HighScoreInfo>();
 			readFile(fileName);
+			this.g = g;
 
 		}
 		public void readFile(String fileName)
@@ -32,9 +61,10 @@ namespace BlankGame
 				string[] words = line.Split(delimiterChars);
 				if(words[0].Equals("HS"))
 				{
-					PlayerName.Add(words[1]);
-					Score.Add(System.Convert.ToSingle(words[2]));
-					Level.Add(System.Convert.ToSingle(words[2]));
+					String pName=words[1];
+					float score=System.Convert.ToSingle(words[2]);
+					float level=System.Convert.ToSingle(words[3]);
+					addNewScore(pName,score,level);
 				}
 
 			}
@@ -42,14 +72,16 @@ namespace BlankGame
 		public void writeFile(String fileName)
 		{
 			LinkedList<String> lines = new LinkedList<String>();
-			for(int i=0; i<PlayerName.Count; i++) 
+			int count = queue.Count;
+			PriorityQueue<int,HighScoreInfo> tempQueue = new PriorityQueue<int, HighScoreInfo>();
+			for(int i=0; i<count; i++) 
 			{
-				String name= (String)PlayerName[i];
-				float score= (float)Score[i];
-				float level = (float)Level[i];
-				String output="HS "+name +" "+score+" "+level;
+				HighScoreInfo tempHighScore = queue.Dequeue().Value;
+				tempQueue.Enqueue(tempHighScore.score*-1,tempHighScore);;
+				String output="HS "+tempHighScore.playerName +" "+(int)tempHighScore.score+" "+(int)tempHighScore.level;
 				lines.AddLast(output);
 			}
+			queue = tempQueue;
 
 						String outPutFile = "";
 			foreach(String line in lines)
@@ -62,11 +94,37 @@ namespace BlankGame
 
 			var filly= Path.Combine(documents,fileName);
 			//String[] dirs= Directory.GetFiles(Environment.GetFolderPath (Environment.SpecialFolder.Personal),"*");
-			File.WriteAllText(filly, outPutFile);
+			File.WriteAllText(filly, outPutFile); 
+		}
+
+		public void drawTop10(SpriteBatch spriteBatch)
+		{
+			int spacing = 0;
+			g.fontRenderer.DrawText(spriteBatch, 300, 20, "Top 10", 0.45f, Color.White);
+			PriorityQueue<int,HighScoreInfo> tempQueue = new PriorityQueue<int, HighScoreInfo>();
+			int count = queue.Count;
+			for(int i=0; i<count; i++) 
+			{
+				//String info = (String)PlayerName [i] + " " + (float)(Score [i]);
+				HighScoreInfo tempHighScore = queue.Dequeue().Value;
+				tempQueue.Enqueue(tempHighScore.score*-1,tempHighScore);
+				String info = tempHighScore.playerName + " " + tempHighScore.score;
+				g.fontRenderer.DrawText(spriteBatch, 300, 40+spacing, info, 0.35f, Color.White);
+				spacing += 10;
+			}
+			queue = tempQueue;
 
 
 
 		}
+
+		public void addNewScore(String name,float score, float level)
+		{
+			HighScoreInfo newHighScore = new HighScoreInfo(name, (int)score, (int)level);
+			queue.Enqueue((int)-score, newHighScore);
+		}
+
+
 	}
 	
 }

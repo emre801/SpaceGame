@@ -57,6 +57,7 @@ namespace BlankGame
 		public bool restart=false;
 
 		public HighScoreData hsd;
+		public string currentPlayerName = "Santa";
 
 		public Game()
 		{
@@ -159,43 +160,17 @@ namespace BlankGame
 
 		public void initHighScore()
 		{
-			// Get the path of the save game
-			//LoadHighScores("Content/HighScores.xml");
-			// Get the path of the save game
-			String HighScoresFilename = "Content/high.txt";
-			string fullpath = Path.Combine(StorageContainer.TitleLocation, HighScoresFilename);
-
-			// Check to see if the save exists
-			if (!File.Exists(fullpath))
-			{
-				//If the file doesn't exist, make a fake one...
-				// Create the data to save*
-				/*
-				HighScoreData data = new HighScoreData(5);
-				data.PlayerName[0] = "Neil";
-				data.Level[0] = 10;
-				data.Score[0] = 200500;
-
-				data.PlayerName[1] = "Shawn";
-				data.Level[1] = 10;
-				data.Score[1] = 187000;
-
-				data.PlayerName[2] = "Mark";
-				data.Level[2] = 9;
-				data.Score[2] = 113300;
-
-				data.PlayerName[3] = "Cindy";
-				data.Level[3] = 7;
-				data.Score[3] = 95100;
-
-				data.PlayerName[4] = "Sam";
-				data.Level[4] = 1;
-				data.Score[4] = 1000;
-
-				SaveHighScores(data, HighScoresFilename);*/
-			}
+			String loadedPath = "Content/high.txt";
+			String documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
+			String path = Path.Combine(documents, "high.txt");
+			if(Constants.START_WITH_FRESH_FILE)
+				File.Delete(path);
+			// Check to see if the save exists, if it doesn't use the initial one
+			if (!File.Exists(path))
+				hsd = new HighScoreData(loadedPath,this);
+			
 			else
-				hsd= new HighScoreData(fullpath);
+				hsd= new HighScoreData(path,this);
 				
 		}
 
@@ -292,16 +267,18 @@ namespace BlankGame
 				tso.Update();
 				return;
 			}
+			if(gameState == GameState.OPTIONS)
+			{
+				UpdateOptions();
+				tso.Update();
+				return;
+			}
 			tso.Update();
 
 
 
 
-			if(gameState == GameState.OPTIONS)
-			{
-				UpdateOptions();
-				return;
-			}
+
 
 			if(restart)
 			{
