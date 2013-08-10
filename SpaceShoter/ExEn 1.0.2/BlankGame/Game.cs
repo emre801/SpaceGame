@@ -248,6 +248,7 @@ namespace BlankGame
 			entities.Add(player);
 			interactable.Add(player);
 			this.points = 0;
+			es.init();
 
 
 		}
@@ -255,7 +256,7 @@ namespace BlankGame
 
 		protected override void Update(GameTime gameTime)
 		{
-
+			mp.playMusic();
 			if(gameState == GameState.TITLE)
 			{
 				UpdateTite();
@@ -288,7 +289,7 @@ namespace BlankGame
 				return;
 			}
 
-			mp.playMusic();
+
 			if(isPaused)
 					return;
 			doCollisions();
@@ -350,7 +351,7 @@ namespace BlankGame
 		private void StartGyro()
 		{
 			motionManager = new CMMotionManager();
-			motionManager.GyroUpdateInterval = 1/100;
+			motionManager.GyroUpdateInterval = 1/2;
 			if (motionManager.GyroAvailable)
 			{
 				motionManager.StartGyroUpdates(NSOperationQueue.MainQueue, GyroData_Received);

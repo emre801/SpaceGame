@@ -44,7 +44,7 @@ namespace BlankGame
 
 				public void playMusic()
 				{
-					if(audioPlayer==null || !audioPlayer.Playing)
+					if((audioPlayer==null || !audioPlayer.Playing)&& g.gameState== Game.GameState.GAMETIME)
 					{	
 						int index = r.Next() % songs.Count;
 						this.audioPlayer = (AVAudioPlayer)songs [index];
@@ -61,7 +61,10 @@ namespace BlankGame
 					if(audioPlayer.Playing)
 						audioPlayer.Pause();
 					else
+					{
+						audioPlayer.Volume = g.opt.musicVolume;
 						audioPlayer.Play();
+					}
 				}
 
 				public void addNewSong(String name)

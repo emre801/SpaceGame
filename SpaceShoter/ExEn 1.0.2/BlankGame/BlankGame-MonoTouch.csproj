@@ -127,6 +127,7 @@
     <Compile Include="Properties\Entities\GameOver.cs" />
     <Compile Include="Properties\HighScoreData.cs" />
     <Compile Include="PriorityQueue.cs" />
+    <Compile Include="Properties\Entities\Interactable\Blocks\Block.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -140,6 +141,7 @@
     <Folder Include="Properties\Button\" />
     <Folder Include="Content\Sounds\" />
     <Folder Include="Content\Levels\" />
+    <Folder Include="Properties\Entities\Interactable\Blocks\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />

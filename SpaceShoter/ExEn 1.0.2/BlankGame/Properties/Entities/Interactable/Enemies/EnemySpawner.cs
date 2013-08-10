@@ -33,7 +33,25 @@ namespace BlankGame
 				{
 					readLevel(0);
 					timer = new Stopwatch();
+				}
+				
+				public String returnCurrentGameTime()
+				{
+					timer.Stop();
+					int totalSec = (int)(timer.ElapsedMilliseconds/1000);
+					int elapsedMilSec=(int)(timer.ElapsedMilliseconds%1000)/10;
 					timer.Start();
+					int totalMinutes = totalSec / 60;
+					int secLeftOver = totalSec % 60;
+					return totalMinutes + ":" + secLeftOver+":"+elapsedMilSec;
+				}
+				
+				public void startStopTimer()
+				{
+					if(timer.IsRunning)
+						timer.Stop();
+					else 
+						timer.Start();
 				}
 				public void readLevel(int levelNum)
 				{
@@ -45,24 +63,44 @@ namespace BlankGame
 					while((line = sr.ReadLine()) != null) 
 					{
 						string[] words = line.Split(delimiterChars);
-						if(words[0].Equals("en1"))
+						if(words[0].Equals("en"))
 						{
-							int time=(int)System.Convert.ToSingle(words[1]);
-							int xPos=(int)System.Convert.ToSingle(words[2]);
-							Enemy e= new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),time);
-							objsToSpawn.Enqueue(time,e);
+							uploadEnemy(words);
 						}
-						if(words[0].Equals("pw1"))
+						if(words[0].Equals("pw"))
 				   		{
-							int time=(int)System.Convert.ToSingle(words[1]);
-							int xPos=(int)System.Convert.ToSingle(words[2]);
-							Color ranColor = hatColor;
-							PowerUp pwp= new PowerUp(g,randFireMode(),
-					                       new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),ranColor,time);
-							objsToSpawn.Enqueue(time,pwp);
+							uploadPowerUp(words);
 						}
 
 					}
+				}
+
+				public void uploadEnemy(String[] info)
+				{
+					int time=(int)System.Convert.ToSingle(info[2]);
+					int xPos=(int)System.Convert.ToSingle(info[3]);
+					Enemy e=null;
+					if(info [1].Equals("1"))
+						e = new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),time);
+					objsToSpawn.Enqueue(time,e);
+				}
+
+				public void uploadPowerUp(String[] info)
+				{
+					int time=(int)System.Convert.ToSingle(info[2]);
+					int xPos=(int)System.Convert.ToSingle(info[3]);
+					SpaceShipPlayer.FireMode mode= SpaceShipPlayer.FireMode.NORMAL;
+					Color ranColor = hatColor;
+					if(info [1].Equals("1"))
+					{
+						mode = SpaceShipPlayer.FireMode.NORMAL;
+						ranColor = Color.Blue;
+					}
+
+
+					PowerUp pwp= new PowerUp(g,mode,
+					                         new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),ranColor,time);
+					objsToSpawn.Enqueue(time,pwp);
 				}
 
 				public void Update()

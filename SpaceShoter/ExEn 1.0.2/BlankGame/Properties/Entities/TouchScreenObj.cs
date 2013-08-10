@@ -39,6 +39,7 @@ namespace BlankGame
 							{
 								g.gameState = Game.GameState.GAMETIME;
 								g.mp.pauseUnpauseMusic();
+								g.es.startStopTimer();
 							}
 							if(g.ts.optionsB.isButtonPressed) 
 							{
@@ -102,6 +103,7 @@ namespace BlankGame
 					if(tc.Count == 3 && prevCount != 3) 
 					{
 						g.gameState = Game.GameState.TITLE;
+						g.es.startStopTimer();
 						g.mp.pauseUnpauseMusic();
 
 					}
