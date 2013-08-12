@@ -128,6 +128,8 @@
     <Compile Include="Properties\HighScoreData.cs" />
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="Properties\Entities\Interactable\Blocks\Block.cs" />
+    <Compile Include="Properties\Keyboard\KeyboardInput.cs" />
+    <Compile Include="Properties\Button\LetterButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -142,6 +144,7 @@
     <Folder Include="Content\Sounds\" />
     <Folder Include="Content\Levels\" />
     <Folder Include="Properties\Entities\Interactable\Blocks\" />
+    <Folder Include="Properties\Keyboard\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />

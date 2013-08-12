@@ -27,7 +27,13 @@ namespace BlankGame
 
 		public int CompareTo(HighScoreInfo other)
 		{
-			return this.score >= other.score ? 1 : -1;
+			if(this.score == other.score) 
+			{
+				return playerName.CompareTo(other.playerName);
+			}
+
+			return this.score > other.score ? 1 : -1;
+
 		}
 
 	}
@@ -40,13 +46,13 @@ namespace BlankGame
 		//public ArrayList Score;
 		//public ArrayList Level;
 		Game g;
-		PriorityQueue<int,HighScoreInfo> queue;
+		PriorityQueue<float,HighScoreInfo> queue;
 		public HighScoreData(String fileName,Game g)
 		{
 			//PlayerName= new ArrayList();
 			//Score= new ArrayList();
 			//Level = new ArrayList();
-			queue = new PriorityQueue<int,HighScoreInfo>();
+			queue = new PriorityQueue<float,HighScoreInfo>();
 			readFile(fileName);
 			this.g = g;
 
@@ -73,17 +79,18 @@ namespace BlankGame
 		{
 			LinkedList<String> lines = new LinkedList<String>();
 			int count = queue.Count;
-			PriorityQueue<int,HighScoreInfo> tempQueue = new PriorityQueue<int, HighScoreInfo>();
+			PriorityQueue<float,HighScoreInfo> tempQueue = new PriorityQueue<float, HighScoreInfo>();
 			for(int i=0; i<count; i++) 
 			{
 				HighScoreInfo tempHighScore = queue.Dequeue().Value;
-				tempQueue.Enqueue(tempHighScore.score*-1,tempHighScore);;
+				tempQueue.Enqueue((int)(tempHighScore.score+tempHighScore.playerName.GetHashCode()/100000f)*-1,tempHighScore);
 				String output="HS "+tempHighScore.playerName +" "+(int)tempHighScore.score+" "+(int)tempHighScore.level;
 				lines.AddLast(output);
 			}
 			queue = tempQueue;
 
-						String outPutFile = "";
+
+			String outPutFile = "";
 			foreach(String line in lines)
 			{
 				outPutFile += System.Environment.NewLine + line;
@@ -101,13 +108,13 @@ namespace BlankGame
 		{
 			int spacing = 0;
 			g.fontRenderer.DrawText(spriteBatch, 300, 20, "Top 10", 0.45f, Color.White);
-			PriorityQueue<int,HighScoreInfo> tempQueue = new PriorityQueue<int, HighScoreInfo>();
+			PriorityQueue<float,HighScoreInfo> tempQueue = new PriorityQueue<float, HighScoreInfo>();
 			int count = queue.Count;
 			for(int i=0; i<count; i++) 
 			{
 				//String info = (String)PlayerName [i] + " " + (float)(Score [i]);
 				HighScoreInfo tempHighScore = queue.Dequeue().Value;
-				tempQueue.Enqueue(tempHighScore.score*-1,tempHighScore);
+				tempQueue.Enqueue((int)(tempHighScore.score+tempHighScore.playerName.GetHashCode()/100000f)*-1,tempHighScore);
 				String info = tempHighScore.playerName + " " + tempHighScore.score;
 				g.fontRenderer.DrawText(spriteBatch, 300, 40+spacing, info, 0.35f, Color.White);
 				spacing += 10;
@@ -121,7 +128,7 @@ namespace BlankGame
 		public void addNewScore(String name,float score, float level)
 		{
 			HighScoreInfo newHighScore = new HighScoreInfo(name, (int)score, (int)level);
-			queue.Enqueue((int)-score, newHighScore);
+			queue.Enqueue((int)(score+name.GetHashCode()/100000f), newHighScore);
 		}
 
 

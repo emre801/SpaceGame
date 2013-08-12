@@ -77,6 +77,7 @@ namespace BlankGame
 						if(g.opt.exit.isButtonPressed) 
 						{
 							g.gameState = Game.GameState.TITLE;
+							g.opt.updateName();
 							g.mp.updateVolume();
 							g.opt.writeFile();
 						}
@@ -106,6 +107,10 @@ namespace BlankGame
 						g.es.startStopTimer();
 						g.mp.pauseUnpauseMusic();
 
+					}
+					if(tc.Count == 4 && prevCount != 4) 
+					{
+						g.restart = true;
 					}
 					foreach(TouchLocation tl in tc) 
 					{

@@ -36,11 +36,21 @@ namespace BlankGame
 				{
 					this.isVisible = false;
 				}
-			updateBBox();
+				updateBBox();
 			}
 
 			public override bool collidesWith(Interact inter)
 			{
+				if(inter.bbox.Intersects(bbox))
+				{
+					if(inter is Block)
+					{
+						this.isVisible=false;
+						Explosion exp = new Explosion(g, pos);
+						g.mp.playSound("explosion");
+						g.entitToAdd.Add(exp);
+					}
+				}
 				return false;
 			}
 

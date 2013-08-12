@@ -17,6 +17,7 @@ namespace BlankGame
 					this.pos = pos;
 					this.wh = wh;
 					this.direct = vel;
+					this.image = g.getSprite("hat");
 				}
 				public override void updateBBox()
 				{
@@ -26,7 +27,10 @@ namespace BlankGame
 				public override void Update()
 				{
 					this.pos= this.pos+this.direct;
+					if(this.pos.Y < -300)
+						this.isVisible = false;
+					updateBBox();
 				}
-	}
+		}
 }
 

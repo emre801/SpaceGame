@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 namespace BlankGame
@@ -12,7 +13,8 @@ namespace BlankGame
 				public int musicVolume=10;
 				Sprite incre;
 				Game game;
-
+				Stopwatch ticker;
+				LetterButton[] lButtons;
 				public Button sfxVolU,sfxVolD,musVolD,musVolU,exit;
 				public Options(Game game)
 				{
@@ -24,8 +26,13 @@ namespace BlankGame
 						
 						musVolU= new Button(game,new Rectangle(360,100,20,20));
 						musVolD= new Button(game,new Rectangle(280,100,20,20));
-						exit= new Button(game,new Rectangle(80,180,130,40));
-						
+						exit= new Button(game,new Rectangle(80,260,130,40));
+						ticker = new Stopwatch();
+						ticker.Start();
+						lButtons = new LetterButton[6];
+						int counter = 40;
+						for(int i=0; i<6; i++)
+							lButtons [i] = new LetterButton(game, new Vector2(80+counter*i,200));
 					} 
 					else 
 					{
@@ -60,31 +67,51 @@ namespace BlankGame
 					musVolU.Update();
 					musVolD.Update();
 					exit.Update();
-
-					if(sfxVolU.isButtonPressed) 
+					
+					ticker.Stop();
+					int time = (int)ticker.ElapsedMilliseconds;
+					bool allowInput = false;
+					if(time >= 250) 
 					{
-						if(sfxVolume < 20)
+						ticker.Restart();
+						allowInput = true;
+					}
+					else
+						ticker.Start();
+				
+					if(sfxVolU.isPressed) 
+					{
+						if(sfxVolume < 20 && allowInput)
 							sfxVolume++;
 					}
-					if(sfxVolD.isButtonPressed) 
+					if(sfxVolD.isPressed&& allowInput) 
 					{
 						if(sfxVolume > 0)
-							sfxVolume--;
+								sfxVolume--;
 					}
 
-					if(musVolU.isButtonPressed) 
+					if(musVolU.isPressed&& allowInput) 
 					{
 						if(musicVolume < 20)
 							musicVolume++;
 					}
-					if(musVolD.isButtonPressed) 
+					if(musVolD.isPressed&& allowInput) 
 					{
 						if(musicVolume > 0)
 							musicVolume--;
 					}
-							
+					
+					for(int i=0; i<6; i++)
+						lButtons [i].Update();	
 
 
+				}
+				public void updateName()
+				{
+					String newName = "";
+					for(int i=0; i<lButtons.Length; i++)
+						newName += lButtons [i].c;
+					game.currentPlayerName = newName;
 				}
 
 				public void writeFile()
@@ -144,9 +171,11 @@ namespace BlankGame
 					{
 						game.fontRenderer.DrawText(spriteBatch, 80, 100, "Music Volume", 0.45f, Color.White);
 						game.fontRenderer.DrawText(spriteBatch, 80, 140, "SFX Volume", 0.45f, Color.White);
-						game.fontRenderer.DrawText(spriteBatch, 80, 180, "Exit", 0.45f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 80, 260, "Exit", 0.45f, Color.White);
 						game.fontRenderer.DrawText(spriteBatch, 320, 100, musicVolume+"", 0.45f, Color.White);
 						game.fontRenderer.DrawText(spriteBatch, 320, 140, sfxVolume+"", 0.45f, Color.White);
+						for(int i=0; i<6; i++)
+							lButtons [i].Draw(spriteBatch,null);
 					}
 				}
 		}

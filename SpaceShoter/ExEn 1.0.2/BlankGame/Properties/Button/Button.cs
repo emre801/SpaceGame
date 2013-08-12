@@ -20,14 +20,13 @@ namespace BlankGame
 				public override void Update()
 				{
 					TouchCollection tc=	TouchPanel.GetState();
-					isButtonPressed = false;
 					isPressed = false;
 					foreach(TouchLocation tl in tc) 
 					{
 								
 						Vector2 mousePosition = tl.Position;
 						Vector2 worldMousePosition = Vector2.Transform(mousePosition, Matrix.Invert(g.drawingTool.cam._transform));
-						Rectangle worldRec= new Rectangle((int)worldMousePosition.X,(int)worldMousePosition.Y,1,1);
+						Rectangle worldRec= new Rectangle((int)worldMousePosition.X-10,(int)worldMousePosition.Y-10,20,20);
 						mP = worldMousePosition;
 						if(demi.Intersects(worldRec) || demi.Contains(worldRec)) 
 						{

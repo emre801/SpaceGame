@@ -21,7 +21,7 @@ namespace BlankGame
 		protected GraphicsDeviceManager graphics;
 		public List<Entity> entities = new List<Entity>();
 		public List<Interact> interactable = new List<Interact>();
-		public enum GameState {TITLE,GAMETIME,OPTIONS,GAMEOVER};
+		public enum GameState {TITLE,GAMETIME,OPTIONS,GAMEOVER,ENTERNAME};
 		public GameState gameState;
 		public DrawingTool drawingTool;
 		Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
@@ -47,7 +47,7 @@ namespace BlankGame
 		public FontRenderer fontRenderer;
 		public GameOver go;
 
-		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.CIRCLE;
+		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.NORMAL;
 
 		public Options opt;//= new Options();
 		public float gameSpeed = 1f;

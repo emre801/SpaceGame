@@ -64,13 +64,11 @@ namespace BlankGame
 					{
 						string[] words = line.Split(delimiterChars);
 						if(words[0].Equals("en"))
-						{
 							uploadEnemy(words);
-						}
-						if(words[0].Equals("pw"))
-				   		{
+						if(words[0].Equals("pw"))				   		
 							uploadPowerUp(words);
-						}
+						if(words[0].Equals("bl"))
+							uploadBlock(words);
 
 					}
 				}
@@ -101,6 +99,17 @@ namespace BlankGame
 					PowerUp pwp= new PowerUp(g,mode,
 					                         new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),ranColor,time);
 					objsToSpawn.Enqueue(time,pwp);
+				}
+
+				public void uploadBlock(String[] info)
+				{
+					int time=(int)System.Convert.ToSingle(info[2]);
+					int xPos = (int)System.Convert.ToSingle(info [3]);
+					if(info[1].Equals("1"))
+					{
+						Block block = new Block(g, time, new Vector2(xPos * g.scale, 500 * g.scaleH), new Vector2((int)System.Convert.ToSingle(info [4]), (int)System.Convert.ToSingle(info [5])), new Vector2(0, -2 * g.scale));
+						objsToSpawn.Enqueue(time, block);
+					}
 				}
 
 				public void Update()
