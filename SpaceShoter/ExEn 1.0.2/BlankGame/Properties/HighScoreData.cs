@@ -47,6 +47,7 @@ namespace BlankGame
 		//public ArrayList Level;
 		Game g;
 		PriorityQueue<float,HighScoreInfo> queue;
+		List<HighScoreInfo> top10Scores = new List<HighScoreInfo>();
 		public HighScoreData(String fileName,Game g)
 		{
 			//PlayerName= new ArrayList();
@@ -65,13 +66,13 @@ namespace BlankGame
 			char[] delimiterChars = { ' ', ',', ':', '\t' };
 			while((line = sr.ReadLine()) != null) {
 			string[] words = line.Split(delimiterChars);
-			if(words[0].Equals("HS"))
-			{
-				String pName=words[1];
-				float score=System.Convert.ToSingle(words[2]);
-				float level=System.Convert.ToSingle(words[3]);
-				addNewScore(pName,score,level);
-			}
+				if(words[0].Equals("HS"))
+				{
+					String pName=words[1];
+					float score=System.Convert.ToSingle(words[2]);
+					float level=System.Convert.ToSingle(words[3]);
+					addNewScore(pName,score,level);
+				}
 
 			}
 		}
@@ -83,7 +84,7 @@ namespace BlankGame
 			for(int i=0; i<count; i++) 
 			{
 				HighScoreInfo tempHighScore = queue.Dequeue().Value;
-				tempQueue.Enqueue((int)(tempHighScore.score+tempHighScore.playerName.GetHashCode()/100000f)*-1,tempHighScore);
+				tempQueue.Enqueue((tempHighScore.score+1f/tempHighScore.playerName.GetHashCode())*-1f,tempHighScore);
 				String output="HS "+tempHighScore.playerName +" "+(int)tempHighScore.score+" "+(int)tempHighScore.level;
 				lines.AddLast(output);
 			}
@@ -106,29 +107,38 @@ namespace BlankGame
 
 		public void drawTop10(SpriteBatch spriteBatch)
 		{
-			int spacing = 0;
-			g.fontRenderer.DrawText(spriteBatch, 300, 20, "Top 10", 0.45f, Color.White);
+			g.fontRenderer.DrawText(spriteBatch, 300, 60, "Top 10", 0.45f, Color.White);
+			int spacing = 10;int c = 0;
+			foreach(HighScoreInfo i in top10Scores)
+			{
+				String info = i.playerName + " " + i.score;
+				g.fontRenderer.DrawText(spriteBatch, 300, 80+spacing*c, info, 0.35f, Color.White);
+				c++;
+			}
+		}
+
+		public void updateTop10()
+		{
 			PriorityQueue<float,HighScoreInfo> tempQueue = new PriorityQueue<float, HighScoreInfo>();
 			int count = queue.Count;
+
+			top10Scores.Clear();
 			for(int i=0; i<count; i++) 
 			{
-				//String info = (String)PlayerName [i] + " " + (float)(Score [i]);
 				HighScoreInfo tempHighScore = queue.Dequeue().Value;
-				tempQueue.Enqueue((int)(tempHighScore.score+tempHighScore.playerName.GetHashCode()/100000f)*-1,tempHighScore);
-				String info = tempHighScore.playerName + " " + tempHighScore.score;
-				g.fontRenderer.DrawText(spriteBatch, 300, 40+spacing, info, 0.35f, Color.White);
-				spacing += 10;
+				tempQueue.Enqueue((tempHighScore.score+1f/tempHighScore.playerName.GetHashCode())*-1f,tempHighScore);
+				top10Scores.Add(tempHighScore);
+				if(count == 9)
+					break;
 			}
 			queue = tempQueue;
-
-
-
 		}
 
 		public void addNewScore(String name,float score, float level)
 		{
 			HighScoreInfo newHighScore = new HighScoreInfo(name, (int)score, (int)level);
-			queue.Enqueue((int)(score+name.GetHashCode()/100000f), newHighScore);
+			queue.Enqueue((score+1f/name.GetHashCode())*-1f, newHighScore);
+			updateTop10();
 		}
 
 

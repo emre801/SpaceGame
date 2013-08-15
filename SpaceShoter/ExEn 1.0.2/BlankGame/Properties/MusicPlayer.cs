@@ -16,7 +16,7 @@ namespace BlankGame
 			ArrayList songs = new ArrayList();
 			Random r;
 			AVAudioPlayer audioPlayer=null;
-
+			
 			Game g;
 
 				public MusicPlayer(Game g)
@@ -28,6 +28,15 @@ namespace BlankGame
 				{
 					if(audioPlayer!=null)
 						audioPlayer.Volume=(float)g.opt.musicVolume;
+
+				}
+				public void initPlayer()
+				{
+					int index = r.Next() % songs.Count;
+					this.audioPlayer = (AVAudioPlayer)songs [index];
+					audioPlayer.Volume = (float)g.opt.musicVolume;
+					audioPlayer.Play();
+					audioPlayer.Pause();
 
 				}
 				public void addNewSound(String name)
@@ -44,7 +53,7 @@ namespace BlankGame
 
 				public void playMusic()
 				{
-					if((audioPlayer==null || !audioPlayer.Playing)&& g.gameState== Game.GameState.GAMETIME)
+					if((audioPlayer==null || !audioPlayer.Playing)&& g.gameState== Game.GameState.GAMETIME && !g.isClosing&& !g.isOpening)
 					{	
 						int index = r.Next() % songs.Count;
 						this.audioPlayer = (AVAudioPlayer)songs [index];

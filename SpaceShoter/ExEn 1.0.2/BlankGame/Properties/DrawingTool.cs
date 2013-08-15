@@ -357,11 +357,11 @@ namespace BlankGame
 			String currentGameTime = game.es.returnCurrentGameTime();
 			if(game.oniPad) 
 			{
-				fontRender.DrawText(spriteBatch, 10, -420, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points + " "+ game.entities.Count+" "+currentGameTime, 1.2f, Color.White);
+				fontRender.DrawText(spriteBatch, 10, -420+game.xAnimation, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points + " "+ game.entities.Count+" "+currentGameTime, 1.2f, Color.White);
 			} 
 			else 
 			{
-				fontRender.DrawText(spriteBatch, 0, 20, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points+" "+ game.entities.Count+" "+currentGameTime, 0.5f, Color.White);
+				fontRender.DrawText(spriteBatch, 0+game.xAnimation, 10, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points+" "+ game.entities.Count+" "+currentGameTime, 0.5f, Color.White);
 			}
 			endBatch();
 

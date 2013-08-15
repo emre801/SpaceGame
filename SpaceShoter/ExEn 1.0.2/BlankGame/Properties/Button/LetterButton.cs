@@ -16,13 +16,13 @@ namespace BlankGame
 			public char c;
 			Sprite incre;
 			Stopwatch ticker;
-			public LetterButton(Game g,Vector2 pos)
+			public LetterButton(Game g,Vector2 pos, char c)
 			{
 				this.g=g;
 				this.pos = pos;
-				this.bottom = new Button(g, new Rectangle((int)pos.X, (int)pos.Y + 20, 10, 10));
-				this.top = new Button(g, new Rectangle((int)pos.X, (int)pos.Y - 20, 10, 10));
-				c='A';
+				this.bottom = new Button(g, new Rectangle((int)pos.X, (int)pos.Y + 20, 20, 20));
+				this.top = new Button(g, new Rectangle((int)pos.X, (int)pos.Y - 20, 20, 20));
+				this.c = c;
 				ticker = new Stopwatch();
 				ticker.Start();
 				
@@ -43,13 +43,19 @@ namespace BlankGame
 					ticker.Start();
 				if(top.isPressed) 
 				{
-					if(allowInput)
+					if(allowInput) 
+					{
 						c++;
+						g.mp.playSound("menu");
+					}
 				}
 				if(bottom.isPressed) 
 				{
 					if(allowInput)
+					{	
 						c--;
+						g.mp.playSound("menu");
+					}
 				}
 				if(c < 'A')
 					c = 'Z';
@@ -59,11 +65,19 @@ namespace BlankGame
 			}
 			public void Draw(SpriteBatch spriteBatch,GameTime gameTime)
 			{
+				if(g.ignoreDraw) 
+				{
+					//g.ignoreDraw = false;
+					return;
+				}
 				if(incre==null)
-				incre = g.getSprite("incre");
+					incre = g.getSprite("incre");
 				spriteBatch.Draw(incre.index, top.demi, Color.White);
 				spriteBatch.Draw(incre.index, bottom.demi, Color.White);
-				g.fontRenderer.DrawText(spriteBatch, (int)pos.X, (int)pos.Y, c+"", 0.45f, Color.White);
+				
+				g.fontRenderer.DrawText(spriteBatch, (int)pos.X+g.xAnimation, (int)pos.Y, c + "", 0.45f, Color.White);
+
+				
 			}
 		}
 }

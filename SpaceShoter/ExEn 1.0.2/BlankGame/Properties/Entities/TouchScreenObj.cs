@@ -18,7 +18,13 @@ namespace BlankGame
 				}
 				public override void Update()
 				{
+					if(g.tempIgnore)
+					{
+						g.tempIgnore = false;
+						return;
+					}
 					TouchCollection tc=	TouchPanel.GetState();
+
 
 					if(g.gameState == Game.GameState.TITLE) 
 					{
@@ -37,13 +43,24 @@ namespace BlankGame
 						
 							if(g.ts.startB.isButtonPressed) 
 							{
-								g.gameState = Game.GameState.GAMETIME;
+								//g.gameState = Game.GameState.GAMETIME;
 								g.mp.pauseUnpauseMusic();
 								g.es.startStopTimer();
+								g.mp.playSound("menu");
+								g.titlePress=2;
+								g.ignoreDraw = true;
+								g.isClosing = true;
+
 							}
 							if(g.ts.optionsB.isButtonPressed) 
 							{
-								g.gameState = Game.GameState.OPTIONS;
+								//g.gameState = Game.GameState.OPTIONS;
+								//g.xAnimation = 300;
+								g.isClosing = true;
+								g.ignoreDraw = true;
+								//g.isOpening = true;
+								g.titlePress = 1;
+								g.mp.playSound("menu");
 							}
 						
 						return;
@@ -56,11 +73,13 @@ namespace BlankGame
 							g.gameState = Game.GameState.GAMETIME;
 							g.restart=true;
 							g.mp.pauseUnpauseMusic();
+							g.mp.playSound("menu");
 						}
 						if(g.go.toTitle.isButtonPressed) 
 						{
 							g.gameState = Game.GameState.TITLE;
 							g.restart = true;
+							g.mp.playSound("menu");
 						}
 				
 						prevCount = tc.Count;
@@ -76,10 +95,16 @@ namespace BlankGame
 						//}
 						if(g.opt.exit.isButtonPressed) 
 						{
-							g.gameState = Game.GameState.TITLE;
+							//g.gameState = Game.GameState.TITLE;
 							g.opt.updateName();
 							g.mp.updateVolume();
 							g.opt.writeFile();
+							g.writeGameInfo();
+							g.mp.playSound("menu");
+							
+							g.isClosing = true;
+							g.isOpening = false;
+							//g.isClosing = true;
 						}
 						prevCount = tc.Count;
 						return;	
@@ -103,9 +128,14 @@ namespace BlankGame
 					}
 					if(tc.Count == 3 && prevCount != 3) 
 					{
-						g.gameState = Game.GameState.TITLE;
+						//g.gameState = Game.GameState.TITLE;
 						g.es.startStopTimer();
-						g.mp.pauseUnpauseMusic();
+						//g.mp.pauseUnpauseMusic();
+						g.mp.playSound("menu");
+						g.isClosing = true;
+						g.ignoreDraw = true;
+						//g.isOpening = true;
+						g.titlePress = 1;
 
 					}
 					if(tc.Count == 4 && prevCount != 4) 

@@ -47,7 +47,7 @@ namespace BlankGame
 		public FontRenderer fontRenderer;
 		public GameOver go;
 
-		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.NORMAL;
+		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.CIRCLE;
 
 		public Options opt;//= new Options();
 		public float gameSpeed = 1f;
@@ -60,6 +60,17 @@ namespace BlankGame
 		public string currentPlayerName = "Santa";
 		public int currentLevel=0;
 
+		public int xAnimation=0;
+		public bool ignoreDraw=false; 
+		public bool tempIgnore=false;
+		public bool isOpening=false;
+		public bool isClosing=false;
+		public Ticker tick;
+		public int titlePress=0;
+
+		public HashSet<Interact>[,] spaceSqure;
+
+		public int maxMoveThing=450;
 		public Game()
 		{
 			//graphics = new GraphicsDeviceManager(this);
@@ -71,6 +82,7 @@ namespace BlankGame
 			Content.RootDirectory = "Content";
 			drawingTool = new DrawingTool(this);
 			StartGyro();
+			loadGameInfo();
 			tso = new TouchScreenObj(this);
 			es = new EnemySpawner(this);
 			bs = new BackgroundSpawner(this);
@@ -78,10 +90,16 @@ namespace BlankGame
 			ts = new TitleScreen(this);
 			opt = new Options(this);
 			go=new GameOver(this);
+			tick = new Ticker(2);
+
 		}
 
 		protected override void LoadContent()
 		{
+
+			
+			newSpaceList();
+
 			addSprite("Ship", "Ship");
 			addSprite("Bullet", "Bullet");
 			addSprite("Enemy", "Enemy");
@@ -98,6 +116,7 @@ namespace BlankGame
 			mp.addNewSound("shoot");
 			mp.addNewSound("explosion");
 			mp.addNewSound("powerUp");
+			mp.addNewSound("menu");
 			player = new SpaceShipPlayer(this,getSprite("Ship"));
 			Shield shield = new Shield(this);
 			entitToAdd.Add(shield);
@@ -132,9 +151,11 @@ namespace BlankGame
 			mp.addNewSong("Nostalgia");
 			mp.addNewSong("Syntax Error");
 			mp.addNewSong("Tokyo Escapade");
+			mp.initPlayer();
 
 			initHighScore();
 			es.init();
+
 		}
 
 		public Sprite getSprite(String fName)
@@ -174,6 +195,50 @@ namespace BlankGame
 			else
 				hsd= new HighScoreData(path,this);
 				
+		}
+
+		public void loadGameInfo()
+		{
+			String loadedPath = "Content/GameInfo/gameInfo.txt";
+			String documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
+			String path = Path.Combine(documents, "gameInfo.txt");
+			if(Constants.START_WITH_FRESH_FILE)
+				File.Delete(path);
+			String pathToUse;
+			if(File.Exists(path))
+			{
+				pathToUse = path;
+			}
+			else
+			{
+				pathToUse = loadedPath;
+			}
+			string file=File.ReadAllText(pathToUse);
+			StringReader sr = new StringReader(file);
+			String line;
+			char[] delimiterChars = { ' ', ',', ':', '\t' };
+			while((line = sr.ReadLine()) != null) 
+			{
+				string[] words = line.Split(delimiterChars);
+				if(words[0].Equals("name"))
+				{
+					this.currentPlayerName=words[1];
+				}
+			}
+		}
+
+		public void writeGameInfo()
+		{
+			LinkedList<String> lines = new LinkedList<String>();
+			lines.AddLast("name " + this.currentPlayerName);
+			String documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
+			String outPutFile = "";
+			foreach(String line in lines)
+			{
+				outPutFile += System.Environment.NewLine + line;
+			}
+			var filly= Path.Combine(documents,"gameInfo.txt");
+			File.WriteAllText(filly, outPutFile);
 		}
 
 
@@ -252,11 +317,19 @@ namespace BlankGame
 
 
 		}
+		public void newSpaceList()
+		{
+			spaceSqure = new HashSet<Interact>[(int)Constants.NUM_BLOCKS_WIDTH,(int)Constants.NUM_BLOCKS_HEIGHT];
+			for(int x=0;x<Constants.NUM_BLOCKS_WIDTH;x++)
+				for(int y=0;y<Constants.NUM_BLOCKS_HEIGHT;y++)
+					spaceSqure[x,y]=new HashSet<Interact>();
 
+		}
 
 		protected override void Update(GameTime gameTime)
 		{
-			mp.playMusic();
+			//mp.playMusic();
+			tick.updateTick();
 			if(gameState == GameState.TITLE)
 			{
 				UpdateTite();
@@ -278,10 +351,7 @@ namespace BlankGame
 			}
 			tso.Update();
 
-
-
-
-
+			mp.playMusic();
 
 			if(restart)
 			{
@@ -293,6 +363,8 @@ namespace BlankGame
 			if(isPaused)
 					return;
 			doCollisions();
+			//updateSpace();
+
 			foreach(Entity e in entities)
 			{
 				if(!e.isVisible) 
@@ -320,6 +392,7 @@ namespace BlankGame
 				entities.Remove(e);if(e is Interact)
 				{
 					Interact inter = (Interact)e;
+					removeFromHashSpace(inter.bbox,inter);
 					interactable.Remove(inter);
 				}
 			}
@@ -333,9 +406,27 @@ namespace BlankGame
 		{
 			sprites.Add(name, new Sprite(Content, direct));
 		}
+		public void removeFromHashSpace(Rectangle cool,Interact lol)
+		{
+			int point1 = cool.X/10;
+			int point2 = cool.Y/10;
+			int point3=(cool.X+cool.Width)/10;
+			int point4= (cool.Y+cool.Height)/10;
+			for(int x=point1;x<=point3;x++)
+			{
+				for(int y=point2;y<=point4;y++)
+				{
+					if(x<Constants.NUM_BLOCKS_WIDTH && y< Constants.NUM_BLOCKS_HEIGHT && x>0 && y>0)
+						spaceSqure[x,y].Remove(lol);
+
+				}
+			}
+
+		}
 
 		public void doCollisions()
 		{
+			/*
 			foreach(Interact a in interactable)
 				foreach(Interact b in interactable) 
 				{
@@ -344,6 +435,46 @@ namespace BlankGame
 						a.collidesWith(b);
 					}
 				}
+			*/
+
+			for(int x=0;x<Constants.NUM_BLOCKS_WIDTH;x++)
+			{
+				for(int y=0;y<Constants.NUM_BLOCKS_HEIGHT;y++)
+				{
+					HashSet<Interact> elementsInSpace = spaceSqure [x, y];
+					foreach(Interact a in elementsInSpace)
+					{		
+						foreach(Interact b in elementsInSpace)
+						{
+							if(a!=b && a.isVisible && b.isVisible)
+							{
+
+								a.collidesWith(b);
+							}
+						}
+					}
+				}
+			}
+
+		}
+
+		public void updateSpace()
+		{
+			for(int x=0;x<Constants.NUM_BLOCKS_WIDTH;x++)
+			{
+				for(int y=0;y<Constants.NUM_BLOCKS_HEIGHT;y++)
+				{
+					HashSet<Interact> elementsInSpace = spaceSqure [x, y];
+					HashSet<Interact> newSet = new HashSet<Interact>();
+					foreach(Interact a in elementsInSpace)
+					{		
+							if(a.isVisible)
+								newSet.Add(a);
+					}
+					spaceSqure [x, y] = newSet;
+				}
+			}
+
 
 		}
 
@@ -361,7 +492,7 @@ namespace BlankGame
 
 		public void GyroData_Received(CMGyroData gyroData, NSError error)
 		{
-
+			//Could print information here but I don't need anything right now.
 		}
 
 
@@ -385,8 +516,28 @@ namespace BlankGame
 				drawingTool.drawGameOver(go, gameTime);
 				return;
 			}
+			if(this.tick.hasTicked && this.xAnimation > 0 && this.isOpening) 
+			{
+				this.xAnimation -= 50;
+				if(this.xAnimation <= 0)
+					this.isOpening = false;
 
-
+			}
+			else if(this.tick.hasTicked && this.xAnimation < this.maxMoveThing && this.isClosing)
+			{
+				this.xAnimation += 50;
+				if(this.xAnimation >= this.maxMoveThing) 
+				{
+					this.gameState = Game.GameState.TITLE;
+					this.isClosing = false;
+					this.isOpening = true;
+					this.tempIgnore = true;mp.pauseUnpauseMusic();
+				}
+			}
+			if(xAnimation < 0)
+				xAnimation = 0;
+			if(xAnimation > maxMoveThing)
+				xAnimation = maxMoveThing;
 			drawingTool.drawEntities(entities, gameTime);
 			//base.Draw(gameTime);
 		}

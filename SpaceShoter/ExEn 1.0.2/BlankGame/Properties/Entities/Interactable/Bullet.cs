@@ -43,7 +43,7 @@ namespace BlankGame
 			{
 				if(inter.bbox.Intersects(bbox))
 				{
-					if(inter is Block)
+					if(inter is Block && isGoodBullet)
 					{
 						this.isVisible=false;
 						Explosion exp = new Explosion(g, pos);

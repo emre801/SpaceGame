@@ -110,6 +110,7 @@ namespace BlankGame
 						g.mp.pauseUnpauseMusic();
 						g.hsd.addNewScore(g.currentPlayerName, g.points, 1f);
 						g.hsd.writeFile("high.txt");
+						g.newSpaceList();
 					}
 					g.health = 3;
 					g.mp.playSound("explosion");
@@ -138,6 +139,15 @@ namespace BlankGame
 					trail.Dequeue();
 
 			}
+			public override void updateBBox()
+			{
+				Rectangle hitBox = new Rectangle((int)pos.X + bbox.Width / 2, (int)pos.Y + bbox.Height / 2, hat.index.Width * 3, hat.index.Height * 3);
+				removeFromHashSpace(hitBox);
+				bbox = new Rectangle((int)pos.X, (int)pos.Y, (int)(image.index.Width*g.scale), (int)(image.index.Height*g.scale));
+				addToHashSpace(hitBox);
+			}
+
+
 			public override bool collidesWith(Interact inter)
 			{
 				Rectangle hitBox = new Rectangle((int)pos.X + bbox.Width / 2, (int)pos.Y + bbox.Height / 2, hat.index.Width * 3, hat.index.Height * 3);
@@ -149,6 +159,8 @@ namespace BlankGame
 						if(!bull.isGoodBullet) 
 						{
 							inter.isVisible = false;
+							g.entitToAdd.Add(new Explosion(g, this.pos));
+							g.mp.playSound("explosion");
 							g.health--;
 						} 
 						else 
@@ -171,9 +183,18 @@ namespace BlankGame
 					this.pos = this.pos + inter.direct;
 					if(pos.Y <= 0 && !(inter is Shield))
 						this.playerDied=true;
-					updateBBox();
+					//updateBBox(); //temperary remove
+					tempUpdateBBox();
 				}
 				return true;
+			}
+
+			public void tempUpdateBBox()
+			{
+			bbox = new Rectangle((int)pos.X, (int)pos.Y, (int)(image.index.Width*g.scale), (int)(image.index.Height*g.scale));
+
+
+
 			}
 
 

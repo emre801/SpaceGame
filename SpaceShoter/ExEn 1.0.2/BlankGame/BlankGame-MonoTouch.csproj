@@ -130,6 +130,7 @@
     <Compile Include="Properties\Entities\Interactable\Blocks\Block.cs" />
     <Compile Include="Properties\Keyboard\KeyboardInput.cs" />
     <Compile Include="Properties\Button\LetterButton.cs" />
+    <Compile Include="Ticker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -145,6 +146,7 @@
     <Folder Include="Content\Levels\" />
     <Folder Include="Properties\Entities\Interactable\Blocks\" />
     <Folder Include="Properties\Keyboard\" />
+    <Folder Include="Content\GameInfo\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />
@@ -201,6 +203,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
     <BundleResource Include="Content\option.txt" />
+    <BundleResource Include="Content\Sounds\menu.wav" />
+    <BundleResource Include="Content\GameInfo\gameInfo.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">

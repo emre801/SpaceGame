@@ -25,8 +25,49 @@ namespace BlankGame
 			}
 			public virtual void updateBBox()
 			{
+				removeFromHashSpace(bbox);
 				bbox = new Rectangle((int)pos.X, (int)pos.Y, (int)(image.index.Width*g.scale), (int)(image.index.Height*g.scale));
+				addToHashSpace(bbox);
 			}
+
+
+			public void addToHashSpace(Rectangle cool)
+			{
+				int point1 = cool.X/10;
+				int point2 = cool.Y/10;
+				int point3=(cool.X+cool.Width)/10;
+				int point4= (cool.Y+cool.Height)/10;
+				for(int x=point1;x<=point3;x++)
+				{
+					for(int y=point2;y<=point4;y++)
+					{
+						if(x<Constants.NUM_BLOCKS_WIDTH && x>0 && y>0 && y< Constants.NUM_BLOCKS_HEIGHT)
+							g.spaceSqure[x,y].Add(this);
+
+					}
+				}
+
+			}
+
+			public void removeFromHashSpace(Rectangle cool)
+			{
+				int point1 = cool.X/10;
+				int point2 = cool.Y/10;
+				int point3=(cool.X+cool.Width)/10;
+				int point4= (cool.Y+cool.Height)/10;
+				for(int x=point1;x<=point3;x++)
+				{
+					for(int y=point2;y<=point4;y++)
+					{
+						if(x<Constants.NUM_BLOCKS_WIDTH && y< Constants.NUM_BLOCKS_HEIGHT && x>0 && y>0)
+							g.spaceSqure[x,y].Remove(this);
+
+					}
+				}
+
+			}
+
+
 			
 			public virtual bool collidesWith(Interact inter)
 			{

@@ -15,9 +15,13 @@ namespace BlankGame
 				Game game;
 				Stopwatch ticker;
 				LetterButton[] lButtons;
+				String sound = "menu";
 				public Button sfxVolU,sfxVolD,musVolD,musVolU,exit;
+				int xAnimation=200;
+				Ticker t;
 				public Options(Game game)
 				{
+					t = new Ticker(2);
 					this.game = game;	
 					if(!game.oniPad) 
 					{
@@ -27,19 +31,35 @@ namespace BlankGame
 						musVolU= new Button(game,new Rectangle(360,100,20,20));
 						musVolD= new Button(game,new Rectangle(280,100,20,20));
 						exit= new Button(game,new Rectangle(80,260,130,40));
-						ticker = new Stopwatch();
-						ticker.Start();
-						lButtons = new LetterButton[6];
-						int counter = 40;
-						for(int i=0; i<6; i++)
-							lButtons [i] = new LetterButton(game, new Vector2(80+counter*i,200));
+						
 					} 
 					else 
 					{
 
 					}
-				
+					ticker = new Stopwatch();
+					ticker.Start();
+					lButtons = new LetterButton[6];
+					char[] cArr = toCharArray();
+					int counter = 40;
+					for(int i=0; i<6; i++)
+						lButtons [i] = new LetterButton(game, new Vector2(80+counter*i,200),cArr[i]);
 					initOptions();
+				}
+				
+				public char[] toCharArray()
+				{
+					char[] cArr= new char[6];
+					char[] nameArray= game.currentPlayerName.ToUpper().ToCharArray();
+					for(int i=0; i<6; i++) 
+					{
+						if(i < nameArray.Length)
+							cArr [i] = nameArray [i];
+						else
+							cArr [i] = ' ';
+					}
+					return cArr;
+
 				}
 
 				public void initOptions()
@@ -62,10 +82,38 @@ namespace BlankGame
 				}
 				public void Update()
 				{
+					t.updateTick();
+					if(t.hasTicked && game.xAnimation > 0 && game.isOpening) 
+					{
+						game.xAnimation -= 20;
+						if(game.xAnimation <= 0)
+							game.isOpening = false;
+
+					}
+					else if(t.hasTicked && game.xAnimation < game.maxMoveThing && game.isClosing)
+					{
+						game.xAnimation += 20;
+						if(game.xAnimation >= game.maxMoveThing) 
+						{
+							game.gameState = Game.GameState.TITLE;
+							game.isClosing = false;
+							game.tempIgnore = true;
+							game.isOpening = true;
+							//game.xAnimation = 0;
+							
+						}
+					}
+					if(game.xAnimation < 0)
+						game.xAnimation = 0;
+					if(game.xAnimation > game.maxMoveThing)
+						game.xAnimation = game.maxMoveThing;
+
 					sfxVolU.Update();
 					sfxVolD.Update();
 					musVolU.Update();
 					musVolD.Update();
+					for(int i=0; i<6; i++)
+						lButtons [i].Update();
 					exit.Update();
 					
 					ticker.Stop();
@@ -81,28 +129,42 @@ namespace BlankGame
 				
 					if(sfxVolU.isPressed) 
 					{
-						if(sfxVolume < 20 && allowInput)
+						if(sfxVolume < 20 && allowInput) 
+						{
+							game.mp.playSound(sound);
 							sfxVolume++;
+						}
 					}
 					if(sfxVolD.isPressed&& allowInput) 
 					{
-						if(sfxVolume > 0)
-								sfxVolume--;
+						if(sfxVolume > 0) 
+						{
+							game.mp.playSound(sound);
+							sfxVolume--;
+						}
 					}
 
 					if(musVolU.isPressed&& allowInput) 
 					{
 						if(musicVolume < 20)
+						{
+							game.mp.playSound(sound);
 							musicVolume++;
+						}
 					}
 					if(musVolD.isPressed&& allowInput) 
 					{
 						if(musicVolume > 0)
+						{
+							game.mp.playSound(sound);
 							musicVolume--;
+						}
 					}
+
+				if(game.ignoreDraw)
+					game.ignoreDraw=false;
 					
-					for(int i=0; i<6; i++)
-						lButtons [i].Update();	
+						
 
 
 				}
@@ -153,6 +215,7 @@ namespace BlankGame
 					}
 				}
 
+
 				public void Draw(SpriteBatch spriteBatch)
 				{
 					spriteBatch.Draw(incre.index, sfxVolU.demi, Color.White);
@@ -160,20 +223,23 @@ namespace BlankGame
 					spriteBatch.Draw(incre.index, musVolU.demi, Color.White);
 					spriteBatch.Draw(incre.index, musVolD.demi, Color.White);
 					//spriteBatch.Draw(incre.index, exit.demi, Color.White);
+					
+
+
 
 					if(game.oniPad) 
 					{
-						game.fontRenderer.DrawText(spriteBatch, 300, -140, "Music Volume", 0.65f, Color.White);
-						game.fontRenderer.DrawText(spriteBatch, 300, -100, "SFX Volume", 0.65f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 300+game.xAnimation, -140, "Music Volume", 0.65f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 300+game.xAnimation, -100, "SFX Volume", 0.65f, Color.White);
 
 					} 
 					else 
 					{
-						game.fontRenderer.DrawText(spriteBatch, 80, 100, "Music Volume", 0.45f, Color.White);
-						game.fontRenderer.DrawText(spriteBatch, 80, 140, "SFX Volume", 0.45f, Color.White);
-						game.fontRenderer.DrawText(spriteBatch, 80, 260, "Exit", 0.45f, Color.White);
-						game.fontRenderer.DrawText(spriteBatch, 320, 100, musicVolume+"", 0.45f, Color.White);
-						game.fontRenderer.DrawText(spriteBatch, 320, 140, sfxVolume+"", 0.45f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 80+game.xAnimation, 100, "Music Volume", 0.45f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 80+game.xAnimation, 140, "SFX Volume", 0.45f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 80+game.xAnimation, 260, "Exit", 0.45f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 320+game.xAnimation, 100, musicVolume+"", 0.45f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 320+game.xAnimation, 140, sfxVolume+"", 0.45f, Color.White);
 						for(int i=0; i<6; i++)
 							lButtons [i].Draw(spriteBatch,null);
 					}

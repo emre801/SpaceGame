@@ -28,6 +28,33 @@ namespace BlankGame
 			}
 			public void Update()
 			{
+				if(game.tick.hasTicked && game.xAnimation > 0 && game.isOpening) 
+				{
+					game.xAnimation -= 20;
+					if(game.xAnimation <= 0)
+						game.isOpening = false;
+
+				}
+				else if(game.tick.hasTicked && game.xAnimation < game.maxMoveThing && game.isClosing)
+				{
+					game.xAnimation += 20;
+					if(game.xAnimation >= game.maxMoveThing) 
+					{
+						if(game.titlePress==1)
+							game.gameState = Game.GameState.OPTIONS;
+						else
+							game.gameState=Game.GameState.GAMETIME;
+						game.isClosing = false;
+						game.isOpening = true;
+						game.tempIgnore = true;
+					}
+				}
+				
+				if(game.xAnimation < 0)
+					game.xAnimation = 0;
+				if(game.xAnimation > game.maxMoveThing)
+					game.xAnimation = game.maxMoveThing;
+
 				startB.Update();
 				optionsB.Update();
 				start = game.getSprite("Enemy");
@@ -50,9 +77,9 @@ namespace BlankGame
 				} 
 				else 
 				{
-					game.fontRenderer.DrawText(spriteBatch, 100, 100, "Commander Cat Hat", 0.65f, Color.White);
-					game.fontRenderer.DrawText(spriteBatch, 100, 140, "Start", 0.45f, Color.White);
-					game.fontRenderer.DrawText(spriteBatch, 100, 180, "Options", 0.45f, Color.White);
+					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 100, "Commander Cat Hat", 0.65f, Color.White);
+					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 140, "Start", 0.45f, Color.White);
+					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 180, "Options", 0.45f, Color.White);
 				}
 				if(start != null) 
 				{

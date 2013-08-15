@@ -79,7 +79,7 @@ namespace BlankGame
 					int xPos=(int)System.Convert.ToSingle(info[3]);
 					Enemy e=null;
 					if(info [1].Equals("1"))
-						e = new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),time);
+						e = new EnemyShooter(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),time);
 					objsToSpawn.Enqueue(time,e);
 				}
 

@@ -21,12 +21,14 @@ namespace BlankGame
 				}
 				public override void updateBBox()
 				{
+					removeFromHashSpace(bbox);
 					bbox = new Rectangle((int)pos.X, (int)pos.Y, (int)(wh.X*g.scale), (int)(wh.Y*g.scale));
+					addToHashSpace(bbox);
 				}
-				
+
 				public override void Update()
 				{
-					this.pos= this.pos+this.direct;
+					this.pos= this.pos+this.direct*g.gameSpeed;
 					if(this.pos.Y < -300)
 						this.isVisible = false;
 					updateBBox();
