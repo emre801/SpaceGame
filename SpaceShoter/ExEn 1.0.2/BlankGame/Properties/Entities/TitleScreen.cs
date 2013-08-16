@@ -6,9 +6,9 @@ namespace BlankGame
 {
 		public class TitleScreen
 		{
-		Sprite start;//,options,other;
+			Sprite start;//,options,other;
 			Game game;
-			public Button startB,optionsB;
+			public Button startB,optionsB,controlsB;
 			
 			public TitleScreen(Game game)
 			{
@@ -22,6 +22,7 @@ namespace BlankGame
 				{
 					startB= new Button(game,new Rectangle(90,130,130,40));
 					optionsB = new Button(game, new Rectangle(90, 170, 130, 40));
+					controlsB = new Button(game, new Rectangle(90, 210, 130, 40));
 
 				}
 				//start = game.getSprite("Enemy");
@@ -42,8 +43,10 @@ namespace BlankGame
 					{
 						if(game.titlePress==1)
 							game.gameState = Game.GameState.OPTIONS;
-						else
+						else if(game.titlePress==2)
 							game.gameState=Game.GameState.GAMETIME;
+						else
+							game.gameState=Game.GameState.CONTROLS;
 						game.isClosing = false;
 						game.isOpening = true;
 						game.tempIgnore = true;
@@ -57,6 +60,7 @@ namespace BlankGame
 
 				startB.Update();
 				optionsB.Update();
+				controlsB.Update();
 				start = game.getSprite("Enemy");
 			}
 
@@ -80,6 +84,7 @@ namespace BlankGame
 					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 100, "Commander Cat Hat", 0.65f, Color.White);
 					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 140, "Start", 0.45f, Color.White);
 					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 180, "Options", 0.45f, Color.White);
+					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 220, "Controls", 0.45f, Color.White);
 				}
 				if(start != null) 
 				{

@@ -28,40 +28,37 @@ namespace BlankGame
 
 					if(g.gameState == Game.GameState.TITLE) 
 					{
-						/*
-						if(tc.Count == 1&& prevCount!=1) 
+						if(g.ts.startB.isButtonPressed) 
 						{
-							g.gameState = Game.GameState.GAMETIME;
-							g.mp.pauseUnpauseMusic();
-						}
-						if(tc.Count == 2&& prevCount!=2) 
-						{
-							g.gameState = Game.GameState.OPTIONS;
-						}
-						prevCount = tc.Count;
-						*/
-						
-							if(g.ts.startB.isButtonPressed) 
-							{
 								//g.gameState = Game.GameState.GAMETIME;
-								g.mp.pauseUnpauseMusic();
-								g.es.startStopTimer();
-								g.mp.playSound("menu");
-								g.titlePress=2;
-								g.ignoreDraw = true;
-								g.isClosing = true;
+							g.mp.pauseUnpauseMusic();
+							g.es.startStopTimer();
+							g.mp.playSound("menu");
+							g.titlePress=2;
+							g.ignoreDraw = true;
+							g.isClosing = true;
 
-							}
-							if(g.ts.optionsB.isButtonPressed) 
-							{
-								//g.gameState = Game.GameState.OPTIONS;
-								//g.xAnimation = 300;
-								g.isClosing = true;
-								g.ignoreDraw = true;
-								//g.isOpening = true;
-								g.titlePress = 1;
-								g.mp.playSound("menu");
-							}
+						}
+						if(g.ts.optionsB.isButtonPressed) 
+						{
+							//g.gameState = Game.GameState.OPTIONS;
+							//g.xAnimation = 300;
+							g.isClosing = true;
+							g.ignoreDraw = true;
+							//g.isOpening = true;
+							g.titlePress = 1;
+							g.mp.playSound("menu");
+						}
+						if(g.ts.controlsB.isButtonPressed) 
+						{
+							//g.gameState = Game.GameState.OPTIONS;
+							//g.xAnimation = 300;
+							g.isClosing = true;
+							g.ignoreDraw = true;
+							//g.isOpening = true;
+							g.titlePress = 3;
+							g.mp.playSound("menu");
+						}
 						
 						return;
 
@@ -109,6 +106,25 @@ namespace BlankGame
 						prevCount = tc.Count;
 						return;	
 					}
+
+
+					if(g.gameState == Game.GameState.CONTROLS) 
+					{
+						//if(tc.Count == 1&& prevCount!=1) 
+						//{
+						//	g.gameState = Game.GameState.TITLE;
+						//}
+						if(g.cont.back.isButtonPressed) 
+						{
+							g.writeGameInfo();
+							g.mp.playSound("menu");
+							g.isClosing = true;
+							g.isOpening = false;
+						}
+						prevCount = tc.Count;
+						return;	
+					}
+
 
 
 					if(g.fireMode == SpaceShipPlayer.FireMode.FAST && tc.Count==1) 

@@ -21,7 +21,7 @@ namespace BlankGame
 		protected GraphicsDeviceManager graphics;
 		public List<Entity> entities = new List<Entity>();
 		public List<Interact> interactable = new List<Interact>();
-		public enum GameState {TITLE,GAMETIME,OPTIONS,GAMEOVER,ENTERNAME};
+		public enum GameState {TITLE,GAMETIME,OPTIONS,GAMEOVER,CONTROLS};
 		public GameState gameState;
 		public DrawingTool drawingTool;
 		Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
@@ -34,6 +34,7 @@ namespace BlankGame
 		public BackgroundSpawner bs;
 		public TitleScreen ts;
 		public MusicPlayer mp;
+		public Controls cont;
 
 		public bool isPaused=false;
 		public SpriteFont sFont;
@@ -90,6 +91,7 @@ namespace BlankGame
 			ts = new TitleScreen(this);
 			opt = new Options(this);
 			go=new GameOver(this);
+			cont = new Controls(this);
 			tick = new Ticker(2);
 
 		}
@@ -258,6 +260,12 @@ namespace BlankGame
 			UpdateStarParticles();
 
 		}
+
+		public void UpdateControls()
+		{
+			cont.Update();
+			UpdateStarParticles();
+		}
 		public void UpdateGameOver()
 		{
 			go.Update();
@@ -346,6 +354,12 @@ namespace BlankGame
 			if(gameState == GameState.OPTIONS)
 			{
 				UpdateOptions();
+				tso.Update();
+				return;
+			}
+			if(gameState == GameState.CONTROLS)
+			{
+				UpdateControls();
 				tso.Update();
 				return;
 			}
@@ -516,6 +530,12 @@ namespace BlankGame
 				drawingTool.drawGameOver(go, gameTime);
 				return;
 			}
+			if(gameState == GameState.CONTROLS)
+			{
+				drawingTool.drawControls(cont, gameTime);
+				return;
+			}
+
 			if(this.tick.hasTicked && this.xAnimation > 0 && this.isOpening) 
 			{
 				this.xAnimation -= 50;

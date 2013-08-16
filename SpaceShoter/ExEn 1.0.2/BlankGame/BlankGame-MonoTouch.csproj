@@ -131,6 +131,7 @@
     <Compile Include="Properties\Keyboard\KeyboardInput.cs" />
     <Compile Include="Properties\Button\LetterButton.cs" />
     <Compile Include="Ticker.cs" />
+    <Compile Include="Properties\Entities\Controls.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
