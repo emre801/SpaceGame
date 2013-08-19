@@ -16,23 +16,27 @@ namespace BlankGame
 		{
 				Game g;
 				HashSet<Enemy> enemies = new HashSet<Enemy>();
-				Random r;
+				//Random r;
 				Random r2;
 				//public int numEnemies=0;
 				Color hatColor=Color.White;
 				Stopwatch timer;
-				PriorityQueue<int,Interact> objsToSpawn;
+				PriorityQueue<float,Interact> objsToSpawn;
+				Ticker ticker;
+				int numTicks;
 				public EnemySpawner(Game g)
 				{
 					this.g = g;
-					r = new Random(801);
+					//r = new Random(801);
 					r2 = new Random();
-					objsToSpawn = new PriorityQueue<int, Interact>();
+					objsToSpawn = new PriorityQueue<float, Interact>();
 				}
 				public void init()
 				{
 					readLevel(0);
 					timer = new Stopwatch();
+					ticker = new Ticker(1);
+					numTicks = 0;
 				}
 				
 				public String returnCurrentGameTime()
@@ -52,6 +56,7 @@ namespace BlankGame
 						timer.Stop();
 					else 
 						timer.Start();
+					ticker.pauseUnpause();
 				}
 				public void readLevel(int levelNum)
 				{
@@ -71,11 +76,18 @@ namespace BlankGame
 							uploadBlock(words);
 
 					}
+					String[] text={"Hello Commander","Cat Hat ","How are you doing today"};
+					TextBlock fuck= new TextBlock(g,text,0,true);
+					g.entitToAdd.Add(fuck);
+					String[] text2={"LOL","Cat","PotatoeMan"};
+					fuck= new TextBlock(g,text2,1,false);
+					g.entitToAdd.Add(fuck);
+
 				}
 
 				public void uploadEnemy(String[] info)
 				{
-					int time=(int)System.Convert.ToSingle(info[2]);
+					float time=System.Convert.ToSingle(info[2]);
 					int xPos=(int)System.Convert.ToSingle(info[3]);
 					Enemy e=null;
 					if(info [1].Equals("1"))
@@ -85,7 +97,7 @@ namespace BlankGame
 
 				public void uploadPowerUp(String[] info)
 				{
-					int time=(int)System.Convert.ToSingle(info[2]);
+					float time=System.Convert.ToSingle(info[2]);
 					int xPos=(int)System.Convert.ToSingle(info[3]);
 					SpaceShipPlayer.FireMode mode= SpaceShipPlayer.FireMode.NORMAL;
 					Color ranColor = hatColor;
@@ -103,7 +115,7 @@ namespace BlankGame
 
 				public void uploadBlock(String[] info)
 				{
-					int time=(int)System.Convert.ToSingle(info[2]);
+					float time=System.Convert.ToSingle(info[2]);
 					int xPos = (int)System.Convert.ToSingle(info [3]);
 					if(info[1].Equals("1"))
 					{
@@ -114,35 +126,21 @@ namespace BlankGame
 
 				public void Update()
 				{
-					/*
-					if(r.Next(2000)<=5 && numEnemies()<10) 
-					{
-						int xPos = r.Next(40, 280);
-						Enemy e= new EnemyShooter(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH));
-						//Enemy e= new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH));
-						g.entitToAdd.Add(e);
-						//numEnemies++;
-						addEnemyToList(e);
-					}
-					if(r.Next(5000) <= 5) 
-					{
-						int xPos = r.Next(40, 280);
-						SpaceShipPlayer.FireMode fireMode = randFireMode();
-						Color ranColor = hatColor;
-						PowerUp e= new PowerUp(g,fireMode,
-				                       new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),ranColor);
-						g.entitToAdd.Add(e);
+					if(g.texts.Count>0)
+						return;
 
-					}*/
-					timer.Stop();
-					int currentTime = (int)(timer.ElapsedMilliseconds/1000);
-					timer.Start();
-					
-					while(objsToSpawn.Count>0 && objsToSpawn.Peek().Value.timer<=currentTime) 
+
+					ticker.updateTick();
+					if(ticker.hasTicked)
+						numTicks++;
+					float convTicks=numTicks/50f;
+
+					while(objsToSpawn.Count>0 && objsToSpawn.Peek().Value.timer<=convTicks) 
 					{
 						g.entitToAdd.Add(objsToSpawn.DequeueValue());
 					}
-
+					
+					ticker.setTickBeat((int)(1 / g.gameSpeed));
 				}
 
 				public SpaceShipPlayer.FireMode randFireMode()

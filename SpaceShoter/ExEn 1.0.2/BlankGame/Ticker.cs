@@ -14,6 +14,21 @@ namespace BlankGame
 					stopwatch.Start();
 				}
 
+				public void setTickBeat(int tickBeat)
+				{
+					if(tickBeat>0)
+						this.tickBeat = tickBeat;
+				}
+
+				public void pauseUnpause()
+				{
+					if(stopwatch.IsRunning)
+						stopwatch.Stop();
+					else 
+						stopwatch.Start();
+
+				}
+
 				public void updateTick()
 				{
 					stopwatch.Stop();

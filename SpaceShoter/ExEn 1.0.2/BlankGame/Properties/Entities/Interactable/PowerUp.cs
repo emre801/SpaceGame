@@ -11,7 +11,7 @@ namespace BlankGame
 				public SpaceShipPlayer.FireMode fireMode;
 				Vector2 direct;
 				public Color hatColor;
-				public PowerUp(Game g, SpaceShipPlayer.FireMode fireMode, Vector2 pos,Vector2 direct,Color hatColor, int timer)
+				public PowerUp(Game g, SpaceShipPlayer.FireMode fireMode, Vector2 pos,Vector2 direct,Color hatColor, float timer)
 				:base(g,timer)
 				{
 					this.fireMode = fireMode;	

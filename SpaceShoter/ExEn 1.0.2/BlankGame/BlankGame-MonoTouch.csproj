@@ -132,6 +132,7 @@
     <Compile Include="Properties\Button\LetterButton.cs" />
     <Compile Include="Ticker.cs" />
     <Compile Include="Properties\Entities\Controls.cs" />
+    <Compile Include="Properties\Text\TextBlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -148,6 +149,9 @@
     <Folder Include="Properties\Entities\Interactable\Blocks\" />
     <Folder Include="Properties\Keyboard\" />
     <Folder Include="Content\GameInfo\" />
+    <Folder Include="Content\ColorBlocks\" />
+    <Folder Include="Properties\Text\" />
+    <Folder Include="Content\HeadShots\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />
@@ -206,6 +210,9 @@
     <BundleResource Include="Content\option.txt" />
     <BundleResource Include="Content\Sounds\menu.wav" />
     <BundleResource Include="Content\GameInfo\gameInfo.txt" />
+    <BundleResource Include="Content\ColorBlocks\blue.png" />
+    <BundleResource Include="Content\HeadShots\face.png" />
+    <BundleResource Include="Content\Sounds\blip.wav" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">

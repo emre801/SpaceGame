@@ -11,7 +11,7 @@ namespace BlankGame
 		public class Block : Interact
 		{
 				Vector2 wh;
-				public Block(Game g,int t, Vector2 pos,Vector2 wh,Vector2 vel)
+				public Block(Game g,float t, Vector2 pos,Vector2 wh,Vector2 vel)
 				:base(g,t)
 				{
 					this.pos = pos;

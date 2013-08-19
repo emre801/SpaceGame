@@ -127,9 +127,8 @@ namespace BlankGame
 			{
 				HighScoreInfo tempHighScore = queue.Dequeue().Value;
 				tempQueue.Enqueue((tempHighScore.score+1f/tempHighScore.playerName.GetHashCode())*-1f,tempHighScore);
-				top10Scores.Add(tempHighScore);
-				if(count == 9)
-					break;
+				if(i <= 9)
+					top10Scores.Add(tempHighScore);
 			}
 			queue = tempQueue;
 		}

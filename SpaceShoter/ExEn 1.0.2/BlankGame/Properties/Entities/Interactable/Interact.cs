@@ -12,13 +12,13 @@ namespace BlankGame
 			public Rectangle bbox;
 			public Sprite image;
 			public Vector2 direct;
-			public int timer;
+			public float timer;
 			public Interact(Game g)
 				:base(g)
 			{
 				timer = 0;		
 			}
-			public Interact(Game g,int timer)
+			public Interact(Game g,float timer)
 			:base(g)
 			{
 				this.timer=timer;

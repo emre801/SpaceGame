@@ -344,7 +344,8 @@ namespace BlankGame
 			{
 				foreach(Entity e in entities) 
 				{
-					e.Draw(spriteBatch, gameTime);
+					if(!(e is TextBlock))
+						e.Draw(spriteBatch, gameTime);
 
 				}
 			}
@@ -355,6 +356,12 @@ namespace BlankGame
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
 			String currentGameTime = game.es.returnCurrentGameTime();
+
+
+			foreach(TextBlock tb in game.texts)
+			{
+				tb.Draw(spriteBatch,null);
+			}
 			if(game.oniPad) 
 			{
 				fontRender.DrawText(spriteBatch, 10, -420+game.xAnimation, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points + " "+ game.entities.Count+" "+currentGameTime, 1.2f, Color.White);

@@ -13,7 +13,7 @@ namespace BlankGame
 				bool moveForward=true;
 				Stopwatch stopWatch;
 
-				public EnemyShooter(Game g, Vector2 pos,Vector2 direct,int timer)
+				public EnemyShooter(Game g, Vector2 pos,Vector2 direct,float timer)
 				:base(g,pos,direct,timer)
 				{
 					stopWatch= new Stopwatch();

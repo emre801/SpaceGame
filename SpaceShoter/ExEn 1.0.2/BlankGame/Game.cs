@@ -21,6 +21,8 @@ namespace BlankGame
 		protected GraphicsDeviceManager graphics;
 		public List<Entity> entities = new List<Entity>();
 		public List<Interact> interactable = new List<Interact>();
+		public List<TextBlock> texts= new List<TextBlock>();
+
 		public enum GameState {TITLE,GAMETIME,OPTIONS,GAMEOVER,CONTROLS};
 		public GameState gameState;
 		public DrawingTool drawingTool;
@@ -69,6 +71,9 @@ namespace BlankGame
 		public Ticker tick;
 		public int titlePress=0;
 
+		public bool isSingleTab=false;
+
+		public int curTextNum=0;public bool changeTextNum=false;
 		public HashSet<Interact>[,] spaceSqure;
 
 		public int maxMoveThing=450;
@@ -111,6 +116,8 @@ namespace BlankGame
 			addSprite("hat", "hat");
 			addSprite("shield", "shield");
 			addSprite("circleCharge","circleCharge");
+			addSprite("blue","ColorBlocks/blue");
+			addSprite("face","HeadShots/face");
 
 			drawingTool.initialize();
 
@@ -119,6 +126,8 @@ namespace BlankGame
 			mp.addNewSound("explosion");
 			mp.addNewSound("powerUp");
 			mp.addNewSound("menu");
+			mp.addNewSound("blip");
+
 			player = new SpaceShipPlayer(this,getSprite("Ship"));
 			Shield shield = new Shield(this);
 			entitToAdd.Add(shield);
@@ -293,10 +302,31 @@ namespace BlankGame
 			foreach(Entity e in entitToAdd) 
 			{
 				entities.Add(e);
+				if(e is Interact)
+				{
+					Interact inter = (Interact)e;
+					interactable.Add(inter);
+				}
+				if(e is TextBlock)
+				{
+					TextBlock text = (TextBlock)e;
+					texts.Add(text);
+				}
 			}
 			foreach(Entity e in entitToRemove) 
 			{
 				entities.Remove(e);
+				if(e is Interact)
+				{
+					Interact inter = (Interact)e;
+					removeFromHashSpace(inter.bbox,inter);
+					interactable.Remove(inter);
+				}
+				if(e is TextBlock)
+				{
+					TextBlock text = (TextBlock)e;
+					texts.Remove(text);
+				}
 			}
 			entitToRemove = new List<Entity>();
 			entitToAdd = new List<Entity>();
@@ -306,6 +336,7 @@ namespace BlankGame
 		{
 			restart=false;
 			interactable = new List<Interact>();
+			texts= new List<TextBlock>();
 			entities= new List<Entity>();
 			entitToRemove = new List<Entity>();
 			entitToAdd = new List<Entity>();
@@ -331,6 +362,14 @@ namespace BlankGame
 			for(int x=0;x<Constants.NUM_BLOCKS_WIDTH;x++)
 				for(int y=0;y<Constants.NUM_BLOCKS_HEIGHT;y++)
 					spaceSqure[x,y]=new HashSet<Interact>();
+			foreach(Entity e in entities)
+			{
+				if(!(e is SpaceShip)) 
+				{
+					e.isVisible = false;
+				}
+
+			}
 
 		}
 
@@ -378,7 +417,7 @@ namespace BlankGame
 					return;
 			doCollisions();
 			//updateSpace();
-
+			changeTextNum=false;
 			foreach(Entity e in entities)
 			{
 				if(!e.isVisible) 
@@ -400,15 +439,31 @@ namespace BlankGame
 					Interact inter = (Interact)e;
 					interactable.Add(inter);
 				}
+				if(e is TextBlock)
+				{
+					TextBlock text = (TextBlock)e;
+					texts.Add(text);
+				}
 			}
 			foreach(Entity e in entitToRemove) 
 			{
-				entities.Remove(e);if(e is Interact)
+				entities.Remove(e);
+				if(e is Interact)
 				{
 					Interact inter = (Interact)e;
 					removeFromHashSpace(inter.bbox,inter);
 					interactable.Remove(inter);
 				}
+				if(e is TextBlock)
+				{
+					TextBlock text = (TextBlock)e;
+					texts.Remove(text);
+				}
+			}
+			if(changeTextNum)
+			{
+				curTextNum++;
+
 			}
 
 			entitToRemove = new List<Entity>();
