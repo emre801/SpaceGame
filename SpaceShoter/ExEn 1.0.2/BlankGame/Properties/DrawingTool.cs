@@ -313,6 +313,14 @@ namespace BlankGame
 
 		public void updateCamera()
 		{
+			if(game.isIpad())
+			{
+				///FUck you orientation isn't buggy so I'm making only one view on iPad... cuz FUCK you that's why...
+				cam.Rotation = 1.57079633f;
+				cam.Pos = new Vector2(150, 75);
+				return;
+			}
+
 			if(UIDevice.CurrentDevice.Orientation==UIDeviceOrientation.LandscapeLeft)
 			{
 				cam.Rotation = 1.57079633f;
@@ -321,7 +329,10 @@ namespace BlankGame
 			else if(UIDevice.CurrentDevice.Orientation== UIDeviceOrientation.LandscapeRight)
 			{	
 				cam.Rotation = 4.71238898f;
-				cam.Pos = new Vector2(310, 230);
+				if(game.isIpad())
+					cam.Pos = new Vector2(870, -210);
+				else
+					cam.Pos = new Vector2(310, 230);
 			}
 
 		}

@@ -29,7 +29,7 @@ namespace BlankGame
 								
 						Vector2 mousePosition = tl.Position;
 						Vector2 worldMousePosition = Vector2.Transform(mousePosition, Matrix.Invert(g.drawingTool.cam._transform));
-						Rectangle worldRec= new Rectangle((int)worldMousePosition.X-10,(int)worldMousePosition.Y-10,20,20);
+						Rectangle worldRec= new Rectangle((int)worldMousePosition.X-10,(int)worldMousePosition.Y-10,5,5);
 						mP = worldMousePosition;
 						if(demi.Intersects(worldRec) || demi.Contains(worldRec)) 
 						{

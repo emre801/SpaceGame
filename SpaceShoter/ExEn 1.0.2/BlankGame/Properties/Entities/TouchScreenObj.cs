@@ -157,6 +157,7 @@ namespace BlankGame
 					if(tc.Count == 4 && prevCount != 4) 
 					{
 						g.restart = true;
+						
 					}
 					foreach(TouchLocation tl in tc) 
 					{

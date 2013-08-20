@@ -13,17 +13,17 @@ namespace BlankGame
 			public TitleScreen(Game game)
 			{
 				this.game = game;
-				if(game.oniPad) 
+				if(game.isIpad()) 
 				{
-					startB= new Button(game,new Rectangle(300,-140,(int)(100*game.scale),(int)(20*game.scale)));
-					optionsB = new Button(game, new Rectangle(300, -100, (int)(100*game.scale),(int)(20*game.scale)));
+					startB= new Button(game,new Rectangle(300,-140,(int)(100*game.scale),(int)(40*game.scale)));
+					optionsB = new Button(game, new Rectangle(300, -100, (int)(100*game.scale),(int)(40*game.scale)));
+					controlsB = new Button(game, new Rectangle(300, -60, (int)(100*game.scale),(int)(40*game.scale)));
 				} 
 				else 
 				{
 					startB= new Button(game,new Rectangle(90,130,130,40));
 					optionsB = new Button(game, new Rectangle(90, 170, 130, 40));
 					controlsB = new Button(game, new Rectangle(90, 210, 130, 40));
-
 				}
 				//start = game.getSprite("Enemy");
 			}
@@ -70,13 +70,15 @@ namespace BlankGame
 				{
 					//spriteBatch.Draw(start.index, startB.demi, Color.White);
 					//spriteBatch.Draw(start.index, optionsB.demi, Color.White);
+					//spriteBatch.Draw(start.index, controlsB.demi, Color.White);
 				}
 
 				if(game.oniPad) 
 				{
-					game.fontRenderer.DrawText(spriteBatch, 300, -180, "Commander Cat Hat", 0.85f, Color.White);
-					game.fontRenderer.DrawText(spriteBatch, 300, -140, "Start", 0.65f, Color.White);
-					game.fontRenderer.DrawText(spriteBatch, 300, -100, "Options", 0.65f, Color.White);
+					game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -180, "Commander Cat Hat", 0.85f, Color.White);
+					game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -140, "Start", 0.65f, Color.White);
+					game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -100, "Options", 0.65f, Color.White);
+					game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -60, "Controls", 0.65f, Color.White);
 
 				} 
 				else 

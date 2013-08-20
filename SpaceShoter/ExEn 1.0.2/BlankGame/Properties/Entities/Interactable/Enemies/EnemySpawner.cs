@@ -74,16 +74,57 @@ namespace BlankGame
 							uploadPowerUp(words);
 						if(words[0].Equals("bl"))
 							uploadBlock(words);
-
+						if(words[0].Equals("$"))
+							upLoadText(sr,words[1],(int)System.Convert.ToSingle(words[2]));		
 					}
-					String[] text={"Hello Commander","Cat Hat ","How are you doing today"};
-					TextBlock fuck= new TextBlock(g,text,0,true);
-					g.entitToAdd.Add(fuck);
-					String[] text2={"LOL","Cat","PotatoeMan"};
-					fuck= new TextBlock(g,text2,1,false);
-					g.entitToAdd.Add(fuck);
+					
 
 				}
+
+				public void upLoadText(StringReader sr,String leftAlign,int c)
+				{
+					List<String> text= new List<String>();
+					String line;
+					float tScale=g.isIpad()?0.65f:0.45f;
+
+					while(!(line = sr.ReadLine()).Equals("$"))
+					{
+						int tx=0;
+
+						for(int i=0;i<line.Length;i++)
+						{
+							float length=tx;
+							if(length>350*g.scale)
+							{
+								int p=i;
+								while(line[p]!=' ')
+								{
+									p--;
+								}
+								line= line.Substring(0,p)+"{"+line.Substring(p+1);
+								tx=0;
+							}
+								char cee=line[i];
+								FontChar fc= g.fontRenderer.getCharacter(cee);
+								if(fc!=null)
+									tx += (int)(fc.XAdvance*tScale);
+
+							
+
+						}
+
+
+						text.Add(line);
+					}
+					String[] arr=text.ToArray();
+					bool leftAl= leftAlign.Equals("l");
+				
+					TextBlock newText= new TextBlock(g,arr,c,leftAl);
+					g.entitToAdd.Add(newText);
+
+				}
+
+
 
 				public void uploadEnemy(String[] info)
 				{

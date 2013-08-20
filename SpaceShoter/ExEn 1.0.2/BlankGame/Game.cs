@@ -104,7 +104,12 @@ namespace BlankGame
 		protected override void LoadContent()
 		{
 
-			
+			oniPad = isIpad();
+			if(oniPad) 
+			{
+				scale = 2.4f;
+				scaleH = 2.09166666f;
+			}
 			newSpaceList();
 
 			addSprite("Ship", "Ship");
@@ -145,12 +150,7 @@ namespace BlankGame
 			FontRenderer fr = new FontRenderer(fontFile, fontText);
 			this.fontRenderer = fr;
 			drawingTool.addFontRender(fr);
-			oniPad = isIpad();
-			if(oniPad) 
-			{
-				scale = 2.4f;
-				scaleH = 2.09166666f;
-			}
+
 			//Adding songs to mediaPlayer
 			mp.addNewSong("Alpha Black Magic");
 			mp.addNewSong("Anxiety Attack");
@@ -334,6 +334,7 @@ namespace BlankGame
 		}
 		public void restartGame()
 		{
+			curTextNum=0;
 			restart=false;
 			interactable = new List<Interact>();
 			texts= new List<TextBlock>();
@@ -358,9 +359,9 @@ namespace BlankGame
 		}
 		public void newSpaceList()
 		{
-			spaceSqure = new HashSet<Interact>[(int)Constants.NUM_BLOCKS_WIDTH,(int)Constants.NUM_BLOCKS_HEIGHT];
-			for(int x=0;x<Constants.NUM_BLOCKS_WIDTH;x++)
-				for(int y=0;y<Constants.NUM_BLOCKS_HEIGHT;y++)
+			spaceSqure = new HashSet<Interact>[(int)(Constants.NUM_BLOCKS_WIDTH*scale),(int)(Constants.NUM_BLOCKS_HEIGHT*scaleH)];
+			for(int x=0;x<(int)(Constants.NUM_BLOCKS_WIDTH*scale);x++)
+				for(int y=0;y<(int)(Constants.NUM_BLOCKS_HEIGHT*scaleH);y++)
 					spaceSqure[x,y]=new HashSet<Interact>();
 			foreach(Entity e in entities)
 			{
@@ -485,7 +486,7 @@ namespace BlankGame
 			{
 				for(int y=point2;y<=point4;y++)
 				{
-					if(x<Constants.NUM_BLOCKS_WIDTH && y< Constants.NUM_BLOCKS_HEIGHT && x>0 && y>0)
+					if(x<(int)(Constants.NUM_BLOCKS_WIDTH*scale) && y< (int)(Constants.NUM_BLOCKS_HEIGHT*scaleH) && x>0 && y>0)
 						spaceSqure[x,y].Remove(lol);
 
 				}
@@ -495,20 +496,22 @@ namespace BlankGame
 
 		public void doCollisions()
 		{
-			/*
-			foreach(Interact a in interactable)
-				foreach(Interact b in interactable) 
-				{
-					if(a != b) 
-					{
-						a.collidesWith(b);
-					}
-				}
-			*/
-
-			for(int x=0;x<Constants.NUM_BLOCKS_WIDTH;x++)
+			if(isIpad())
 			{
-				for(int y=0;y<Constants.NUM_BLOCKS_HEIGHT;y++)
+				foreach(Interact a in interactable)
+					foreach(Interact b in interactable) 
+					{
+						if(a != b) 
+						{
+							a.collidesWith(b);
+						}
+					}
+				return;
+			}
+
+			for(int x=0;x<(int)(Constants.NUM_BLOCKS_WIDTH*scale);x++)
+			{
+				for(int y=0;y<(int)(Constants.NUM_BLOCKS_HEIGHT*scaleH);y++)
 				{
 					HashSet<Interact> elementsInSpace = spaceSqure [x, y];
 					foreach(Interact a in elementsInSpace)
@@ -529,9 +532,9 @@ namespace BlankGame
 
 		public void updateSpace()
 		{
-			for(int x=0;x<Constants.NUM_BLOCKS_WIDTH;x++)
+			for(int x=0;x<(int)(Constants.NUM_BLOCKS_WIDTH*scale);x++)
 			{
-				for(int y=0;y<Constants.NUM_BLOCKS_HEIGHT;y++)
+				for(int y=0;y<(int)(Constants.NUM_BLOCKS_HEIGHT*scaleH);y++)
 				{
 					HashSet<Interact> elementsInSpace = spaceSqure [x, y];
 					HashSet<Interact> newSet = new HashSet<Interact>();

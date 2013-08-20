@@ -53,16 +53,16 @@ namespace BlankGame
 			{
 				if(this.isVisible && g.curTextNum==textNum)
 				{
-					spriteBatch.Draw(block.index,new Rectangle(0,250,400,50),Color.White);
+					spriteBatch.Draw(block.index,new Rectangle(0,250,(int)(400*g.scale),(int)(50*g.scale)),Color.White);
 					if(isLeftAlign)
 					{
-						g.fontRenderer.DrawText(spriteBatch,10,260,text[currText].Substring(0,stringLength),0.48f,Color.White);
-						spriteBatch.Draw(icon.index, new Rectangle(360,260,30,30),Color.White);
+						spriteBatch.Draw(icon.index, new Rectangle((int)(360*g.scale),260,(int)(30*g.scale),(int)(30*g.scale)),Color.White);
+						g.fontRenderer.DrawText(spriteBatch,10,260,text[currText].Substring(0,stringLength),0.48f,Color.White,(int)(350*g.scale));
 					}
 					else
 					{
-						spriteBatch.Draw(icon.index, new Rectangle(10,260,30,30),Color.White);
-						g.fontRenderer.DrawText(spriteBatch,60,260,text[currText].Substring(0,stringLength),0.48f,Color.White);
+						spriteBatch.Draw(icon.index, new Rectangle(10,260,(int)(30*g.scale),(int)(30*g.scale)),Color.White);
+						g.fontRenderer.DrawText(spriteBatch,60,260,text[currText].Substring(0,stringLength),0.48f,Color.White,(int)(350*g.scale));
 					}
 				}
 

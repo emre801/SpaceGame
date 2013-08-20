@@ -10,6 +10,7 @@ namespace BlankGame
 		{
 				public Button contin,toTitle;
 				Game game;
+				Sprite test;
 				public GameOver(Game game)
 				{
 					this.game = game;
@@ -26,12 +27,21 @@ namespace BlankGame
 				}
 				public void Update()
 				{
+					if(test==null)
+						test=game.getSprite("Enemy");
 					contin.Update();
 					toTitle.Update();
 				}
 
 				public void Draw(SpriteBatch spriteBatch)
 				{
+					if(test!=null)
+					{
+						spriteBatch.Draw(test.index,contin.demi,Color.White);
+						spriteBatch.Draw(test.index,toTitle.demi,Color.White);
+					}
+
+
 					if(game.oniPad) 
 					{
 						game.fontRenderer.DrawText(spriteBatch, 300, -220, "GAME OVER", 0.85f, Color.White);

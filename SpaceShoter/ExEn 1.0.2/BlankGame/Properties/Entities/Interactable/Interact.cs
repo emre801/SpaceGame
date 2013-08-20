@@ -41,7 +41,7 @@ namespace BlankGame
 				{
 					for(int y=point2;y<=point4;y++)
 					{
-						if(x<Constants.NUM_BLOCKS_WIDTH && x>0 && y>0 && y< Constants.NUM_BLOCKS_HEIGHT)
+						if(x<(int)(Constants.NUM_BLOCKS_WIDTH) && x>0 && y>0 && y< (int)(Constants.NUM_BLOCKS_HEIGHT))
 							g.spaceSqure[x,y].Add(this);
 
 					}
@@ -59,7 +59,7 @@ namespace BlankGame
 				{
 					for(int y=point2;y<=point4;y++)
 					{
-						if(x<Constants.NUM_BLOCKS_WIDTH && y< Constants.NUM_BLOCKS_HEIGHT && x>0 && y>0)
+						if(x<(int)(Constants.NUM_BLOCKS_WIDTH) && y< (int)(Constants.NUM_BLOCKS_HEIGHT) && x>0 && y>0)
 							g.spaceSqure[x,y].Remove(this);
 
 					}

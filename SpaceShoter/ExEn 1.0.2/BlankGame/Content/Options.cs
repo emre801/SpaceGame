@@ -17,25 +17,31 @@ namespace BlankGame
 				LetterButton[] lButtons;
 				String sound = "menu";
 				public Button sfxVolU,sfxVolD,musVolD,musVolU,exit;
-				int xAnimation=200;
+				//int xAnimation=200;
 				Ticker t;
+				Sprite start;
 				public Options(Game game)
 				{
 					t = new Ticker(2);
 					this.game = game;	
-					if(!game.oniPad) 
+					if(game.isIpad()) 
 					{
-						sfxVolU= new Button(game,new Rectangle(360,140,20,20));
-						sfxVolD= new Button(game,new Rectangle(280,140,20,20));
+						sfxVolU= new Button(game,new Rectangle(740,-100,20,20));
+						sfxVolD= new Button(game,new Rectangle(650,-100,20,20));
 						
-						musVolU= new Button(game,new Rectangle(360,100,20,20));
-						musVolD= new Button(game,new Rectangle(280,100,20,20));
-						exit= new Button(game,new Rectangle(80,260,130,40));
+						musVolU= new Button(game,new Rectangle(740,-140,20,20));
+						musVolD= new Button(game,new Rectangle(650,-140,20,20));
+						exit= new Button(game,new Rectangle(280,10,130,40));
 						
 					} 
 					else 
 					{
+						sfxVolU= new Button(game,new Rectangle(360,140,20,20));
+						sfxVolD= new Button(game,new Rectangle(280,140,20,20));
 
+						musVolU= new Button(game,new Rectangle(360,100,20,20));
+						musVolD= new Button(game,new Rectangle(280,100,20,20));
+						exit= new Button(game,new Rectangle(80,260,130,40));
 					}
 					ticker = new Stopwatch();
 					ticker.Start();
@@ -43,7 +49,12 @@ namespace BlankGame
 					char[] cArr = toCharArray();
 					int counter = 40;
 					for(int i=0; i<6; i++)
-						lButtons [i] = new LetterButton(game, new Vector2(80+counter*i,200),cArr[i]);
+					{
+						if(game.isIpad())
+							lButtons [i] = new LetterButton(game, new Vector2(320+counter*i,-40),cArr[i]);
+						else
+							lButtons [i] = new LetterButton(game, new Vector2(80+counter*i,200),cArr[i]);
+					}
 					initOptions();
 				}
 				
@@ -74,11 +85,14 @@ namespace BlankGame
 						readFile(loadedPath);
 					else
 						readFile(path);
+
+					
 				}
 
 				public void LoadContent()
 				{
 					incre = game.getSprite("incre");
+					start=game.getSprite("Enemy");
 				}
 				public void Update()
 				{
@@ -223,7 +237,14 @@ namespace BlankGame
 					spriteBatch.Draw(incre.index, musVolU.demi, Color.White);
 					spriteBatch.Draw(incre.index, musVolD.demi, Color.White);
 					//spriteBatch.Draw(incre.index, exit.demi, Color.White);
-					
+					if(start != null) 
+					{
+						//spriteBatch.Draw(start.index, sfxVolD.demi, Color.White);
+						//spriteBatch.Draw(start.index, sfxVolU.demi, Color.White);
+						//spriteBatch.Draw(start.index, musVolD.demi, Color.White);
+						//spriteBatch.Draw(start.index, musVolU.demi, Color.White);
+						//spriteBatch.Draw(start.index, exit.demi, Color.White);
+					}
 
 
 
@@ -231,6 +252,9 @@ namespace BlankGame
 					{
 						game.fontRenderer.DrawText(spriteBatch, 300+game.xAnimation, -140, "Music Volume", 0.65f, Color.White);
 						game.fontRenderer.DrawText(spriteBatch, 300+game.xAnimation, -100, "SFX Volume", 0.65f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 300+game.xAnimation, 20, "Exit", 0.65f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 700+game.xAnimation, -140, musicVolume+"", 0.65f, Color.White);
+						game.fontRenderer.DrawText(spriteBatch, 700+game.xAnimation, -100, sfxVolume+"", 0.65f, Color.White);
 
 					} 
 					else 
@@ -240,9 +264,10 @@ namespace BlankGame
 						game.fontRenderer.DrawText(spriteBatch, 80+game.xAnimation, 260, "Exit", 0.45f, Color.White);
 						game.fontRenderer.DrawText(spriteBatch, 320+game.xAnimation, 100, musicVolume+"", 0.45f, Color.White);
 						game.fontRenderer.DrawText(spriteBatch, 320+game.xAnimation, 140, sfxVolume+"", 0.45f, Color.White);
+						
+					}
 						for(int i=0; i<6; i++)
 							lButtons [i].Draw(spriteBatch,null);
-					}
 				}
 		}
 }

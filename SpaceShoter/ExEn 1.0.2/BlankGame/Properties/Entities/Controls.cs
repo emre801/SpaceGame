@@ -8,12 +8,13 @@ namespace BlankGame
 		{
 			Game game;
 			public Button back;
+			Sprite stack;
 			public Controls(Game game)
 			{
 				this.game = game;
-				if(game.oniPad) 
+				if(game.isIpad()) 
 				{
-					back= new Button(game,new Rectangle(300,-80,(int)(100*game.scale),(int)(20*game.scale)));
+					back= new Button(game,new Rectangle(300,-80,(int)(100*game.scale),(int)(50*game.scale)));
 				} 
 				else 
 				{
@@ -23,6 +24,12 @@ namespace BlankGame
 			
 			public void Update()
 			{
+				if(stack==null)
+				{
+					stack=game.getSprite("Enemy");
+
+				}
+
 				if(game.tick.hasTicked && game.xAnimation > 0 && game.isOpening) 
 				{
 					game.xAnimation -= 20;
@@ -54,10 +61,15 @@ namespace BlankGame
 			
 			public void Draw(SpriteBatch spriteBatch)
 			{
+				if(stack != null) 
+				{
+					//spriteBatch.Draw(stack.index, back.demi, Color.White);
+
+				}
 				if(game.oniPad) 
 				{
 					
-					game.fontRenderer.DrawText(spriteBatch, 300, -80, "Back", 0.65f, Color.White);
+					game.fontRenderer.DrawText(spriteBatch, back.demi.X-game.xAnimation, back.demi.Y, "Back", 0.65f, Color.White);
 				} 
 				else 
 				{
