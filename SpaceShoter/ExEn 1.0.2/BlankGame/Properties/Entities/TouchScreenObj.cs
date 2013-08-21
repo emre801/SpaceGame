@@ -129,7 +129,8 @@ namespace BlankGame
 					g.isSingleTab=false;
 					if(g.fireMode == SpaceShipPlayer.FireMode.FAST && tc.Count==1) 
 					{
-						g.player.fireBullet();
+						if(g.texts.Count==0)
+							g.player.fireBullet();
 
 					}
 					else if(tc.Count==1 && prevCount!=1) 

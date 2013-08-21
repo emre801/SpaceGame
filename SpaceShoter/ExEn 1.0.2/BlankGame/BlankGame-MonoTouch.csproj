@@ -152,6 +152,8 @@
     <Folder Include="Content\ColorBlocks\" />
     <Folder Include="Properties\Text\" />
     <Folder Include="Content\HeadShots\" />
+    <Folder Include="Content\Stars\" />
+    <Folder Include="Content\Title\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />
@@ -213,6 +215,11 @@
     <BundleResource Include="Content\ColorBlocks\blue.png" />
     <BundleResource Include="Content\HeadShots\face.png" />
     <BundleResource Include="Content\Sounds\blip.wav" />
+    <BundleResource Include="Content\Stars\Star0.png" />
+    <BundleResource Include="Content\Stars\Star1.png" />
+    <BundleResource Include="Content\Stars\Star2.png" />
+    <BundleResource Include="Content\Stars\Star3.png" />
+    <BundleResource Include="Content\Title\Title.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">

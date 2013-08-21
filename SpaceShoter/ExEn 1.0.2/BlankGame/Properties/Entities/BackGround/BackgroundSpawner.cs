@@ -14,20 +14,24 @@ namespace BlankGame
 		{
 			Game game;
 			Random r;
+			Ticker t;
 			public BackgroundSpawner(Game game)
 			{
 				this.game = game;
 						this.r = new Random(801);
+				t= new Ticker(50);
 			}
 			
 			public void Update()
 			{
-				if(r.Next(50)<=5) 
+				t.updateTick();
+				if(t.hasTicked) 
 				{
 					int xPos = r.Next(20, 300);
 					StarParticle sp= new StarParticle(game,new Vector2(xPos*game.scale,500*game.scaleH));
 				    game.entitToAdd.Add(sp); 
 				}
+				t.setTickBeat((int)(50/game.gameSpeed));
 			}
 
 			public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

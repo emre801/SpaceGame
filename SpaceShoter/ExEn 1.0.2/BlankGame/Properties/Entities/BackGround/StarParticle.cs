@@ -11,10 +11,13 @@ namespace BlankGame
 		{
 			Sprite image;	
 			Vector2 pos;
+		Random r;
 			public StarParticle(Game g,Vector2 pos)
 			:base(g)
 			{
-				image = g.getSprite("partical");
+				r= new Random(801);
+				
+				image = g.getSprite("Star"+r.Next()%4);
 				this.pos = pos;
 			}
 			public override void Update()

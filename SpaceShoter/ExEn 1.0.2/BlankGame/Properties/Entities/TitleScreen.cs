@@ -8,6 +8,7 @@ namespace BlankGame
 		{
 			Sprite start;//,options,other;
 			Game game;
+			Sprite title;
 			public Button startB,optionsB,controlsB;
 			
 			public TitleScreen(Game game)
@@ -21,14 +22,16 @@ namespace BlankGame
 				} 
 				else 
 				{
-					startB= new Button(game,new Rectangle(90,130,130,40));
-					optionsB = new Button(game, new Rectangle(90, 170, 130, 40));
-					controlsB = new Button(game, new Rectangle(90, 210, 130, 40));
+					startB= new Button(game,new Rectangle(180,150,130,40));
+					optionsB = new Button(game, new Rectangle(180, 200, 130, 40));
+					controlsB = new Button(game, new Rectangle(180, 265, 130, 40));
 				}
 				//start = game.getSprite("Enemy");
 			}
 			public void Update()
 			{
+				
+
 				if(game.tick.hasTicked && game.xAnimation > 0 && game.isOpening) 
 				{
 					game.xAnimation -= 20;
@@ -72,7 +75,10 @@ namespace BlankGame
 					//spriteBatch.Draw(start.index, optionsB.demi, Color.White);
 					//spriteBatch.Draw(start.index, controlsB.demi, Color.White);
 				}
-
+				if(title==null)
+				{
+					title=game.getSprite("Title");
+				}
 				if(game.oniPad) 
 				{
 					game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -180, "Commander Cat Hat", 0.85f, Color.White);
@@ -83,10 +89,12 @@ namespace BlankGame
 				} 
 				else 
 				{
-					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 100, "Commander Cat Hat", 0.65f, Color.White);
-					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 140, "Start", 0.45f, Color.White);
-					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 180, "Options", 0.45f, Color.White);
-					game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 220, "Controls", 0.45f, Color.White);
+					spriteBatch.Draw(title.index,new Rectangle(0-game.xAnimation,-20,(int)(title.index.Width),(int)(title.index.Height)),Color.White);
+
+					//game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 100, "Commander Cat Hat", 0.65f, Color.White);
+					//game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 140, "Start", 0.45f, Color.White);
+					//game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 180, "Options", 0.45f, Color.White);
+					//game.fontRenderer.DrawText(spriteBatch, 100-game.xAnimation, 220, "Controls", 0.45f, Color.White);
 				}
 				if(start != null) 
 				{

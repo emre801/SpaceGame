@@ -360,6 +360,7 @@ namespace BlankGame
 
 				}
 			}
+			game.player.Draw(spriteBatch,gameTime);
 			gui.Draw(spriteBatch);
 
 			endBatch();

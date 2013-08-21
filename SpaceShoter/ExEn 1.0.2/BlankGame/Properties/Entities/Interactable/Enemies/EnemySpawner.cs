@@ -90,7 +90,6 @@ namespace BlankGame
 					while(!(line = sr.ReadLine()).Equals("$"))
 					{
 						int tx=0;
-
 						for(int i=0;i<line.Length;i++)
 						{
 							float length=tx;
@@ -108,12 +107,7 @@ namespace BlankGame
 								FontChar fc= g.fontRenderer.getCharacter(cee);
 								if(fc!=null)
 									tx += (int)(fc.XAdvance*tScale);
-
-							
-
 						}
-
-
 						text.Add(line);
 					}
 					String[] arr=text.ToArray();
@@ -123,8 +117,6 @@ namespace BlankGame
 					g.entitToAdd.Add(newText);
 
 				}
-
-
 
 				public void uploadEnemy(String[] info)
 				{

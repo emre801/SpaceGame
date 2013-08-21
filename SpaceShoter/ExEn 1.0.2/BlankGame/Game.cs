@@ -124,6 +124,13 @@ namespace BlankGame
 			addSprite("blue","ColorBlocks/blue");
 			addSprite("face","HeadShots/face");
 
+
+			addSprite("Star0","Stars/Star0");
+			addSprite("Star1","Stars/Star1");
+			addSprite("Star2","Stars/Star2");
+			addSprite("Star3","Stars/Star3");
+
+			addSprite("Title","Title/Title");
 			drawingTool.initialize();
 
 			opt.LoadContent();
