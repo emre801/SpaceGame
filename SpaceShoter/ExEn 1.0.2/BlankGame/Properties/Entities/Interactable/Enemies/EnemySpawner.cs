@@ -24,6 +24,7 @@ namespace BlankGame
 				PriorityQueue<float,Interact> objsToSpawn;
 				Ticker ticker;
 				int numTicks;
+				bool loadText=false;
 				public EnemySpawner(Game g)
 				{
 					this.g = g;
@@ -31,8 +32,9 @@ namespace BlankGame
 					r2 = new Random();
 					objsToSpawn = new PriorityQueue<float, Interact>();
 				}
-				public void init()
+				public void init(bool loadText)
 				{
+					this.loadText=loadText;
 					readLevel(0);
 					timer = new Stopwatch();
 					ticker = new Ticker(1);
@@ -49,7 +51,10 @@ namespace BlankGame
 					int secLeftOver = totalSec % 60;
 					return totalMinutes + ":" + secLeftOver+":"+elapsedMilSec;
 				}
-				
+				public bool hasFinishedSpawning()
+				{
+					return objsToSpawn.Count==0;
+				}
 				public void startStopTimer()
 				{
 					if(timer.IsRunning)
@@ -83,6 +88,7 @@ namespace BlankGame
 
 				public void upLoadText(StringReader sr,String leftAlign,int c)
 				{
+					
 					List<String> text= new List<String>();
 					String line;
 					float tScale=g.isIpad()?0.65f:0.45f;
@@ -114,7 +120,9 @@ namespace BlankGame
 					bool leftAl= leftAlign.Equals("l");
 				
 					TextBlock newText= new TextBlock(g,arr,c,leftAl);
-					g.entitToAdd.Add(newText);
+					if(loadText)
+						g.entitToAdd.Add(newText);
+					//g.texts.Add(newText);
 
 				}
 

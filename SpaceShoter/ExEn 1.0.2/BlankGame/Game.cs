@@ -129,6 +129,7 @@ namespace BlankGame
 			addSprite("Star1","Stars/Star1");
 			addSprite("Star2","Stars/Star2");
 			addSprite("Star3","Stars/Star3");
+			addSprite("ScrollStar","Stars/ScrollStar");
 
 			addSprite("Title","Title/Title");
 			drawingTool.initialize();
@@ -172,7 +173,7 @@ namespace BlankGame
 			mp.initPlayer();
 
 			initHighScore();
-			es.init();
+			es.init(true);
 
 		}
 
@@ -360,7 +361,7 @@ namespace BlankGame
 			entities.Add(player);
 			interactable.Add(player);
 			this.points = 0;
-			es.init();
+			es.init(true);
 
 
 		}
@@ -426,15 +427,19 @@ namespace BlankGame
 			doCollisions();
 			//updateSpace();
 			changeTextNum=false;
+			int numInteract=0;
 			foreach(Entity e in entities)
 			{
 				if(!e.isVisible) 
 				{
 					entitToRemove.Add(e);
+
 				} 
 				else 
 				{
 					e.Update();
+					if(e is Interact)
+						numInteract++;
 				}
 			}
 			es.Update();
@@ -476,7 +481,11 @@ namespace BlankGame
 
 			entitToRemove = new List<Entity>();
 			entitToAdd = new List<Entity>();
-
+			if(es.hasFinishedSpawning())
+			{
+				es = new EnemySpawner(this);
+				es.init(false);
+			}
 		}
 
 		public void addSprite(String name,String direct)

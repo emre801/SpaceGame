@@ -220,6 +220,7 @@
     <BundleResource Include="Content\Stars\Star2.png" />
     <BundleResource Include="Content\Stars\Star3.png" />
     <BundleResource Include="Content\Title\Title.png" />
+    <BundleResource Include="Content\Stars\ScrollStar.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">

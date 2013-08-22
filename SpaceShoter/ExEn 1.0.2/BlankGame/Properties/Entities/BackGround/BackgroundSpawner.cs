@@ -15,15 +15,25 @@ namespace BlankGame
 			Game game;
 			Random r;
 			Ticker t;
+			bool first;
 			public BackgroundSpawner(Game game)
 			{
 				this.game = game;
-						this.r = new Random(801);
-				t= new Ticker(50);
+				this.r = new Random(801);
+				t= new Ticker(150);
+			first=true;
 			}
 			
 			public void Update()
 			{
+				if(first)
+				{
+					//StarParticle sp= new StarParticle(game,new Vector2(0*game.scale,500*game.scaleH));
+					//game.entitToAdd.Add(sp); 
+					//first=false;
+
+				}
+
 				t.updateTick();
 				if(t.hasTicked) 
 				{
@@ -31,7 +41,7 @@ namespace BlankGame
 					StarParticle sp= new StarParticle(game,new Vector2(xPos*game.scale,500*game.scaleH));
 				    game.entitToAdd.Add(sp); 
 				}
-				t.setTickBeat((int)(50/game.gameSpeed));
+				t.setTickBeat((int)(150/game.gameSpeed));
 			}
 
 			public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

@@ -27,7 +27,7 @@ namespace BlankGame
 				this.image = sprite;
 				this.bbox = new Microsoft.Xna.Framework.Rectangle((int)0, (int)0, 
 			                                                  sprite.index.Width, sprite.index.Height);
-				this.pos = new Vector2(200, 0);
+				this.pos = new Vector2(150, 0);
 				partical = g.getSprite("partical");
 				hat = g.getSprite("hat");
 			}
