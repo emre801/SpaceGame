@@ -71,7 +71,7 @@ namespace BlankGame
 						audioPlayer.Pause();
 					else
 					{
-						audioPlayer.Volume = g.opt.musicVolume;
+						//audioPlayer.Volume = g.opt.musicVolume;
 						//audioPlayer.Play();
 					}
 				}

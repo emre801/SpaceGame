@@ -75,8 +75,10 @@ namespace BlankGame
 
 		public int curTextNum=0;public bool changeTextNum=false;
 		public HashSet<Interact>[,] spaceSqure;
-
+		public bool testLag=true;
 		public int maxMoveThing=450;
+		Ticker garbageTick;
+		public float gt;
 		public Game()
 		{
 			//graphics = new GraphicsDeviceManager(this);
@@ -98,6 +100,7 @@ namespace BlankGame
 			go=new GameOver(this);
 			cont = new Controls(this);
 			tick = new Ticker(2);
+			garbageTick= new Ticker(10000);
 
 		}
 
@@ -120,6 +123,7 @@ namespace BlankGame
 			addSprite("incre", "incre");
 			addSprite("hat", "hat");
 			addSprite("shield", "shield");
+			addSprite("block", "block");
 			addSprite("circleCharge","circleCharge");
 			addSprite("blue","ColorBlocks/blue");
 			addSprite("face","HeadShots/face");
@@ -392,7 +396,7 @@ namespace BlankGame
 					spaceSqure[x,y]=new HashSet<Interact>();
 			foreach(Entity e in entities)
 			{
-				if(!(e is SpaceShip)) 
+				if(!(e is SpaceShip) && !(e is StarParticle) && !(e is Shield)) 
 				{
 					e.isVisible = false;
 				}
@@ -404,6 +408,8 @@ namespace BlankGame
 		protected override void Update(GameTime gameTime)
 		{
 			//mp.playMusic();
+			this.gt=1f;//(float)((1f/60f)/gameTime.ElapsedGameTime.TotalSeconds);
+			//Console.WriteLine(gt);
 			tick.updateTick();
 			if(gameState == GameState.TITLE)
 			{
@@ -457,7 +463,7 @@ namespace BlankGame
 				else 
 				{
 					e.Update();
-					if(e is Interact)
+					if(e is Interact && !(e is Shield) && !(e is Bullet) && !(e is Block))
 						numInteract++;
 				}
 			}
@@ -499,10 +505,16 @@ namespace BlankGame
 
 			entitToRemove = new List<Entity>();
 			entitToAdd = new List<Entity>();
-			if(es.hasFinishedSpawning())
+			if(numInteract<=1 && es.hasFinishedSpawning())
 			{
 				es = new EnemySpawner(this);
 				es.init(false);
+			}
+			garbageTick.updateTick();
+			if(garbageTick.hasTicked)
+			{
+				//System.GC.Collect();
+				//System.GC.WaitForPendingFinalizers();
 			}
 		}
 
@@ -558,11 +570,6 @@ namespace BlankGame
 							{
 
 								a.collidesWith(b);
-							}
-							if(!a.isVisible)
-							{
-								int testLag=0;
-
 							}
 						}
 					}
@@ -641,6 +648,7 @@ namespace BlankGame
 				return;
 			}
 
+
 			if(this.tick.hasTicked && this.xAnimation > 0 && this.isOpening) 
 			{
 				this.xAnimation -= 50;
@@ -663,10 +671,12 @@ namespace BlankGame
 				xAnimation = 0;
 			if(xAnimation > maxMoveThing)
 				xAnimation = maxMoveThing;
-			drawingTool.drawEntities(entities, gameTime);
+			//if(!testLag)
+				drawingTool.drawEntities(entities, gameTime);
+			//else
+			//	drawingTool.drawBS();
 
-
-			drawFrameRate(gameTime);
+			//drawFrameRate(gameTime);
 			//base.Draw(gameTime);
 		}
 

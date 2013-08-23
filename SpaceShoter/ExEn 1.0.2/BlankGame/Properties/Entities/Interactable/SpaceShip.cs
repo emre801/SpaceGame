@@ -13,7 +13,7 @@ namespace BlankGame
 			//Sprite image;
 			public int health= 20;
 			public int lives=2;
-			Queue<Vector2> trail = new Queue<Vector2>();
+			Queue<RainbowPoint> trail = new Queue<RainbowPoint>();
 			Sprite partical,hat;
 			Color hatColor=Color.White;
 			bool playerDied=false;
@@ -135,7 +135,7 @@ namespace BlankGame
 
 			public void updateTrail()
 			{
-				trail.Enqueue(pos);
+				trail.Enqueue(new RainbowPoint(pos));
 				if(trail.Count > 10)
 					trail.Dequeue();
 
@@ -193,10 +193,7 @@ namespace BlankGame
 
 			public void tempUpdateBBox()
 			{
-			bbox = new Rectangle((int)pos.X, (int)pos.Y, (int)(image.index.Width*g.scale), (int)(image.index.Height*g.scale));
-
-
-
+				bbox = new Rectangle((int)pos.X, (int)pos.Y, (int)(image.index.Width*g.scale), (int)(image.index.Height*g.scale));
 			}
 
 
@@ -231,22 +228,22 @@ namespace BlankGame
 				}
 			}
 			
-			public void drawRainBow(Vector2 p1, Vector2 p2, float alpha)
+			public void drawRainBow(RainbowPoint p1, RainbowPoint p2, float alpha)
 			{
 
-			g.drawingTool.DrawLine(1f, Color.Red*alpha, p1, p2);
-			g.drawingTool.DrawLine(1f, Color.Orange*alpha, p1+ new Vector2(2,0), p2+ new Vector2(2,0));
-			g.drawingTool.DrawLine(1f, Color.Yellow*alpha, p1+ new Vector2(4,0), p2+ new Vector2(4,0));
-			g.drawingTool.DrawLine(1f, Color.Green*alpha, p1+ new Vector2(6,0), p2+ new Vector2(6,0));
-			g.drawingTool.DrawLine(1f, Color.SkyBlue*alpha, p1+ new Vector2(8,0), p2+ new Vector2(8,0));
-			g.drawingTool.DrawLine(1f, Color.Blue*alpha, p1+ new Vector2(10,0), p2+ new Vector2(10,0));
+			g.drawingTool.DrawLine(1f, Color.Red*alpha, p1.point[0], p2.point[0]);
+			g.drawingTool.DrawLine(1f, Color.Orange*alpha, p1.point[1], p2.point[1]);
+			g.drawingTool.DrawLine(1f, Color.Yellow*alpha, p1.point[2], p2.point[2]);
+			g.drawingTool.DrawLine(1f, Color.Green*alpha, p1.point[3], p2.point[3]);
+			g.drawingTool.DrawLine(1f, Color.SkyBlue*alpha, p1.point[4], p2.point[4]);
+			g.drawingTool.DrawLine(1f, Color.Blue*alpha,p1.point[5], p2.point[5]);
 			}
 
 
 			public override void Draw(SpriteBatch spriteBatch,Microsoft.Xna.Framework.GameTime gameTime)
 			{
 				float counter = 0.5f;
-				Vector2[] trailArray = trail.ToArray();
+				RainbowPoint[] trailArray = trail.ToArray();
 				/*foreach(Vector2 p in trail) 
 				{
 					spriteBatch.Draw(partical.index,new Rectangle((int)p.X,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.Red*0.9f);
@@ -259,11 +256,11 @@ namespace BlankGame
 					//counter=counter+0.05f;
 				}*/
 			//if(trailArray.Length>3)
-			//for(int i=0;i<trailArray.Length-1;i++)
-			//{
-			//	drawRainBow(trailArray [i], trailArray [i+1],counter);
-			//	counter += 0.05f;
-			//}	
+			for(int i=0;i<trailArray.Length-1;i++)
+			{
+				drawRainBow(trailArray [i], trailArray [i+1],counter);
+				counter += 0.05f;
+			}	
 
 				spriteBatch.Draw(image.index, bbox, Color.White);
 				spriteBatch.Draw(hat.index, new Rectangle((int)pos.X+bbox.Width/2,(int)pos.Y+bbox.Height/2,hat.index.Width,hat.index.Height), hatColor);

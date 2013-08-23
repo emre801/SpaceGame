@@ -24,7 +24,7 @@ namespace BlankGame
 			}
 			public override void Update()
 			{
-				this.pos = this.pos + new Vector2(0, -2*g.scaleH)*g.gameSpeed;
+				this.pos = this.pos + new Vector2(0, -3*g.scaleH)*g.gameSpeed*g.gt;
 				if(this.pos.Y<0)// && !hasSpawnedNew) 
 				{
 					this.isVisible = false;

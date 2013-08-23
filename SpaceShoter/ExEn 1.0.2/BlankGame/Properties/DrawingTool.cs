@@ -116,10 +116,10 @@ namespace BlankGame
 		public void DrawLine( float width, Color color, Vector2 point1, Vector2 point2)
 		{
 			float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
-			float length = Vector2.Distance(point1, point2);
+			float length = Vector2.Distance(point2, point1);
 
 			this.spriteBatch.Draw(this.blank, point1, null, color,
-			           angle, Vector2.Zero, new Vector2(length, width),
+			           angle, Vector2.Zero, new Vector2(length, blank.Height),
 			           SpriteEffects.None, 0);
 		}
 
@@ -348,23 +348,23 @@ namespace BlankGame
 		{
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
 			float frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
-			if(frameRate<10)
-				fontRender.DrawText(spriteBatch,0,0,""+(int)frameRate,1,Color.Green);
+			fontRender.DrawText(spriteBatch,0,0,""+(int)frameRate,1,Color.Green);
 			endBatch();
 		}
 
 		internal void drawEntities(List<Entity> entities, GameTime gameTime)
 		{
 			beginBatch();
+			game.bs.Draw(spriteBatch,gameTime);
 			foreach(Entity e in entities) 
 			{
-				if(!(e is TextBlock))
+				if(!(e is TextBlock) && !(e is StarParticle))
 					e.Draw(spriteBatch, gameTime);
 
 			}
 
 			//game.player.Draw(spriteBatch,gameTime);
-			gui.Draw(spriteBatch);
+			// mgui.Draw(spriteBatch);
 
 			endBatch();
 
@@ -385,6 +385,14 @@ namespace BlankGame
 			{
 				fontRender.DrawText(spriteBatch, 0+game.xAnimation, 10, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points+" "+ game.entities.Count+" "+currentGameTime+" "+game.gameSpeed, 0.5f, Color.White);
 			}
+			endBatch();
+
+		}
+
+		public void drawBS()
+		{
+			beginBatch();
+			game.bs.Draw(spriteBatch, null);
 			endBatch();
 
 		}

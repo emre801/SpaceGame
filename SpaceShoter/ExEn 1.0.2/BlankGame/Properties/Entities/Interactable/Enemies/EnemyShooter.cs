@@ -20,7 +20,7 @@ namespace BlankGame
 				}
 				public override void Update()
 				{
-					this.pos = this.pos + direct*g.gameSpeed;
+					this.pos = this.pos + direct*g.gameSpeed*g.gt;
 					if(moveForward) 
 					{
 						if(this.pos.Y <= 250*g.scaleH) 
@@ -52,7 +52,7 @@ namespace BlankGame
 						stopWatch.Stop();
 						if(stopWatch.ElapsedMilliseconds >= 500*(1/g.gameSpeed)) 
 						{
-							g.entitToAdd.Add(new Bullet(g, pos, new Vector2(0, -4),false));
+							g.entitToAdd.Add(new Bullet(g, pos, new Vector2(0, -4*g.scaleH),false));
 							stopWatch.Reset();
 						}
 						stopWatch.Start();

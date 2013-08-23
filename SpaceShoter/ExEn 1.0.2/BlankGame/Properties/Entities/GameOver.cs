@@ -37,8 +37,8 @@ namespace BlankGame
 				{
 					if(test!=null)
 					{
-						spriteBatch.Draw(test.index,contin.demi,Color.White);
-						spriteBatch.Draw(test.index,toTitle.demi,Color.White);
+						//spriteBatch.Draw(test.index,contin.demi,Color.White);
+						//spriteBatch.Draw(test.index,toTitle.demi,Color.White);
 					}
 
 

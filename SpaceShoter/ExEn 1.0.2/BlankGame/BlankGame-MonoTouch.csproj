@@ -70,6 +70,7 @@
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="PriorityQueue.xml" />
+    <None Include="Content\Levels\Level2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -133,6 +134,8 @@
     <Compile Include="Ticker.cs" />
     <Compile Include="Properties\Entities\Controls.cs" />
     <Compile Include="Properties\Text\TextBlock.cs" />
+    <Compile Include="Properties\Entities\Interactable\RainbowPoint.cs" />
+    <Compile Include="Properties\Entities\Interactable\Enemies\EnemyCircle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -222,6 +225,7 @@
     <BundleResource Include="Content\Title\Title.png" />
     <BundleResource Include="Content\Stars\ScrollStar.png" />
     <BundleResource Include="Content\Title\TitleBig.png" />
+    <BundleResource Include="Content\block.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">
@@ -234,5 +238,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Levels\Level0.txt" />
+    <Content Include="Content\Levels\Level1.txt" />
   </ItemGroup>
 </Project>
