@@ -16,9 +16,13 @@ namespace BlankGame
 				this.game = game;
 				if(game.isIpad()) 
 				{
-					startB= new Button(game,new Rectangle(300,-140,(int)(100*game.scale),(int)(40*game.scale)));
-					optionsB = new Button(game, new Rectangle(300, -100, (int)(100*game.scale),(int)(40*game.scale)));
-					controlsB = new Button(game, new Rectangle(300, -60, (int)(100*game.scale),(int)(40*game.scale)));
+					//startB= new Button(game,new Rectangle(300,-140,(int)(100*game.scale),(int)(40*game.scale)));
+					//optionsB = new Button(game, new Rectangle(300, -100, (int)(100*game.scale),(int)(40*game.scale)));
+				//controlsB = new Button(game, new Rectangle(300, -60, (int)(100*game.scale),(int)(40*game.scale)));
+
+					startB= new Button(game,new Rectangle(180+200,150-215,(int)(130*2.5f),(int)(40*2.5f)));
+					optionsB = new Button(game, new Rectangle(180+200, 200-150, (int)(130*2.5f), (int)(40*2.5f)));
+					controlsB = new Button(game, new Rectangle(180+200, 265-100, (int)(130*2.5f), (int)(40*2.5f)));
 				} 
 				else 
 				{
@@ -77,15 +81,18 @@ namespace BlankGame
 				}
 				if(title==null)
 				{
-					title=game.getSprite("Title");
+					if(!game.isIpad())
+						title=game.getSprite("Title");
+					else
+						title=game.getSprite("TitleBig");
 				}
 				if(game.oniPad) 
 				{
-					game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -180, "Commander Cat Hat", 0.85f, Color.White);
-					game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -140, "Start", 0.65f, Color.White);
-					game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -100, "Options", 0.65f, Color.White);
-					game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -60, "Controls", 0.65f, Color.White);
-
+					//game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -180, "Commander Cat Hat", 0.85f, Color.White);
+					//game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -140, "Start", 0.65f, Color.White);
+					//game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -100, "Options", 0.65f, Color.White);
+					//game.fontRenderer.DrawText(spriteBatch, 300-game.xAnimation, -60, "Controls", 0.65f, Color.White);
+					spriteBatch.Draw(title.index,new Rectangle(175-game.xAnimation,-350,(int)(title.index.Width),(int)(title.index.Height)),Color.White);
 				} 
 				else 
 				{

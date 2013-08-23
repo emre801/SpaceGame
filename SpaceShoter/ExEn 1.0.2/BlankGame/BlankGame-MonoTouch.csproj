@@ -221,6 +221,7 @@
     <BundleResource Include="Content\Stars\Star3.png" />
     <BundleResource Include="Content\Title\Title.png" />
     <BundleResource Include="Content\Stars\ScrollStar.png" />
+    <BundleResource Include="Content\Title\TitleBig.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">

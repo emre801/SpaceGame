@@ -20,6 +20,7 @@ namespace BlankGame
 			public bool isGod=false;
 			Vector2 positionOfP1;int portalCounter=1;
 
+			
 
 			public SpaceShipPlayer(Game g,Sprite sprite)
 				:base(g)
@@ -180,11 +181,12 @@ namespace BlankGame
 					}
 					//inter.isVisible = false;
 					//g.health--;
-					this.pos = this.pos + inter.direct;
+					if(pos.Y<inter.pos.Y)
+						this.pos = this.pos + inter.direct*g.gameSpeed;
 					if(pos.Y <= 0 && !(inter is Shield))
 						this.playerDied=true;
 					//updateBBox(); //temperary remove
-					tempUpdateBBox();
+					//tempUpdateBBox();
 				}
 				return true;
 			}
@@ -256,12 +258,12 @@ namespace BlankGame
 					spriteBatch.Draw(partical.index,new Rectangle((int)p.X+12,(int)p.Y,(int)(image.index.Width*counter),(int)(image.index.Width*counter)),Color.Purple*0.9f);
 					//counter=counter+0.05f;
 				}*/
-			if(trailArray.Length>3)
-			for(int i=0;i<trailArray.Length-1;i++)
-			{
-				drawRainBow(trailArray [i], trailArray [i+1],counter);
-				counter += 0.05f;
-			}	
+			//if(trailArray.Length>3)
+			//for(int i=0;i<trailArray.Length-1;i++)
+			//{
+			//	drawRainBow(trailArray [i], trailArray [i+1],counter);
+			//	counter += 0.05f;
+			//}	
 
 				spriteBatch.Draw(image.index, bbox, Color.White);
 				spriteBatch.Draw(hat.index, new Rectangle((int)pos.X+bbox.Width/2,(int)pos.Y+bbox.Height/2,hat.index.Width,hat.index.Height), hatColor);

@@ -135,7 +135,8 @@ namespace BlankGame
 					}
 					else if(tc.Count==1 && prevCount!=1) 
 					{
-						g.player.fireBullet();
+						if(g.texts.Count==0)
+							g.player.fireBullet();
 						g.isSingleTab=true;
 					}
 					if(tc.Count == 2 && prevCount != 2) 
@@ -159,14 +160,6 @@ namespace BlankGame
 					{
 						g.restart = true;
 						
-					}
-					foreach(TouchLocation tl in tc) 
-					{
-
-							//Vector2 mousePosition = tl.Position;
-							//Rectangle mouseRect = new Rectangle((int)mousePosition.X, (int)mousePosition.Y, 15, 15);
-
-
 					}
 					prevCount = tc.Count;
 				}

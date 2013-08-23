@@ -339,28 +339,31 @@ namespace BlankGame
 
 		private void beginBatch()
 		{
-			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 			//spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
 
 		}
+
+		public void drawFrameRate(GameTime gameTime)
+		{
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
+			float frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
+			if(frameRate<10)
+				fontRender.DrawText(spriteBatch,0,0,""+(int)frameRate,1,Color.Green);
+			endBatch();
+		}
+
 		internal void drawEntities(List<Entity> entities, GameTime gameTime)
 		{
 			beginBatch();
-			if(this.game.gameState == Game.GameState.TITLE) 
+			foreach(Entity e in entities) 
 			{
-				ts.Update();
-				ts.Draw(spriteBatch);
-			} 
-			else 
-			{
-				foreach(Entity e in entities) 
-				{
-					if(!(e is TextBlock))
-						e.Draw(spriteBatch, gameTime);
+				if(!(e is TextBlock))
+					e.Draw(spriteBatch, gameTime);
 
-				}
 			}
-			game.player.Draw(spriteBatch,gameTime);
+
+			//game.player.Draw(spriteBatch,gameTime);
 			gui.Draw(spriteBatch);
 
 			endBatch();
@@ -376,11 +379,11 @@ namespace BlankGame
 			}
 			if(game.oniPad) 
 			{
-				fontRender.DrawText(spriteBatch, 10, -420+game.xAnimation, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points + " "+ game.entities.Count+" "+currentGameTime, 1.2f, Color.White);
+				fontRender.DrawText(spriteBatch, 10+game.xAnimation, -420, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points + " "+ game.entities.Count+" "+currentGameTime+" "+game.gameSpeed, 1.2f, Color.White);
 			} 
 			else 
 			{
-				fontRender.DrawText(spriteBatch, 0+game.xAnimation, 10, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points+" "+ game.entities.Count+" "+currentGameTime, 0.5f, Color.White);
+				fontRender.DrawText(spriteBatch, 0+game.xAnimation, 10, "HP:" + game.health + " Lives:" + game.lives + "  " + game.points+" "+ game.entities.Count+" "+currentGameTime+" "+game.gameSpeed, 0.5f, Color.White);
 			}
 			endBatch();
 

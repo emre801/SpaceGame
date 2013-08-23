@@ -25,9 +25,14 @@ namespace BlankGame
 			}
 			public virtual void updateBBox()
 			{
-				removeFromHashSpace(bbox);
+				Rectangle oldBBox=bbox;
+				
 				bbox = new Rectangle((int)pos.X, (int)pos.Y, (int)(image.index.Width*g.scale), (int)(image.index.Height*g.scale));
-				addToHashSpace(bbox);
+				if(!oldBBox.Equals(bbox))
+				{
+					removeFromHashSpace(oldBBox);
+					addToHashSpace(bbox);
+				}
 			}
 
 

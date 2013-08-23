@@ -35,8 +35,8 @@ namespace BlankGame
 					int index = r.Next() % songs.Count;
 					this.audioPlayer = (AVAudioPlayer)songs [index];
 					audioPlayer.Volume = (float)g.opt.musicVolume;
-					audioPlayer.Play();
-					audioPlayer.Pause();
+					//audioPlayer.Play();
+					//audioPlayer.Pause();
 
 				}
 				public void addNewSound(String name)
@@ -57,8 +57,8 @@ namespace BlankGame
 					{	
 						int index = r.Next() % songs.Count;
 						this.audioPlayer = (AVAudioPlayer)songs [index];
-						audioPlayer.Volume = (float)g.opt.musicVolume;
-						audioPlayer.Play();
+						//audioPlayer.Volume = (float)g.opt.musicVolume;
+						//audioPlayer.Play();
 					}
 				}
 				
@@ -72,7 +72,7 @@ namespace BlankGame
 					else
 					{
 						audioPlayer.Volume = g.opt.musicVolume;
-						audioPlayer.Play();
+						//audioPlayer.Play();
 					}
 				}
 

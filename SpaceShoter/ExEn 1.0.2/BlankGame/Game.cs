@@ -50,7 +50,7 @@ namespace BlankGame
 		public FontRenderer fontRenderer;
 		public GameOver go;
 
-		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.CIRCLE;
+		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.NORMAL;
 
 		public Options opt;//= new Options();
 		public float gameSpeed = 1f;
@@ -132,6 +132,7 @@ namespace BlankGame
 			addSprite("ScrollStar","Stars/ScrollStar");
 
 			addSprite("Title","Title/Title");
+			addSprite("TitleBig","Title/TitleBig");
 			drawingTool.initialize();
 
 			opt.LoadContent();
@@ -340,13 +341,31 @@ namespace BlankGame
 			entitToAdd = new List<Entity>();
 
 		}
+
+		public void clearAllEntitiesThatArentBG()
+		{
+			entitToRemove = new List<Entity>();
+			foreach(Entity e in entities)
+			{
+				if(!(e is StarParticle))
+				{
+					entitToRemove.Add(e);
+				}
+			}
+			foreach(Entity e in entitToRemove)
+				entities.Remove(e);
+
+
+		}
+
 		public void restartGame()
 		{
 			curTextNum=0;
 			restart=false;
 			interactable = new List<Interact>();
 			texts= new List<TextBlock>();
-			entities= new List<Entity>();
+			//entities= new List<Entity>();
+			clearAllEntitiesThatArentBG();
 			entitToRemove = new List<Entity>();
 			entitToAdd = new List<Entity>();
 			es = new EnemySpawner(this);
@@ -413,7 +432,7 @@ namespace BlankGame
 			}
 			tso.Update();
 
-			mp.playMusic();
+			//mp.playMusic();
 
 			if(restart)
 			{
@@ -476,7 +495,6 @@ namespace BlankGame
 			if(changeTextNum)
 			{
 				curTextNum++;
-
 			}
 
 			entitToRemove = new List<Entity>();
@@ -530,6 +548,8 @@ namespace BlankGame
 				for(int y=0;y<(int)(Constants.NUM_BLOCKS_HEIGHT*scaleH);y++)
 				{
 					HashSet<Interact> elementsInSpace = spaceSqure [x, y];
+					if(elementsInSpace.Count<=1)
+						continue;
 					foreach(Interact a in elementsInSpace)
 					{		
 						foreach(Interact b in elementsInSpace)
@@ -538,6 +558,11 @@ namespace BlankGame
 							{
 
 								a.collidesWith(b);
+							}
+							if(!a.isVisible)
+							{
+								int testLag=0;
+
 							}
 						}
 					}
@@ -570,7 +595,7 @@ namespace BlankGame
 		private void StartGyro()
 		{
 			motionManager = new CMMotionManager();
-			motionManager.GyroUpdateInterval = 1/2;
+			motionManager.GyroUpdateInterval = 1/10;
 			if (motionManager.GyroAvailable)
 			{
 				motionManager.StartGyroUpdates(NSOperationQueue.MainQueue, GyroData_Received);
@@ -584,10 +609,16 @@ namespace BlankGame
 		}
 
 
+		public void drawFrameRate(GameTime gameTime)
+		{
+			drawingTool.drawFrameRate(gameTime);
+		}
+
 
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.Black);
+
 			drawingTool.updateCamera();
 			if(gameState == GameState.TITLE) 
 			{
@@ -633,6 +664,9 @@ namespace BlankGame
 			if(xAnimation > maxMoveThing)
 				xAnimation = maxMoveThing;
 			drawingTool.drawEntities(entities, gameTime);
+
+
+			drawFrameRate(gameTime);
 			//base.Draw(gameTime);
 		}
 
