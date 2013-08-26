@@ -138,6 +138,8 @@
     <Compile Include="Properties\Entities\Interactable\Enemies\EnemyWave.cs" />
     <Compile Include="Properties\Entities\Interactable\Enemies\EnemyTele.cs" />
     <Compile Include="Properties\Entities\Interactable\Bullets\Bullet.cs" />
+    <Compile Include="Properties\Entities\Interactable\Bullets\BulletWave.cs" />
+    <Compile Include="Properties\Entities\Interactable\Bullets\BulletExplo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />

@@ -17,7 +17,7 @@ namespace BlankGame
 			Sprite partical,hat;
 			Color hatColor=Color.White;
 			bool playerDied=false;
-			public bool isGod=false;
+			public bool isGod=true;
 			Vector2 positionOfP1;int portalCounter=1;
 
 			

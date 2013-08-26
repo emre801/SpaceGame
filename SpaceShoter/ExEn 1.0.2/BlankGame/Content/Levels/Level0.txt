@@ -1,4 +1,4 @@
-en 5 2.05 244
+en 2 2.05 244
 $ l 0
 Hello commander MR Mega MAn MAn
 Cat Hat Super Mario Brother HAHa
