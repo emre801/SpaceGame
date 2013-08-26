@@ -452,7 +452,7 @@ namespace BlankGame
 			doCollisions();
 			//updateSpace();
 			changeTextNum=false;
-			int numInteract=0;
+			int numEnemies=0;
 			foreach(Entity e in entities)
 			{
 				if(!e.isVisible) 
@@ -463,8 +463,9 @@ namespace BlankGame
 				else 
 				{
 					e.Update();
-					if(e is Interact && !(e is Shield) && !(e is Bullet) && !(e is Block))
-						numInteract++;
+					//if(e is Interact && !(e is Shield) && !(e is Bullet) && !(e is Block))
+					if(e is Enemy)
+						numEnemies++;
 				}
 			}
 			es.Update();
@@ -502,14 +503,14 @@ namespace BlankGame
 			{
 				curTextNum++;
 			}
-
-			entitToRemove = new List<Entity>();
-			entitToAdd = new List<Entity>();
-			if(numInteract<=1 && es.hasFinishedSpawning())
+			if(numEnemies<=0 && es.hasFinishedSpawning()&& entitToAdd.Count==0)
 			{
 				es = new EnemySpawner(this);
 				es.init(false);
 			}
+			entitToRemove = new List<Entity>();
+			entitToAdd = new List<Entity>();
+
 			garbageTick.updateTick();
 			if(garbageTick.hasTicked)
 			{
@@ -542,7 +543,7 @@ namespace BlankGame
 
 		public void doCollisions()
 		{
-			if(isIpad())
+			if(true)
 			{
 				foreach(Interact a in interactable)
 					foreach(Interact b in interactable) 
@@ -554,7 +555,7 @@ namespace BlankGame
 					}
 				return;
 			}
-
+			/*
 			for(int x=0;x<(int)(Constants.NUM_BLOCKS_WIDTH*scale);x++)
 			{
 				for(int y=0;y<(int)(Constants.NUM_BLOCKS_HEIGHT*scaleH);y++)
@@ -574,7 +575,7 @@ namespace BlankGame
 						}
 					}
 				}
-			}
+			}*/ //// In theory this is faster, but because you have to constantly update the elements space each it just wastes more time 
 
 		}
 

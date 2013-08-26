@@ -97,7 +97,6 @@
     <Compile Include="Properties\Entities\Interactable\Interact.cs" />
     <Compile Include="Properties\Sprite.cs" />
     <Compile Include="Properties\SpriteStripAnimationHandler.cs" />
-    <Compile Include="Properties\Entities\Interactable\Bullet.cs" />
     <Compile Include="Properties\Entities\TouchScreenObj.cs" />
     <Compile Include="Properties\Entities\TitleScreen.cs" />
     <Compile Include="Properties\Entities\Interactable\Enemies\EnemySpawner.cs" />
@@ -136,6 +135,9 @@
     <Compile Include="Properties\Text\TextBlock.cs" />
     <Compile Include="Properties\Entities\Interactable\RainbowPoint.cs" />
     <Compile Include="Properties\Entities\Interactable\Enemies\EnemyCircle.cs" />
+    <Compile Include="Properties\Entities\Interactable\Enemies\EnemyWave.cs" />
+    <Compile Include="Properties\Entities\Interactable\Enemies\EnemyTele.cs" />
+    <Compile Include="Properties\Entities\Interactable\Bullets\Bullet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -157,6 +159,7 @@
     <Folder Include="Content\HeadShots\" />
     <Folder Include="Content\Stars\" />
     <Folder Include="Content\Title\" />
+    <Folder Include="Properties\Entities\Interactable\Bullets\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />

@@ -25,6 +25,7 @@ namespace BlankGame
 				Ticker ticker;
 				int numTicks;
 				bool loadText=false;
+				int totalObj;
 				public EnemySpawner(Game g)
 				{
 					this.g = g;
@@ -132,8 +133,17 @@ namespace BlankGame
 					int xPos=(int)System.Convert.ToSingle(info[3]);
 					Enemy e=null;
 					if(info [1].Equals("1"))
+						e = new Enemy(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),time);
+					else if(info[1].Equals("2"))
+			     		e = new EnemyShooter(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),time);
+					else if(info[1].Equals("3"))
 						e = new EnemyCircle(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),time);
+					else if(info[1].Equals("4"))
+						e = new EnemyWave(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),time);
+					else if(info[1].Equals("5"))
+						e = new EnemyTele(g,new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),time);
 					objsToSpawn.Enqueue(time,e);
+					totalObj++;
 				}
 
 				public void uploadPowerUp(String[] info)
@@ -147,7 +157,31 @@ namespace BlankGame
 						mode = SpaceShipPlayer.FireMode.NORMAL;
 						ranColor = Color.Blue;
 					}
-
+					else if(info [1].Equals("2"))
+					{
+						mode = SpaceShipPlayer.FireMode.TWO;
+						ranColor = Color.Blue;
+					} 
+					else if(info [1].Equals("3"))
+					{
+						mode = SpaceShipPlayer.FireMode.THREE;
+						ranColor = Color.Blue;
+					}
+					else if(info [1].Equals("4"))
+					{
+						mode = SpaceShipPlayer.FireMode.CHARGESHOT;
+						ranColor = Color.Blue;
+					}
+					else if(info [1].Equals("5"))
+					{
+						mode = SpaceShipPlayer.FireMode.CIRCLE;
+						ranColor = Color.Blue;
+					}
+					else if(info [1].Equals("6"))
+					{
+						mode = SpaceShipPlayer.FireMode.FAST;
+						ranColor = Color.Blue;
+					}
 
 					PowerUp pwp= new PowerUp(g,mode,
 					                         new Vector2(xPos*g.scale,500*g.scaleH),new Vector2(0,-3*g.scaleH),ranColor,time);
