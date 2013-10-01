@@ -9,7 +9,7 @@ namespace BlankGame
 		public class ChargeBullet: Bullet
 		{
 				float size;
-				public ChargeBullet(Game g,Vector2 pos,Vector2 direct,int size)
+				public ChargeBullet(Game g,Vector2 pos,Vector2 direct,float size)
 				:base(g,pos,direct)
 				{
 					this.size = size*g.scale;

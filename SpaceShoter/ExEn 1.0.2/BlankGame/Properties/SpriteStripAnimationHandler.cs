@@ -33,6 +33,7 @@ namespace BlankGame
 		private float origFrameRate;
 		public Stopwatch stopWatch = new Stopwatch();
 		public int numberOfTotalCycles = 0;
+		public Ticker tick;
 
 		public SpriteStripAnimationHandler(Sprite strip, int stateCount,float frameRate)
 		{
@@ -47,6 +48,7 @@ namespace BlankGame
 			stopWatch.Start();
 			this.frameRate = frameRate;
 			this.origFrameRate = frameRate;
+			tick = new Ticker(1f / frameRate * 100);
 		}
 		public Texture2D getIndex()
 		{
@@ -103,9 +105,10 @@ namespace BlankGame
 		}
 		public void Update()
 		{
-			stopWatch.Stop();
-			TimeSpan ts = stopWatch.Elapsed;
-			if (ts.Milliseconds > frameRate)
+			//stopWatch.Stop();
+			//TimeSpan ts = stopWatch.Elapsed;
+			tick.updateTick();
+			if (tick.hasTicked)
 			{
 				stopWatch.Reset();
 				nextState();
@@ -113,7 +116,7 @@ namespace BlankGame
 				//if (sound != null && soundRate%rateOfSound==0)
 				//    sound.Play();
 			}
-			stopWatch.Start();
+			//stopWatch.Start();
 
 		}
 		public void addSound(SoundEffect sound)
@@ -131,6 +134,12 @@ namespace BlankGame
 			else
 				spriteBatch.Draw(spriteStrip.index, drawPos, texBounds, Color.White, rotation, origin-shiftPosition, 1, SpriteEffects.FlipHorizontally, 0);
 		}
+
+		public void draw(SpriteBatch spriteBatch,Rectangle desti,Color color)
+		{
+			spriteBatch.Draw(spriteStrip.index, desti, texBounds, color);
+		}
+
 
 		public void drawCurrentState(SpriteBatch spriteBatch, Entity owner, Vector2 drawPos, Vector2 origin, Rectangle rect, Boolean direction, Vector2 shiftPosition)
 		{

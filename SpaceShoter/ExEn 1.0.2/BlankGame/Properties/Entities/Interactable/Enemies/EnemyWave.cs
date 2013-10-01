@@ -1,5 +1,4 @@
 using System;
-using MonoTouch;
 using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,21 +17,30 @@ namespace BlankGame
 
 			circleTimer= new Stopwatch();
 			circleTimer.Start();
-			shot= new Ticker(200);
+			shot= new Ticker(800);
 			origPos=pos;
+			ani = g.getAnimation("waveEnemy");
 		}
 
 		public override void Update()
 		{
+			/*
+            if (pos.Y > 500 * g.scaleH)
+            {
+                this.pos = this.pos + new Vector2(0, -2) * g.gameSpeed * g.gt;
+                updateBBox();
+                return;
+            }*/
+
 
 			circleTimer.Stop();
-			double time=(double)circleTimer.ElapsedMilliseconds/500f;
+			float time=(float)(circleTimer.ElapsedMilliseconds)/(500f);
 			circleTimer.Start();
 			//float yPos=pos.Y+direct.Y;
-			float xPos=(float)Math.Cos(time)*50f;
+			float xPos=(float)Math.Cos((double)time)*50f*g.scale;
 
 			//this.pos=this.pos+new Vector2(xPos,yPos);
-			this.pos = this.pos + (direct)*g.gameSpeed*g.gt;
+			this.pos = this.pos + (direct)*g.gameSpeed;
 			this.pos= new Vector2(origPos.X+xPos,this.pos.Y);
 			shot.updateTick();
 
@@ -44,6 +52,7 @@ namespace BlankGame
 			if(this.pos.Y < -20)
 				this.isVisible = false;
 			updateBBox();
+			shot.setTickBeat((int)(800f/g.gameSpeed));
 		}
 
 

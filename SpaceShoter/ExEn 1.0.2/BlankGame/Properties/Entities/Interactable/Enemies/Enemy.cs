@@ -15,6 +15,8 @@ namespace BlankGame
 				//Sprite image;
 				protected Random r;
 				protected int points=30;
+
+				public SpriteStripAnimationHandler ani;
 				public Enemy(Game g, Vector2 pos,Vector2 direct,float timer)
 				:base(g,timer)
 				{
@@ -22,6 +24,7 @@ namespace BlankGame
 					this.image = g.getSprite("Enemy");
 					this.pos = pos;
 					this.r = new Random();
+					ani = g.getAnimation("normalEnemy");
 				}
 				public override bool collidesWith(Interact inter)
 				{
@@ -55,7 +58,9 @@ namespace BlankGame
 				}
 				public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
 				{
-					spriteBatch.Draw(image.index, bbox, Color.White);
+					//spriteBatch.Draw(image.index, bbox, Color.White);
+					ani.Update();
+					ani.draw(spriteBatch, new Rectangle(bbox.X, bbox.Y, ani.widthOf(), ani.heightOf()), Color.White);
 				}
 
 		}

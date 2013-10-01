@@ -41,6 +41,7 @@ namespace BlankGame
 
 			public override bool collidesWith(Interact inter)
 			{
+				updateBBox();
 				if(inter.bbox.Intersects(bbox))
 				{
 					if(inter is Block && isGoodBullet)

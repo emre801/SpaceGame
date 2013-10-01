@@ -19,6 +19,7 @@ namespace BlankGame
 			{
 				doCircle=false;
 				radius=50;
+				ani = g.getAnimation("circleEnemy");
 			}
 
 			public override void Update()

@@ -339,7 +339,7 @@ namespace BlankGame
 
 		private void beginBatch()
 		{
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 			//spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation(gdm.GraphicsDevice /*Send the variable that has your graphic device here*/));
 
 		}

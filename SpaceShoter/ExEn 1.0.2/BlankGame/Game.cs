@@ -31,6 +31,9 @@ namespace BlankGame
 		public List<Entity> entitToAdd = new List<Entity>();
 		public SpaceShipPlayer player;
 
+		Dictionary<string, SpriteStripAnimationHandler> spriteAnimation = new Dictionary<string, SpriteStripAnimationHandler>();
+
+
 		TouchScreenObj tso;
 		public EnemySpawner es;
 		public BackgroundSpawner bs;
@@ -50,7 +53,7 @@ namespace BlankGame
 		public FontRenderer fontRenderer;
 		public GameOver go;
 
-		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.NORMAL;
+		public SpaceShipPlayer.FireMode fireMode= SpaceShipPlayer.FireMode.CIRCLE;
 
 		public Options opt;//= new Options();
 		public float gameSpeed = 1f;
@@ -79,6 +82,9 @@ namespace BlankGame
 		public int maxMoveThing=450;
 		Ticker garbageTick;
 		public float gt;
+
+		public float chargeShotValue=0;
+		public bool isChargingShot = false;
 		public Game()
 		{
 			//graphics = new GraphicsDeviceManager(this);
@@ -135,9 +141,34 @@ namespace BlankGame
 			addSprite("Star3","Stars/Star3");
 			addSprite("ScrollStar","Stars/ScrollStar");
 
+			addSprite("tile1", "Tiles1/1");
+			addSprite("tile2", "Tiles1/2");
+			addSprite("tile3", "Tiles1/3");
+			addSprite("tile4", "Tiles1/4");
+			addSprite("tile5", "Tiles1/5");
+			addSprite("tile6", "Tiles1/6");
+			addSprite("tile7", "Tiles1/7");
+			addSprite("tile8", "Tiles1/8");
+			addSprite("tile9", "Tiles1/9");
+			addSprite("tile10", "Tiles1/10");
+			addSprite("tile11", "Tiles1/11");
+			addSprite("tile12", "Tiles1/12");
+			addSprite("tile13", "Tiles1/13");
+			addSprite("tile14", "Tiles1/14");
+			addSprite("tile15", "Tiles1/15");
+
 			addSprite("Title","Title/Title");
 			addSprite("TitleBig","Title/TitleBig");
 			drawingTool.initialize();
+
+			addAnimation("idealAni","CatAni/idealAni", 3, 0.5f);
+			addAnimation("upAni", "CatAni/downAni", 3, 0.5f);
+			addAnimation("downAni", "CatAni/upAni", 3, 0.5f);
+
+			addAnimation("circleEnemy", "Enemy/CircleEnemy", 4, 1f);
+			addAnimation("normalEnemy", "Enemy/NormalEnemy", 1, 1f);
+			addAnimation("waveEnemy", "Enemy/WaveEnemy", 1, 1f);
+
 
 			opt.LoadContent();
 			mp.addNewSound("shoot");
@@ -187,6 +218,17 @@ namespace BlankGame
 			if(sprites.ContainsKey(fName))
 				return sprites[fName];
 			return sprites ["Ship"];
+
+		}
+		public void addAnimation(String name,String direct,int count,float frameRate)
+		{
+			spriteAnimation.Add(name, new SpriteStripAnimationHandler(new Sprite(Content, direct), count, frameRate));
+		}
+		public SpriteStripAnimationHandler getAnimation(String name)
+		{
+			if (spriteAnimation.ContainsKey(name))
+				return spriteAnimation[name];
+			return null;
 
 		}
 
@@ -514,8 +556,8 @@ namespace BlankGame
 			garbageTick.updateTick();
 			if(garbageTick.hasTicked)
 			{
-				//System.GC.Collect();
-				//System.GC.WaitForPendingFinalizers();
+				System.GC.Collect();
+				System.GC.WaitForPendingFinalizers();
 			}
 		}
 
@@ -543,6 +585,7 @@ namespace BlankGame
 
 		public void doCollisions()
 		{
+			/*
 			if(true)
 			{
 				foreach(Interact a in interactable)
@@ -555,7 +598,8 @@ namespace BlankGame
 					}
 				return;
 			}
-			/*
+			*/
+
 			for(int x=0;x<(int)(Constants.NUM_BLOCKS_WIDTH*scale);x++)
 			{
 				for(int y=0;y<(int)(Constants.NUM_BLOCKS_HEIGHT*scaleH);y++)
@@ -575,7 +619,7 @@ namespace BlankGame
 						}
 					}
 				}
-			}*/ //// In theory this is faster, but because you have to constantly update the elements space each it just wastes more time 
+			}//*/ //// In theory this is faster, but because you have to constantly update the elements space each it just wastes more time 
 
 		}
 
@@ -603,7 +647,7 @@ namespace BlankGame
 		private void StartGyro()
 		{
 			motionManager = new CMMotionManager();
-			motionManager.GyroUpdateInterval = 1/10;
+			motionManager.GyroUpdateInterval = 1d/10000d;
 			if (motionManager.GyroAvailable)
 			{
 				motionManager.StartGyroUpdates(NSOperationQueue.MainQueue, GyroData_Received);

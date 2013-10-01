@@ -38,7 +38,7 @@ namespace BlankGame
 
 			public void addToHashSpace(Rectangle cool)
 			{
-				/*
+				
 				int point1 = cool.X/10;
 				int point2 = cool.Y/10;
 				int point3=(cool.X+cool.Width)/10;
@@ -51,13 +51,13 @@ namespace BlankGame
 							g.spaceSqure[x,y].Add(this);
 
 					}
-				}*/
+				}
 
 			}
 
 			public void removeFromHashSpace(Rectangle cool)
 			{
-			/*
+
 				int point1 = cool.X/10;
 				int point2 = cool.Y/10;
 				int point3=(cool.X+cool.Width)/10;
@@ -70,7 +70,7 @@ namespace BlankGame
 							g.spaceSqure[x,y].Remove(this);
 
 					}
-				}*/
+				}
 
 			}
 

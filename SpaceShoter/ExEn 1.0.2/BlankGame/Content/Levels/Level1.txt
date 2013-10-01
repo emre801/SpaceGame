@@ -1,1 +1,17 @@
-en 2 2.05 244
+bl 1 0 -5 743 30
+bl 1 0 295 743 30
+en 4 211 77
+en 4 211 158
+en 4 210 241
+en 4 606 135
+en 4 604 216
+en 4 686 107
+en 4 686 187
+$ r 0
+Hello, I’am Commander Cat Hat of the United Federation of Worlds.
+My mission is to explore the depths of space to find *Space Gems*.
+*Space gems* are what we use for energy and it’s my mission to find as many as possible.
+Move me around by rotating your phone. Please be careful or I might get sick.
+Along the way there might be a hat floating around
+I don’t know why they are there but I like to grab it
+$

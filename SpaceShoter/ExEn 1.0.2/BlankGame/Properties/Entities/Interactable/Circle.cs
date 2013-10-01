@@ -97,7 +97,13 @@ namespace BlankGame
 							else if(prevTouch ==1 && currentTouch==0)
 							{
 								getChargedBullets();
-								cState = CIRCLESTATE.CHARGED;
+								if (collectedBullets.Count > 0)
+									cState = CIRCLESTATE.CHARGED;
+								else
+								{
+									cState = CIRCLESTATE.NORMAL;
+									chargeRadius = 0;
+								}
 							}
 						}
 						else if(cState == CIRCLESTATE.CHARGED) 

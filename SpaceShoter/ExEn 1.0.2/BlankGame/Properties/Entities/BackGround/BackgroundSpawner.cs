@@ -20,7 +20,7 @@ namespace BlankGame
 			{
 				this.game = game;
 				this.r = new Random(801);
-				t= new Ticker(150);
+				t= new Ticker(50);
 			first=true;
 			}
 			
@@ -41,7 +41,7 @@ namespace BlankGame
 					StarParticle sp= new StarParticle(game,new Vector2(xPos*game.scale,500*game.scaleH));
 				    game.entitToAdd.Add(sp); 
 				}
-				t.setTickBeat((int)(150/game.gameSpeed));
+				t.setTickBeat((int)(50/game.gameSpeed));
 			}
 
 			public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

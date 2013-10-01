@@ -71,6 +71,7 @@
     <None Include="Info.plist" />
     <None Include="PriorityQueue.xml" />
     <None Include="Content\Levels\Level2.txt" />
+    <None Include="Content\Tiles1\13.psd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -140,6 +141,7 @@
     <Compile Include="Properties\Entities\Interactable\Bullets\Bullet.cs" />
     <Compile Include="Properties\Entities\Interactable\Bullets\BulletWave.cs" />
     <Compile Include="Properties\Entities\Interactable\Bullets\BulletExplo.cs" />
+    <Compile Include="Properties\Entities\Interactable\Enemies\EnemyWallShooter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\Entities\" />
@@ -162,6 +164,9 @@
     <Folder Include="Content\Stars\" />
     <Folder Include="Content\Title\" />
     <Folder Include="Properties\Entities\Interactable\Bullets\" />
+    <Folder Include="Content\Tiles1\" />
+    <Folder Include="Content\Enemy\" />
+    <Folder Include="Content\CatAni\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\Ship.png" />
@@ -231,6 +236,27 @@
     <BundleResource Include="Content\Stars\ScrollStar.png" />
     <BundleResource Include="Content\Title\TitleBig.png" />
     <BundleResource Include="Content\block.png" />
+    <BundleResource Include="Content\Tiles1\1.png" />
+    <BundleResource Include="Content\Tiles1\10.png" />
+    <BundleResource Include="Content\Tiles1\11.png" />
+    <BundleResource Include="Content\Tiles1\12.png" />
+    <BundleResource Include="Content\Tiles1\13.png" />
+    <BundleResource Include="Content\Tiles1\14.png" />
+    <BundleResource Include="Content\Tiles1\15.png" />
+    <BundleResource Include="Content\Tiles1\2.png" />
+    <BundleResource Include="Content\Tiles1\3.png" />
+    <BundleResource Include="Content\Tiles1\4.png" />
+    <BundleResource Include="Content\Tiles1\5.png" />
+    <BundleResource Include="Content\Tiles1\6.png" />
+    <BundleResource Include="Content\Tiles1\7.png" />
+    <BundleResource Include="Content\Tiles1\8.png" />
+    <BundleResource Include="Content\Tiles1\9.png" />
+    <BundleResource Include="Content\Enemy\CircleEnemy.png" />
+    <BundleResource Include="Content\Enemy\NormalEnemy.png" />
+    <BundleResource Include="Content\Enemy\WaveEnemy.png" />
+    <BundleResource Include="Content\CatAni\downAni.png" />
+    <BundleResource Include="Content\CatAni\idealAni.png" />
+    <BundleResource Include="Content\CatAni\upAni.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\PressStart2P.bmp">

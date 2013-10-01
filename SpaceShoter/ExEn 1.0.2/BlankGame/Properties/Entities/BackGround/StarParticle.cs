@@ -13,18 +13,23 @@ namespace BlankGame
 			Vector2 pos;
 			Random r;
 			bool hasSpawnedNew=false;
+			float moveSpeed;
 			public StarParticle(Game g,Vector2 pos)
 			:base(g)
 			{
 				r= new Random();
 				
 				image = g.getSprite("Star"+r.Next()%4);
+				moveSpeed=(float)r.Next(100,400)/100f;
+				if (moveSpeed == 3)
+					moveSpeed = 4;
+				this.pos = pos;
 				//image = g.getSprite("ScrollStar");
 				this.pos = pos;
 			}
 			public override void Update()
 			{
-				this.pos = this.pos + new Vector2(0, -3*g.scaleH)*g.gameSpeed*g.gt;
+				this.pos = this.pos + new Vector2(0, -moveSpeed*g.scaleH)*g.gameSpeed*g.gt;
 				if(this.pos.Y<0)// && !hasSpawnedNew) 
 				{
 					this.isVisible = false;
@@ -40,7 +45,7 @@ namespace BlankGame
 			}
 			public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
 			{
-				spriteBatch.Draw(image.index,new Rectangle((int)pos.X,(int)(pos.Y),(int)(image.index.Width*g.scale/2f),(int)(image.index.Height*g.scale/2f)),Color.White);
+				spriteBatch.Draw(image.index,new Rectangle((int)pos.X,(int)(pos.Y),(int)(image.index.Width*g.scale/2f),(int)(image.index.Height*g.scale/2f)),Color.White*0.5f);
 			}
 
 			

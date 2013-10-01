@@ -4,10 +4,10 @@ namespace BlankGame
 {
 		public class Ticker
 		{
-				int tickBeat;
+				float tickBeat;
 				public bool hasTicked=false;
 				Stopwatch stopwatch;
-				public Ticker(int tickBeat)
+				public Ticker(float tickBeat)
 				{
 					this.tickBeat = tickBeat;
 					this.stopwatch = new Stopwatch();
